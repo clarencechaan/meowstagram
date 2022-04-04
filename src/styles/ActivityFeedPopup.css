@@ -1,0 +1,41 @@
+.activity-feed-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+.activity-feed-popup-window {
+  position: fixed;
+  width: 500px;
+  height: 362px;
+  left: calc(100vw / 2 - 26px);
+  top: 57px;
+  background-color: white;
+  box-shadow: 0 0 5px 1px rgb(0, 0, 0, 0.0975);
+  border-radius: 6px;
+}
+
+.activity-feed-popup-window-triangle {
+  position: absolute;
+  top: -6px;
+  right: 61px;
+  width: 12px;
+  height: 12px;
+  background-color: white;
+  transform: rotate(45deg);
+  box-shadow: 0 0 5px 1px rgb(0, 0, 0, 0.0975);
+}
+
+.activity-feed-popup-window-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 6px;
+  background-color: white;
+}
+
+.hidden {
+  display: none;
+}

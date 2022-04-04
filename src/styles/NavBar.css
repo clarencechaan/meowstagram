@@ -1,0 +1,27 @@
+@font-face {
+  font-family: "Billabong";
+  src: local("Billabong"), url(../fonts/Billabong.ttf) format("truetype");
+}
+
+.NavBar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 59px;
+  width: 100%;
+  background-color: white;
+  border-bottom: 1px solid lightgray;
+}
+
+.navbar-content {
+  display: flex;
+  align-items: center;
+  width: 935px;
+}
+
+.logo {
+  width: 333px;
+  cursor: pointer;
+  font-family: "Billabong";
+  font-size: 30px;
+}

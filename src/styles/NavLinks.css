@@ -1,0 +1,21 @@
+.nav-links {
+  margin-left: 57px;
+  display: flex;
+  align-items: center;
+}
+
+.nav-link {
+  margin-left: 22px;
+  cursor: pointer;
+}
+
+#profile-pic-nav-link {
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+}
+
+#profile-pic-nav-link.bordered {
+  outline: 1px solid black;
+  outline-offset: 1px;
+}

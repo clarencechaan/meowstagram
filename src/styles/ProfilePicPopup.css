@@ -1,0 +1,66 @@
+.profile-pic-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+.profile-pic-popup-window {
+  position: fixed;
+  width: 230px;
+  height: 194px;
+  left: calc(100vw / 2 + 263px);
+  top: 57px;
+  background-color: white;
+  box-shadow: 0 0 5px 1px rgb(0, 0, 0, 0.0975);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.profile-pic-popup-window-triangle {
+  position: absolute;
+  top: -6px;
+  right: 33px;
+  width: 12px;
+  height: 12px;
+  background-color: white;
+  transform: rotate(45deg);
+  box-shadow: 0 0 5px 1px rgb(0, 0, 0, 0.0975);
+}
+
+.profile-pic-popup-window-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 6px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-pic-popup-window-overlay > button {
+  background-color: white;
+  border: none;
+  flex: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 8px 16px 8px 16px;
+}
+
+.profile-pic-popup-window-overlay > button:hover {
+  background-color: #fafafa;
+}
+
+.profile-pic-popup-window-overlay > button > img {
+  margin-right: 12px;
+}
+
+.profile-pic-popup-window-overlay > button:last-child {
+  border-top: 1px solid lightgray;
+}
+
+.hidden {
+  display: none;
+}
