@@ -130,6 +130,7 @@ function NavLinks({ cancelPopup }) {
 function handleNewPostNavLinkClicked() {
   const newPostPopup = document.querySelector(".new-post-popup");
   newPostPopup.classList.remove("hidden");
+  document.body.style.overflow = "hidden";
 }
 
 function handleActivityFeedNavLinkClicked() {

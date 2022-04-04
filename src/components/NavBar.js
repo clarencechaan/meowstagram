@@ -23,6 +23,7 @@ function cancelPopup() {
   activityFeedPopup.classList.add("hidden");
   profilePicPopup.classList.add("hidden");
   searchBarPopup.classList.add("hidden");
+  document.body.style.overflow = "auto";
 }
 
 export default NavBar;
