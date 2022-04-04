@@ -15,7 +15,6 @@
   background-color: white;
   box-shadow: 0 0 5px 1px rgb(0, 0, 0, 0.0975);
   border-radius: 6px;
-  overflow: hidden;
 }
 
 .profile-pic-popup-window-triangle {
@@ -37,6 +36,7 @@
   background-color: white;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .profile-pic-popup-window-overlay > button {
@@ -47,6 +47,7 @@
   display: flex;
   align-items: center;
   padding: 8px 16px 8px 16px;
+  font-size: 14px;
 }
 
 .profile-pic-popup-window-overlay > button:hover {

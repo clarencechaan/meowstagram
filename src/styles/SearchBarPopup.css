@@ -1,0 +1,67 @@
+.search-bar-popup {
+  position: fixed;
+  top: 60px;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+.search-bar-popup-window {
+  position: fixed;
+  width: 375px;
+  height: 450px;
+  left: calc(100vw / 2 - 185px);
+  top: 60px;
+  background-color: white;
+  box-shadow: 0 0 5px 1px rgb(0, 0, 0, 0.0975);
+  border-radius: 6px;
+}
+
+.search-bar-popup-window-triangle {
+  position: absolute;
+  top: -6px;
+  left: 188px;
+  width: 12px;
+  height: 12px;
+  background-color: white;
+  transform: rotate(45deg);
+  box-shadow: 0 0 5px 1px rgb(0, 0, 0, 0.0975);
+}
+
+.search-bar-popup-window-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 6px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  overflow: scroll;
+}
+
+.search-bar-popup-window-header {
+  height: 26px;
+  display: flex;
+  padding: 20px 16px 0 16px;
+}
+
+.search-bar-popup-window-title {
+  font-weight: 700;
+}
+
+.search-bar-popup-window-clear-all {
+  margin-left: auto;
+  font-size: 14px;
+  font-weight: 700;
+  color: #0095f6;
+  cursor: pointer;
+}
+
+.search-bar-popup-window-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.hidden {
+  display: none;
+}
