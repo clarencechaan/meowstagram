@@ -1,0 +1,157 @@
+@keyframes scale-up-down {
+  50% {
+    transform: scale(1.25);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.post {
+  width: 614px;
+  height: 889px;
+  border: 1px solid lightgray;
+  margin-bottom: 24px;
+  border-radius: 3px;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+}
+
+.post-header {
+  height: 60px;
+  padding: 14px 8px 14px 16px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+}
+
+.post-header-username {
+  margin-left: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.post-header-more-options {
+  padding: 8px;
+  margin-left: auto;
+  cursor: pointer;
+}
+
+.post-header-img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.post-img {
+  height: 614px;
+}
+
+.post-buttons-bar {
+  margin-top: 4px;
+  padding: 6px 16px 8px 16px;
+  width: 582px;
+  height: 40px;
+  display: flex;
+}
+
+.post-buttons-bar > img {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.post-buttons-bar > img:not(.selected):hover {
+  opacity: 0.5;
+}
+
+.post-like {
+  margin-left: -8px;
+}
+
+.post-like.selected {
+  animation: scale-up-down 0.2s;
+}
+
+.post-save {
+  margin-left: auto;
+  margin-right: -8px;
+}
+
+.post-likes-counter {
+  padding: 0 16px 0 16px;
+  height: 18px;
+  margin-bottom: 8px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.post-description {
+  display: flex;
+  flex-direction: column;
+  padding: 0 16px 0 16px;
+}
+
+.post-description > * {
+  margin-bottom: 4px;
+}
+
+.post-description-author-username {
+  font-weight: 700;
+  margin-right: 4px;
+  cursor: pointer;
+}
+
+.post-description-author-username:hover {
+  text-decoration: underline;
+}
+
+.post-description-comment-counter {
+  color: gray;
+  cursor: pointer;
+  margin-bottom: 8px;
+}
+
+.post-description-time {
+  font-size: 10px;
+  color: gray;
+  cursor: pointer;
+  height: 18px;
+}
+
+.post-add-comment-bar {
+  height: 40px;
+  padding: 6px 16px 6px 16px;
+  border-top: 1px solid rgb(234, 234, 234);
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+}
+
+.post-add-comment-emoji {
+  cursor: pointer;
+  margin-right: 16px;
+}
+
+.post-add-comment-input {
+  flex: 1;
+  height: 18px;
+  border: none;
+  font-size: 14px;
+}
+
+.post-add-comment-post-btn {
+  background-color: transparent;
+  border: none;
+  font-family: inherit;
+  font-size: inherit;
+  color: #0095f6;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.post-add-comment-post-btn.disabled {
+  cursor: initial;
+  opacity: 0.5;
+}

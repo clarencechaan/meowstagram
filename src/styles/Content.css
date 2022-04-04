@@ -1,0 +1,14 @@
+.Content {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+}
+
+.content-container {
+  display: flex;
+  margin-top: 24px;
+}
+
+.posts-container {
+  padding-right: 28px;
+}

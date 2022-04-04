@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { MagnifyingGlass } from "phosphor-react";
 import { useEffect } from "react";
 import "../styles/SearchBar.css";

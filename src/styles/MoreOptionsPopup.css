@@ -1,0 +1,49 @@
+.more-options-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.65);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
+.more-options-popup-window {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  height: 336px;
+  background-color: white;
+  border-radius: 12px;
+  animation: scale-down 0.1s;
+  overflow: hidden;
+}
+
+.more-options-popup-window > button {
+  flex: 1;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: inherit;
+}
+
+.more-options-popup-window > button:active {
+  background-color: #e5e5e5;
+}
+
+.more-options-popup-window > button:not(:last-child) {
+  border-bottom: 1px solid lightgray;
+}
+
+.more-options-report,
+.more-options-unfollow {
+  font-weight: 700;
+  color: #ed4956;
+}
+
+.hidden {
+  display: none;
+}

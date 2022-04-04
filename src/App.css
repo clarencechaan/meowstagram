@@ -1,11 +1,35 @@
+@keyframes scale-down {
+  0% {
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
 body,
 #root,
 .App {
   width: 100vw;
-  height: 100vh;
+  height: max(100vh, 100%);
+}
+
+#root,
+.App {
   background-color: #fafafa;
 }
 
 *:focus {
   outline: none;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+}
+
+img {
+  object-fit: cover;
+  object-position: center;
 }
