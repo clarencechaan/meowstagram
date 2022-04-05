@@ -31,10 +31,10 @@ function SideBar() {
           About • Help • Press • API • Jobs • Privacy • Terms • Locations • Top
           Accounts • Hashtags • Language
         </p>
-        <p>
+        <span>
           Made with ♥ love by{" "}
           <a href="https://github.com/clarencechaan/">Clarence Chan</a>!
-        </p>
+        </span>
       </div>
     </div>
   );

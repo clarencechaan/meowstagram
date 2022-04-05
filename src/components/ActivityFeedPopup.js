@@ -1,8 +1,14 @@
 import "../styles/ActivityFeedPopup.css";
 
-function ActivityFeedPopup({ cancelPopup }) {
+function ActivityFeedPopup({ cancelPopup, setSelected, lastSelected }) {
   return (
-    <div className="activity-feed-popup hidden" onClick={cancelPopup}>
+    <div
+      className="activity-feed-popup hidden"
+      onClick={() => {
+        cancelPopup();
+        setSelected(lastSelected);
+      }}
+    >
       <div
         className="activity-feed-popup-window"
         // prevent close on clicking

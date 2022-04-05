@@ -10,89 +10,83 @@ import activityFeedSelected from "../images/activity-feed-selected.svg";
 import activityFeedUnselected from "../images/activity-feed-unselected.svg";
 import placeholderProfilePic from "../images/placeholder-profile-150x150.jpg";
 import "../styles/NavLinks.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import NewPostPopup from "./NewPostPopup";
 import ActivityFeedPopup from "./ActivityFeedPopup";
 import ProfilePicPopup from "./ProfilePicPopup";
+import { Link } from "react-router-dom";
 
-function NavLinks({ cancelPopup }) {
-  const [lastSelected, setLastSelected] = useState(null);
+function NavLinks({ cancelPopup, selected, setSelected }) {
+  const [lastSelected, setLastSelected] = useState("home");
 
-  useEffect(() => {
-    const home = document.querySelector("#home-nav-link");
-    const navLinks = document.querySelectorAll(".nav-link");
+  function handleNewPostNavLinkClicked() {
+    const newPostPopup = document.querySelector(".new-post-popup");
+    newPostPopup.classList.remove("hidden");
+    document.body.style.overflow = "hidden";
+    setSelected("new-post");
+  }
 
-    setLastSelected(home);
-    for (const navLink of navLinks) {
-      navLink.addEventListener("click", () => selectNavLink(navLink));
-    }
-  }, []);
+  function handleActivityFeedNavLinkClicked() {
+    const activityFeedPopup = document.querySelector(".activity-feed-popup");
+    activityFeedPopup.classList.remove("hidden");
+    setSelected("activity-feed");
+  }
 
-  function selectNavLink(navLink) {
-    const home = document.querySelector("#home-nav-link");
-    const messenger = document.querySelector("#messenger-nav-link");
-    const newPost = document.querySelector("#new-post-nav-link");
-    const findPeople = document.querySelector("#find-people-nav-link");
-    const activityFeed = document.querySelector("#activity-feed-nav-link");
-    const profilePic = document.querySelector("#profile-pic-nav-link");
-
-    home.src = homeUnselected;
-    messenger.src = messengerUnselected;
-    newPost.src = newPostUnselected;
-    findPeople.src = findPeopleUnselected;
-    activityFeed.src = activityFeedUnselected;
-    profilePic.classList.remove("bordered");
-
-    switch (navLink.id) {
-      case "home-nav-link":
-        navLink.src = homeSelected;
-        setLastSelected(navLink);
-        break;
-      case "messenger-nav-link":
-        navLink.src = messengerSelected;
-        setLastSelected(navLink);
-        break;
-      case "new-post-nav-link":
-        navLink.src = newPostSelected;
-        break;
-      case "find-people-nav-link":
-        navLink.src = findPeopleSelected;
-        setLastSelected(navLink);
-        break;
-      case "activity-feed-nav-link":
-        navLink.src = activityFeedSelected;
-        break;
-      case "profile-pic-nav-link":
-        navLink.classList.add("bordered");
-        break;
-      default:
-    }
+  function handleProfilePicNavLinkClicked() {
+    const profilePicPopup = document.querySelector(".profile-pic-popup");
+    profilePicPopup.classList.remove("hidden");
+    setSelected("profile-pic");
   }
 
   return (
     <div className="nav-links">
-      <img src={homeSelected} alt="" className="nav-link" id="home-nav-link" />
+      <Link to="/">
+        <img
+          src={selected === "home" ? homeSelected : homeUnselected}
+          alt=""
+          className="nav-link"
+          id="home-nav-link"
+          onClick={() => {
+            setSelected("home");
+            setLastSelected("home");
+          }}
+        />
+      </Link>
       <img
-        src={messengerUnselected}
+        src={selected === "messenger" ? messengerSelected : messengerUnselected}
         alt=""
         className="nav-link"
         id="messenger-nav-link"
+        onClick={() => {
+          setSelected("messenger");
+          setLastSelected("messenger");
+        }}
       />
       <img
-        src={newPostUnselected}
+        src={selected === "new-post" ? newPostSelected : newPostUnselected}
         alt=""
         className="nav-link"
         id="new-post-nav-link"
         onClick={handleNewPostNavLinkClicked}
       />
       <img
-        src={findPeopleUnselected}
+        src={
+          selected === "find-people" ? findPeopleSelected : findPeopleUnselected
+        }
         alt=""
         className="nav-link"
         id="find-people-nav-link"
+        onClick={() => {
+          setSelected("find-people");
+          setLastSelected("find-people");
+        }}
       />
       <img
-        src={activityFeedUnselected}
+        src={
+          selected === "activity-feed"
+            ? activityFeedSelected
+            : activityFeedUnselected
+        }
         alt=""
         className="nav-link"
         id="activity-feed-nav-link"
@@ -101,46 +95,30 @@ function NavLinks({ cancelPopup }) {
       <img
         src={placeholderProfilePic}
         alt=""
-        className="nav-link"
+        className={
+          selected === "profile-pic" ? "nav-link bordered" : "nav-link"
+        }
         id="profile-pic-nav-link"
         onClick={handleProfilePicNavLinkClicked}
       />
       <NewPostPopup
-        cancelPopup={() => {
-          cancelPopup();
-          selectNavLink(lastSelected);
-        }}
+        cancelPopup={cancelPopup}
+        setSelected={setSelected}
+        lastSelected={lastSelected}
       />
       <ActivityFeedPopup
-        cancelPopup={() => {
-          cancelPopup();
-          selectNavLink(lastSelected);
-        }}
+        cancelPopup={cancelPopup}
+        setSelected={setSelected}
+        lastSelected={lastSelected}
       />
       <ProfilePicPopup
-        cancelPopup={() => {
-          cancelPopup();
-          selectNavLink(lastSelected);
-        }}
+        cancelPopup={cancelPopup}
+        setSelected={setSelected}
+        lastSelected={lastSelected}
+        setLastSelected={setLastSelected}
       />
     </div>
   );
-}
-
-function handleNewPostNavLinkClicked() {
-  const newPostPopup = document.querySelector(".new-post-popup");
-  newPostPopup.classList.remove("hidden");
-  document.body.style.overflow = "hidden";
-}
-
-function handleActivityFeedNavLinkClicked() {
-  const activityFeedPopup = document.querySelector(".activity-feed-popup");
-  activityFeedPopup.classList.remove("hidden");
-}
-
-function handleProfilePicNavLinkClicked() {
-  const profilePicPopup = document.querySelector(".profile-pic-popup");
-  profilePicPopup.classList.remove("hidden");
 }
 
 export default NavLinks;

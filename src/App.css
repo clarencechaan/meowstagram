@@ -12,7 +12,7 @@ body,
 #root,
 .App {
   width: 100vw;
-  height: max(100vh, 100%);
+  min-height: 100vh;
 }
 
 #root,
@@ -32,4 +32,13 @@ body,
 img {
   object-fit: cover;
   object-position: center;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+span > a {
+  text-decoration: underline;
 }

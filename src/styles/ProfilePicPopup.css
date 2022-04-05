@@ -39,7 +39,7 @@
   overflow: hidden;
 }
 
-.profile-pic-popup-window-overlay > button {
+.profile-pic-popup-window-overlay > * {
   background-color: white;
   border: none;
   flex: 1;
@@ -50,11 +50,11 @@
   font-size: 14px;
 }
 
-.profile-pic-popup-window-overlay > button:hover {
+.profile-pic-popup-window-overlay > *:hover {
   background-color: #fafafa;
 }
 
-.profile-pic-popup-window-overlay > button > img {
+.profile-pic-popup-window-overlay img {
   margin-right: 12px;
 }
 

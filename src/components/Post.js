@@ -15,6 +15,8 @@ import MoreOptionsPopup from "./MoreOptionsPopup";
 import { EmojiButton } from "@joeattardi/emoji-button";
 import React from "react";
 
+let selectionStart;
+
 function Post() {
   const [moreOptionsPopupShown, setMoreOptionsPopupShown] = useState(false);
   const [postLiked, setPostLiked] = useState(false);
@@ -48,11 +50,12 @@ function Post() {
   });
 
   emojiPicker.on("emoji", (selection) => {
+    selectionStart = addCommentInput.current.selectionStart;
     setInputValue((prevInputValue) => {
       return (
-        prevInputValue.slice(0, addCommentInput.current.selectionStart) +
+        prevInputValue.slice(0, selectionStart) +
         selection.emoji +
-        prevInputValue.slice(addCommentInput.current.selectionStart)
+        prevInputValue.slice(selectionStart)
       );
     });
   });

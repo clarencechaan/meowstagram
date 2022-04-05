@@ -1,17 +1,25 @@
 import "../styles/Content.css";
-import Post from "./Post";
 import SideBar from "./SideBar";
+import HomeFeed from "./HomeFeed";
+import Profile from "./Profile";
+import { Routes, Route } from "react-router-dom";
 
 function Content() {
   return (
     <div className="Content">
       <div className="content-container">
-        <div className="posts-container">
-          <Post />
-          <Post />
-          <Post />
-        </div>
-        <SideBar />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <HomeFeed />
+                <SideBar />
+              </>
+            }
+          />
+          <Route path="/profile" element={<Profile />} />
+        </Routes>
       </div>
     </div>
   );
