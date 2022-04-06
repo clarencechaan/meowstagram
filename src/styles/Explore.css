@@ -1,0 +1,7 @@
+.explore-post-previews {
+  width: 935px;
+  margin-top: 6px;
+  display: grid;
+  grid-template-columns: 293px 293px 293px;
+  gap: 28px;
+}

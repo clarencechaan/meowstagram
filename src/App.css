@@ -42,3 +42,7 @@ a {
 span > a {
   text-decoration: underline;
 }
+
+.emoji-picker__wrapper {
+  z-index: 1;
+}

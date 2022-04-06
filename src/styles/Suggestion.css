@@ -26,12 +26,20 @@
   margin-top: 2px;
 }
 
-.suggestion-follow {
+.suggestion-follow,
+.suggestion-unfollow {
   background-color: transparent;
   border: none;
-  color: #0095f6;
   font-size: 12px;
   font-weight: 700;
   margin-left: auto;
   cursor: pointer;
+}
+
+.suggestion-follow {
+  color: #0095f6;
+}
+
+.suggestion-unfollow {
+  color: black;
 }

@@ -1,0 +1,48 @@
+.likes-popup-user {
+  height: 60px;
+  padding: 8px 16px 8px 16px;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.likes-popup-user-img {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  margin-right: 12px;
+  cursor: pointer;
+}
+
+.likes-popup-user-full-name {
+  font-weight: 400;
+}
+
+.likes-popup-user-username span {
+  cursor: pointer;
+}
+
+.likes-popup-user-username span:hover {
+  text-decoration: underline;
+}
+
+.likes-popup-user-follow-btn,
+.likes-popup-user-unfollow-btn {
+  font-family: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  margin-left: auto;
+  border-radius: 4px;
+  padding: 7px 10px 7px 10px;
+}
+
+.likes-popup-user-follow-btn {
+  color: white;
+  background-color: #0095f6;
+  border: none;
+}
+
+.likes-popup-user-unfollow-btn {
+  background-color: white;
+  border: 1px solid black;
+}

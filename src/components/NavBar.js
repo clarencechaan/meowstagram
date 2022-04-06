@@ -2,11 +2,8 @@ import "../styles/NavBar.css";
 import SearchBar from "./SearchBar";
 import NavLinks from "./NavLinks";
 import { Link } from "react-router-dom";
-import { useState } from "react";
 
-function NavBar() {
-  const [selected, setSelected] = useState("home");
-
+function NavBar({ selected, setSelected }) {
   return (
     <div className="NavBar">
       <div className="navbar-content">

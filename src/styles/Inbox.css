@@ -1,0 +1,78 @@
+.inbox {
+  width: 935px;
+  background-color: white;
+  border: 1px solid lightgray;
+  margin-top: -10px;
+  display: flex;
+  height: calc(100vh - 94px);
+}
+
+.inbox-sidebar {
+  width: 349px;
+  border-right: 1px solid lightgray;
+  display: flex;
+  flex-direction: column;
+}
+
+.inbox-sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 59px;
+  border-bottom: 1px solid lightgray;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.inbox-sidebar-header > span {
+  flex: 1;
+}
+
+.inbox-sidebar-header-new-message-btn {
+  margin-right: 20px;
+  cursor: pointer;
+}
+
+.inbox-sidebar-contacts {
+  padding-top: 8px;
+  flex: 1;
+  overflow: scroll;
+}
+
+.inbox-messages {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+}
+
+.inbox-paper-plane {
+  width: 96px;
+  height: 96px;
+}
+
+.inbox-your-messages-label {
+  font-size: 22px;
+  font-weight: 300;
+  margin-top: 12px;
+}
+
+.inbox-your-messages-subtext {
+  color: rgb(142, 142, 142);
+  margin-top: 8px;
+}
+
+.inbox-send-message-btn {
+  background-color: rgb(0, 149, 246);
+  border: none;
+  cursor: pointer;
+  color: white;
+  border-radius: 4px;
+  width: 118px;
+  height: 30px;
+  font-family: inherit;
+  font-weight: 700;
+  margin-top: 24px;
+}

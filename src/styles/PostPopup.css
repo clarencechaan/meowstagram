@@ -1,0 +1,69 @@
+.post-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.65);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
+.post-popup-window {
+  display: flex;
+  width: 89.86vw;
+  max-width: 153.67vh;
+  height: 58.68vw;
+  max-height: 94.43vh;
+  background-color: white;
+  border-radius: 0 4px 4px 0;
+  animation: scale-down 0.1s;
+  overflow: hidden;
+}
+
+.post-popup-window-img {
+  height: 100%;
+  width: 65.28%;
+  max-width: 94.43vh;
+  object-fit: cover;
+}
+
+.post-popup-window-sidebar {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.post-popup-window-comments {
+  flex: 1;
+  border-bottom: 1px solid rgb(234, 234, 234);
+  padding: 16px;
+  overflow: scroll;
+}
+
+.post-popup-window-comments-description {
+  display: flex;
+}
+
+.post-popup-window-comments-author-img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  margin-right: 18px;
+  cursor: pointer;
+}
+
+.post-popup-window-comments-author-username {
+  font-weight: 700;
+  margin-right: 4px;
+  cursor: pointer;
+}
+
+.post-popup-window-comments-description-time-ago {
+  margin-top: 16px;
+  color: rgba(142, 142, 142);
+  font-weight: 400;
+  font-size: 12px;
+}

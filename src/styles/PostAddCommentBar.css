@@ -1,0 +1,35 @@
+.post-add-comment-bar {
+  height: 40px;
+  padding: 6px 16px 6px 16px;
+  border-top: 1px solid rgb(234, 234, 234);
+  margin-top: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.post-add-comment-emoji {
+  cursor: pointer;
+  margin-right: 16px;
+}
+
+.post-add-comment-input {
+  flex: 1;
+  height: 18px;
+  border: none;
+  font-size: 14px;
+}
+
+.post-add-comment-post-btn {
+  background-color: transparent;
+  border: none;
+  font-family: inherit;
+  font-size: inherit;
+  color: #0095f6;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.post-add-comment-post-btn.disabled {
+  cursor: initial;
+  opacity: 0.5;
+}

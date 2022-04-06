@@ -83,19 +83,3 @@
   flex-wrap: wrap;
   gap: 28px;
 }
-
-.profile-footer {
-  height: 82px;
-  padding-bottom: 30px;
-  text-align: center;
-  font-size: 12px;
-  color: gray;
-}
-
-.profile-footer-row {
-  margin-top: 24px;
-}
-
-.profile-footer-row > span {
-  margin-right: 14px;
-}

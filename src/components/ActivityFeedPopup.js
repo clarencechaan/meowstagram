@@ -1,4 +1,5 @@
 import "../styles/ActivityFeedPopup.css";
+import ActivityFeedItem from "./ActivityFeedItem";
 
 function ActivityFeedPopup({ cancelPopup, setSelected, lastSelected }) {
   return (
@@ -18,7 +19,19 @@ function ActivityFeedPopup({ cancelPopup, setSelected, lastSelected }) {
       >
         <div className="activity-feed-popup-window-triangle"></div>
         {/* hides triangle bottom shadow */}
-        <div className="activity-feed-popup-window-overlay"></div>
+        <div className="activity-feed-popup-window-overlay">
+          <div className="activity-feed-popup-window-header">Activity Feed</div>
+          <ActivityFeedItem />
+          <ActivityFeedItem />
+          <ActivityFeedItem />
+          <ActivityFeedItem />
+          <ActivityFeedItem />
+          <ActivityFeedItem />
+          <ActivityFeedItem />
+          <ActivityFeedItem />
+          <ActivityFeedItem />
+          <ActivityFeedItem />
+        </div>
       </div>
     </div>
   );

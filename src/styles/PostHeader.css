@@ -1,0 +1,27 @@
+.post-header {
+  height: 60px;
+  padding: 14px 8px 14px 16px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid rgb(225, 225, 225);
+}
+
+.post-header-username {
+  margin-left: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.post-header-more-options {
+  padding: 8px;
+  margin-left: auto;
+  cursor: pointer;
+}
+
+.post-header-img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+}

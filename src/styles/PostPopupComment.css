@@ -1,0 +1,56 @@
+.post-popup-comment {
+  display: flex;
+  margin-top: 24px;
+}
+
+.post-popup-comment-img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  margin-right: 18px;
+  cursor: pointer;
+}
+
+.post-popup-comment-author-stats-container {
+  flex: 1;
+}
+
+.post-popup-comment-author-username {
+  font-weight: 700;
+  margin-right: 4px;
+  cursor: pointer;
+}
+
+.post-popup-comment-stats {
+  font-size: 12px;
+  margin-top: 16px;
+}
+
+.post-popup-comment-time-ago {
+  font-weight: 400;
+  margin-right: 12px;
+  color: rgba(142, 142, 142);
+}
+
+.post-popup-comment-likes-counter {
+  font-weight: 600;
+  color: rgb(109, 109, 109);
+  cursor: pointer;
+}
+
+.post-popup-comment-like-btn-container {
+  margin-left: 16px;
+}
+
+.post-popup-comment-like-btn {
+  margin-top: 9px;
+  cursor: pointer;
+}
+
+.post-popup-comment-like-btn.selected {
+  animation: scale-up-down 0.2s;
+}
+
+.post-popup-comment-like-btn:not(.selected):hover {
+  opacity: 0.5;
+}

@@ -52,16 +52,20 @@ function NavLinks({ cancelPopup, selected, setSelected }) {
           }}
         />
       </Link>
-      <img
-        src={selected === "messenger" ? messengerSelected : messengerUnselected}
-        alt=""
-        className="nav-link"
-        id="messenger-nav-link"
-        onClick={() => {
-          setSelected("messenger");
-          setLastSelected("messenger");
-        }}
-      />
+      <Link to="/inbox">
+        <img
+          src={
+            selected === "messenger" ? messengerSelected : messengerUnselected
+          }
+          alt=""
+          className="nav-link"
+          id="messenger-nav-link"
+          onClick={() => {
+            setSelected("messenger");
+            setLastSelected("messenger");
+          }}
+        />
+      </Link>
       <img
         src={selected === "new-post" ? newPostSelected : newPostUnselected}
         alt=""
@@ -69,18 +73,22 @@ function NavLinks({ cancelPopup, selected, setSelected }) {
         id="new-post-nav-link"
         onClick={handleNewPostNavLinkClicked}
       />
-      <img
-        src={
-          selected === "find-people" ? findPeopleSelected : findPeopleUnselected
-        }
-        alt=""
-        className="nav-link"
-        id="find-people-nav-link"
-        onClick={() => {
-          setSelected("find-people");
-          setLastSelected("find-people");
-        }}
-      />
+      <Link to="/explore">
+        <img
+          src={
+            selected === "find-people"
+              ? findPeopleSelected
+              : findPeopleUnselected
+          }
+          alt=""
+          className="nav-link"
+          id="find-people-nav-link"
+          onClick={() => {
+            setSelected("find-people");
+            setLastSelected("find-people");
+          }}
+        />
+      </Link>
       <img
         src={
           selected === "activity-feed"

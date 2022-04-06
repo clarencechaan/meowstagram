@@ -1,0 +1,43 @@
+.activity-feed-item {
+  height: 44px;
+  padding: 12px 16px 12px 16px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.activity-feed-item-profile-pic {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  margin-right: 12px;
+}
+
+.activity-feed-item-username {
+  font-weight: 600;
+}
+
+.activity-feed-item-time-ago {
+  color: gray;
+}
+
+.activity-feed-item-post-img {
+  margin-left: auto;
+  width: 40px;
+  height: 40px;
+}
+
+.acitivty-feed-item-follow-btn {
+  margin-left: auto;
+  width: 62px;
+  height: 28px;
+  padding: 5px 9px 5px 9px;
+  background-color: #0095f6;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}

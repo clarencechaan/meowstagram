@@ -48,15 +48,15 @@ function Profile() {
         <PostPreview />
         <PostPreview />
       </div>
-      <div className="profile-footer">
-        <div className="profile-footer-row">
+      <div className="footer">
+        <div className="footer-row">
           <span>About</span> <span>Blog</span> <span>Jobs</span>{" "}
           <span>Help</span> <span>API</span> <span>Privacy</span>{" "}
           <span>Terms</span> <span>Top Accounts</span> <span>Hashtags</span>{" "}
           <span>Locations</span>
           <span>Outstagram Lite</span>
         </div>
-        <div className="profile-footer-row">
+        <div className="footer-row">
           <span>English</span>
           <span>
             Made with ♥ love by{" "}

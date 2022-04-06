@@ -1,7 +1,10 @@
 .post-preview,
-.post-preview > * {
+.post-preview > img {
   width: 293px;
   height: 293px;
+}
+
+.post-preview-overlay {
   cursor: pointer;
 }
 
@@ -38,4 +41,12 @@
   display: flex;
   align-items: center;
   column-gap: 4px;
+}
+
+.post-preview.big,
+.post-preview.big > img {
+  width: 614px;
+  height: 614px;
+  grid-row-start: span 2;
+  grid-column-start: span 2;
 }
