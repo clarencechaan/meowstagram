@@ -5,6 +5,8 @@ import postShare from "../images/post-share.svg";
 import postSave from "../images/post-save.svg";
 import postSaveSelected from "../images/post-save-selected.svg";
 import "../styles/PostButtonsBar.css";
+import SharePostPopup from "./SharePostPopup";
+import { useState } from "react";
 
 function PostButtonsBar({
   setPostPopupShown,
@@ -13,6 +15,13 @@ function PostButtonsBar({
   setPostLiked,
   setPostSaved,
 }) {
+  const [sharePostPopupShown, setSharePostPopupShown] = useState(false);
+
+  function cancelSharePostPopup() {
+    setSharePostPopupShown(false);
+    document.body.style.overflow = "auto";
+  }
+
   function handleCommentBtnClicked() {
     setPostPopupShown(true);
     document.body.style.overflow = "hidden";
@@ -24,6 +33,11 @@ function PostButtonsBar({
 
   function handleSaveClicked() {
     setPostSaved((prevPostSaved) => !prevPostSaved);
+  }
+
+  function handleShareButtonClicked() {
+    setSharePostPopupShown(true);
+    document.body.style.overflow = "hidden";
   }
 
   return (
@@ -40,13 +54,21 @@ function PostButtonsBar({
         alt=""
         onClick={handleCommentBtnClicked}
       />
-      <img className="post-share" src={postShare} alt="" />
+      <img
+        className="post-share"
+        src={postShare}
+        alt=""
+        onClick={handleShareButtonClicked}
+      />
       <img
         className={postSaved ? "post-save selected" : "post-save"}
         src={postSaved ? postSaveSelected : postSave}
         alt=""
         onClick={handleSaveClicked}
       />
+      {sharePostPopupShown ? (
+        <SharePostPopup cancelPopup={cancelSharePostPopup} />
+      ) : null}
     </div>
   );
 }

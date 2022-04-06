@@ -40,30 +40,34 @@ function NavLinks({ cancelPopup, selected, setSelected }) {
 
   return (
     <div className="nav-links">
-      <Link to="/">
+      <Link
+        to="/"
+        className="nav-link"
+        onClick={() => {
+          setSelected("home");
+          setLastSelected("home");
+        }}
+      >
         <img
           src={selected === "home" ? homeSelected : homeUnselected}
           alt=""
-          className="nav-link"
           id="home-nav-link"
-          onClick={() => {
-            setSelected("home");
-            setLastSelected("home");
-          }}
         />
       </Link>
-      <Link to="/inbox">
+      <Link
+        to="/inbox"
+        className="nav-link"
+        onClick={() => {
+          setSelected("messenger");
+          setLastSelected("messenger");
+        }}
+      >
         <img
           src={
             selected === "messenger" ? messengerSelected : messengerUnselected
           }
           alt=""
-          className="nav-link"
           id="messenger-nav-link"
-          onClick={() => {
-            setSelected("messenger");
-            setLastSelected("messenger");
-          }}
         />
       </Link>
       <img
@@ -73,7 +77,14 @@ function NavLinks({ cancelPopup, selected, setSelected }) {
         id="new-post-nav-link"
         onClick={handleNewPostNavLinkClicked}
       />
-      <Link to="/explore">
+      <Link
+        to="/explore"
+        className="nav-link"
+        onClick={() => {
+          setSelected("find-people");
+          setLastSelected("find-people");
+        }}
+      >
         <img
           src={
             selected === "find-people"
@@ -81,12 +92,7 @@ function NavLinks({ cancelPopup, selected, setSelected }) {
               : findPeopleUnselected
           }
           alt=""
-          className="nav-link"
           id="find-people-nav-link"
-          onClick={() => {
-            setSelected("find-people");
-            setLastSelected("find-people");
-          }}
         />
       </Link>
       <img

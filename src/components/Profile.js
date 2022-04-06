@@ -10,7 +10,7 @@ function Profile() {
         <img className="profile-header-img" src={catProfile} alt="" />
         <div>
           <div>
-            <div className="profile-header-username">clarencechaan</div>
+            <div className="profile-header-username">stc.official</div>
             <button className="profile-header-edit-btn">Edit Profile</button>
             <img
               className="profile-header-options"

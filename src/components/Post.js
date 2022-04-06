@@ -28,7 +28,7 @@ function Post() {
 
   return (
     <div className="post">
-      <PostHeader />
+      <PostHeader cancelPostPopup={cancelPostPopup} />
       <img className="post-img" src={catPost} alt="" />
       <PostButtonsBar
         setPostPopupShown={setPostPopupShown}

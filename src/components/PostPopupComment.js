@@ -3,8 +3,9 @@ import cat from "../images/cat.jpg";
 import commentLike from "../images/comment-like.svg";
 import commentLikeSelected from "../images/comment-like-selected.svg";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
-function PostPopupComment() {
+function PostPopupComment({ cancelPopup }) {
   const [liked, setLiked] = useState(false);
 
   function handleLikeClicked() {
@@ -13,12 +14,24 @@ function PostPopupComment() {
 
   return (
     <div className="post-popup-comment">
-      <img className="post-popup-comment-img" src={cat} alt="" />
+      <Link to="/profile">
+        <img
+          className="post-popup-comment-img"
+          src={cat}
+          alt=""
+          onClick={cancelPopup}
+        />
+      </Link>
       <div className="post-popup-comment-author-stats-container">
         <div className="post-popup-comment-author">
-          <span className="post-popup-comment-author-username">
-            stc.official
-          </span>
+          <Link to="/profile">
+            <span
+              className="post-popup-comment-author-username"
+              onClick={cancelPopup}
+            >
+              stc.official
+            </span>
+          </Link>
           <span className="post-popup-comment-author-text">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim

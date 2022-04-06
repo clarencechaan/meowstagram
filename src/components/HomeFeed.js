@@ -7,6 +7,11 @@ function HomeFeed() {
       <Post />
       <Post />
       <Post />
+      <Post />
+      <Post />
+      <Post />
+      <Post />
+      <Post />
     </div>
   );
 }

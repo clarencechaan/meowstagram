@@ -32,7 +32,7 @@ function PostPopup({
       >
         <img className="post-popup-window-img" src={catPost} alt="" />
         <div className="post-popup-window-sidebar">
-          <PostHeader />
+          <PostHeader cancelPopup={cancelPopup} />
           <div className="post-popup-window-comments">
             <div className="post-popup-window-comments-description">
               <img
@@ -54,11 +54,11 @@ function PostPopup({
                 </div>
               </div>
             </div>
-            <PostPopupComment />
-            <PostPopupComment />
-            <PostPopupComment />
-            <PostPopupComment />
-            <PostPopupComment />
+            <PostPopupComment cancelPopup={cancelPopup} />
+            <PostPopupComment cancelPopup={cancelPopup} />
+            <PostPopupComment cancelPopup={cancelPopup} />
+            <PostPopupComment cancelPopup={cancelPopup} />
+            <PostPopupComment cancelPopup={cancelPopup} />
           </div>
           <PostButtonsBar
             postLiked={postLiked}

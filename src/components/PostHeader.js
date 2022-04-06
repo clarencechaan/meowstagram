@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import MoreOptionsPopup from "./MoreOptionsPopup";
 
-function PostHeader() {
+function PostHeader(cancelPopup) {
   const [moreOptionsPopupShown, setMoreOptionsPopupShown] = useState(false);
 
   function handleMoreOptionsClicked() {
@@ -20,10 +20,10 @@ function PostHeader() {
 
   return (
     <div className="post-header">
-      <Link to="/profile">
+      <Link to="/profile" onClick={cancelPopup}>
         <img className="post-header-img" src={catProfile} alt="" />
       </Link>
-      <Link to="/profile">
+      <Link to="/profile" onClick={cancelPopup}>
         <div className="post-header-username">stc.official</div>
       </Link>
       <img
