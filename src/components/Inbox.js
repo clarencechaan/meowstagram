@@ -7,7 +7,7 @@ import InboxChat from "./InboxChat";
 import InboxChatNewMessagePopup from "./InboxChatNewMessagePopup";
 
 function Inbox() {
-  const [contactSelected, setContactSelected] = useState("user-1");
+  const [contactSelected, setContactSelected] = useState(null);
   const [sendMessagePopupShown, setSendMessagePopupShown] = useState(false);
 
   function cancelSendMessagePopup() {

@@ -1,8 +1,12 @@
 import "../styles/NewPostPopup.css";
-import mediaImportIcon from "../images/media-import-icon.svg";
 import closeNewPostPopup from "../images/close-new-post-popup.svg";
+import { useState } from "react";
+import NewPostPopupUploader from "./NewPostPopupUploader";
+import NewPostPopupPreview from "./NewPostPopupPreview";
 
 function NewPostPopup({ cancelPopup, setSelected, lastSelected }) {
+  const [fileUploaded, setFileUploaded] = useState(null);
+
   return (
     <div
       className="new-post-popup hidden"
@@ -13,21 +17,25 @@ function NewPostPopup({ cancelPopup, setSelected, lastSelected }) {
     >
       <img src={closeNewPostPopup} alt="" className="close-new-post-popup" />
       <div
-        className="new-post-popup-window"
+        className={
+          !fileUploaded
+            ? "new-post-popup-window"
+            : "new-post-popup-window preview"
+        }
         // prevent close on clicking
         onClick={(e) => {
           e.stopPropagation();
         }}
       >
-        <div className="new-post-popup-window-header">Create new post</div>
-        <div className="new-post-popup-window-content">
-          <img src={mediaImportIcon} alt="" />
-          <div className="media-import-label">Drag photos and videos here</div>
-          <input type="file" id="file-input" className="hidden" />
-          <label htmlFor="file-input" className="file-input-label">
-            Select from computer
-          </label>
+        <div className="new-post-popup-window-header">
+          <span className="new-post-popup-window-header-title">
+            Create new post
+          </span>
+          {fileUploaded ? (
+            <button className="new-post-popup-preview-share-btn">Share</button>
+          ) : null}
         </div>
+        {!fileUploaded ? <NewPostPopupUploader /> : <NewPostPopupPreview />}
       </div>
     </div>
   );
