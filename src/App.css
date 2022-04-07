@@ -43,6 +43,10 @@ span > a {
   text-decoration: underline;
 }
 
-.emoji-picker__wrapper {
-  z-index: 1;
+.emoji-picker-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
 }

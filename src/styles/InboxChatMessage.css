@@ -1,0 +1,21 @@
+.inbox-chat-message {
+  margin-bottom: 8px;
+  display: flex;
+}
+
+.inbox-chat-message-bubble {
+  padding: 16px;
+  max-width: 202px;
+  line-height: 18px;
+  border-radius: 22px;
+}
+
+.inbox-chat-message-bubble.sent-by-me {
+  background-color: rgb(239, 239, 239);
+  margin-left: auto;
+}
+
+.inbox-chat-message-bubble.sent-by-contact {
+  margin-right: auto;
+  border: 1px solid rgb(239, 239, 239);
+}

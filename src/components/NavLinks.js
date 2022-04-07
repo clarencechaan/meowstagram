@@ -10,15 +10,18 @@ import activityFeedSelected from "../images/activity-feed-selected.svg";
 import activityFeedUnselected from "../images/activity-feed-unselected.svg";
 import placeholderProfilePic from "../images/placeholder-profile-150x150.jpg";
 import "../styles/NavLinks.css";
-import { useState } from "react";
 import NewPostPopup from "./NewPostPopup";
 import ActivityFeedPopup from "./ActivityFeedPopup";
 import ProfilePicPopup from "./ProfilePicPopup";
 import { Link } from "react-router-dom";
 
-function NavLinks({ cancelPopup, selected, setSelected }) {
-  const [lastSelected, setLastSelected] = useState("home");
-
+function NavLinks({
+  cancelPopup,
+  selected,
+  setSelected,
+  lastSelected,
+  setLastSelected,
+}) {
   function handleNewPostNavLinkClicked() {
     const newPostPopup = document.querySelector(".new-post-popup");
     newPostPopup.classList.remove("hidden");

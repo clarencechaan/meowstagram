@@ -1,27 +1,29 @@
-import "../styles/SharePostPopup.css";
+import "../styles/InboxChatNewMessagePopup.css";
 import SendMessagePopupContact from "./SendMessagePopupContact";
 
-function SharePostPopup({ cancelPopup }) {
+function InboxChatNewMessagePopup({ cancelPopup }) {
   return (
-    <div className="share-post-popup" onClick={cancelPopup}>
+    <div className="inbox-chat-new-message-popup" onClick={cancelPopup}>
       <div
-        className="share-post-popup-window"
+        className="inbox-chat-new-message-popup-window"
         // prevent close on clicking
         onClick={(e) => {
           e.stopPropagation();
         }}
       >
-        <div className="share-post-popup-window-header">Share</div>
-        <div className="share-post-popup-window-to-bar">
-          <span className="share-post-popup-window-to">To:</span>
+        <div className="inbox-chat-new-message-popup-window-header">
+          New Message
+        </div>
+        <div className="inbox-chat-new-message-popup-window-to-bar">
+          <span className="inbox-chat-new-message-popup-window-to">To:</span>
           <input
             type="text"
-            className="share-post-popup-window-to-input"
+            className="inbox-chat-new-message-popup-window-to-input"
             placeholder="Search..."
           />
         </div>
-        <div className="share-post-popup-window-contacts">
-          <div className="share-post-popup-window-suggested-label">
+        <div className="inbox-chat-new-message-popup-window-contacts">
+          <div className="inbox-chat-new-message-popup-window-suggested-label">
             Suggested
           </div>
           <SendMessagePopupContact />
@@ -38,12 +40,9 @@ function SharePostPopup({ cancelPopup }) {
           <SendMessagePopupContact />
           <SendMessagePopupContact />
         </div>
-        <div className="share-post-popup-window-send-container">
-          <button className="share-post-popup-window-send-btn">Send</button>
-        </div>
       </div>
     </div>
   );
 }
 
-export default SharePostPopup;
+export default InboxChatNewMessagePopup;

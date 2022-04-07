@@ -1,47 +1,60 @@
 import "../styles/PostAddCommentBar.css";
 import postAddCommentEmoji from "../images/post-emoji.svg";
-import { EmojiButton } from "@joeattardi/emoji-button";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import Picker from "emoji-picker-react";
 
 let selectionStart;
 
 function PostAddCommentsBar() {
   const [inputValue, setInputValue] = useState("");
+  const [emojiPickerShown, setEmojiPickerShown] = useState(false);
   const addCommentInput = useRef(null);
+  const emojiToggle = useRef(null);
+
+  useEffect(() => {
+    emojiToggle.current.addEventListener("click", () => {
+      setEmojiPickerShown((prevEmojiPickerShown) => !prevEmojiPickerShown);
+    });
+  }, []);
+
+  const onEmojiClick = (event, emojiObject) => {
+    selectionStart = addCommentInput.current.selectionStart;
+    addCommentInput.current.focus();
+    setEmojiPickerShown(false);
+    setInputValue((prevInputValue) => {
+      return (
+        prevInputValue.slice(0, selectionStart) +
+        emojiObject.emoji +
+        prevInputValue.slice(selectionStart)
+      );
+    });
+  };
 
   function handleAddCommentInputChanged(e) {
     setInputValue(e.target.value);
   }
 
-  const emojiPicker = new EmojiButton({
-    position: "top-start",
-    emojiSize: "22px",
-  });
-
-  emojiPicker.on("emoji", (selection) => {
-    selectionStart = addCommentInput.current.selectionStart;
-    setInputValue((prevInputValue) => {
-      return (
-        prevInputValue.slice(0, selectionStart) +
-        selection.emoji +
-        prevInputValue.slice(selectionStart)
-      );
-    });
-  });
-
-  emojiPicker.on("hidden", () => {
-    addCommentInput.current.focus();
-  });
-
   return (
     <div className="post-add-comment-bar">
+      {emojiPickerShown ? (
+        <>
+          <Picker
+            onEmojiClick={onEmojiClick}
+            pickerStyle={{ position: "absolute", bottom: "58px", zIndex: "1" }}
+          />
+          <div
+            className="emoji-picker-wrapper"
+            onClick={() => {
+              setEmojiPickerShown(false);
+            }}
+          ></div>
+        </>
+      ) : null}
       <img
         className="post-add-comment-emoji"
         src={postAddCommentEmoji}
         alt=""
-        onClick={(e) => {
-          emojiPicker.togglePicker(e.target);
-        }}
+        ref={emojiToggle}
       />
       <input
         className="post-add-comment-input"

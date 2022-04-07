@@ -7,6 +7,7 @@ import PostLikesCounter from "./PostLikesCounter";
 import PostTimeAgo from "./PostTimeAgo";
 import cat from "../images/cat.jpg";
 import PostPopupComment from "./PostPopupComment";
+import { Link } from "react-router-dom";
 
 function PostPopup({
   cancelPopup,
@@ -42,9 +43,11 @@ function PostPopup({
               />
               <div>
                 <div className="post-popup-window-comments-author">
-                  <span className="post-popup-window-comments-author-username">
-                    stc.official
-                  </span>
+                  <Link to="/profile">
+                    <span className="post-popup-window-comments-author-username">
+                      stc.official
+                    </span>
+                  </Link>
                   <span className="post-popup-window-comments-author-text">
                     I woke up like this.
                   </span>
