@@ -1,9 +1,10 @@
 import "../styles/PostTimeAgo.css";
+import getTimeAgo from "../scripts/TimeConversion";
 
-function PostTimeAgo() {
+function PostTimeAgo({ timestamp, now }) {
   return (
     <div className="post-time-ago">
-      <span>2 HOURS AGO</span>
+      <span>{getTimeAgo(timestamp.seconds, now)}</span>
     </div>
   );
 }

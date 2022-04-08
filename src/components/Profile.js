@@ -2,8 +2,28 @@ import "../styles/Profile.css";
 import catProfile from "../images/cat.jpg";
 import profileHeaderOptions from "../images/profile-header-options.svg";
 import PostPreview from "./PostPreview";
+import { query, orderBy, collection, getDocs } from "firebase/firestore";
+import { db } from "../Firebase";
+import { useEffect, useState } from "react";
 
-function Profile() {
+function Profile({ now }) {
+  const [postsArr, setPostsArr] = useState([]);
+
+  useEffect(() => {
+    fetchProfilePosts();
+  }, []);
+
+  async function fetchProfilePosts() {
+    const postsRef = collection(db, "posts");
+    let resultArr = [];
+    const q = query(postsRef, orderBy("timestamp", "desc"));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      resultArr.push(doc.data());
+    });
+    setPostsArr(resultArr);
+  }
+
   return (
     <div className="profile">
       <div className="profile-header">
@@ -38,15 +58,9 @@ function Profile() {
         </div>
       </div>
       <div className="profile-post-previews-container">
-        <PostPreview />
-        <PostPreview />
-        <PostPreview />
-        <PostPreview />
-        <PostPreview />
-        <PostPreview />
-        <PostPreview />
-        <PostPreview />
-        <PostPreview />
+        {postsArr.map((post) => (
+          <PostPreview post={post} now={now} />
+        ))}
       </div>
       <div className="footer">
         <div className="footer-row">
@@ -54,7 +68,7 @@ function Profile() {
           <span>Help</span> <span>API</span> <span>Privacy</span>{" "}
           <span>Terms</span> <span>Top Accounts</span> <span>Hashtags</span>{" "}
           <span>Locations</span>
-          <span>Outstagram Lite</span>
+          <span>Catstagram Lite</span>
         </div>
         <div className="footer-row">
           <span>English</span>

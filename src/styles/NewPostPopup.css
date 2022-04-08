@@ -27,6 +27,7 @@
   border-radius: 12px;
   animation: scale-down 0.1s;
   overflow: hidden;
+  transition: 0.5s;
 }
 
 .new-post-popup-window-header {

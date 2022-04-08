@@ -1,11 +1,10 @@
 import "../styles/PostPreview.css";
-import catPost from "../images/cat-post.jpeg";
 import { Heart } from "phosphor-react";
 import { ChatCircle } from "phosphor-react";
 import PostPopup from "./PostPopup";
 import { useState } from "react";
 
-function PostPreview({ isBig }) {
+function PostPreview({ isBig, post, now }) {
   const [isPostPopupShown, setIsPostPopupShown] = useState(false);
   const [postLiked, setPostLiked] = useState(false);
   const [postSaved, setPostSaved] = useState(false);
@@ -32,7 +31,7 @@ function PostPreview({ isBig }) {
           <span>1</span>
         </div>
       </div>
-      <img src={catPost} alt=""></img>
+      <img src={post.URL} alt=""></img>
       {isPostPopupShown ? (
         <PostPopup
           cancelPopup={cancelPostPopup}
@@ -40,6 +39,8 @@ function PostPreview({ isBig }) {
           postSaved={postSaved}
           setPostLiked={setPostLiked}
           setPostSaved={setPostSaved}
+          post={post}
+          now={now}
         />
       ) : null}
     </div>

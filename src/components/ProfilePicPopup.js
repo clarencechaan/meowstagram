@@ -13,7 +13,7 @@ function ProfilePicPopup({
 }) {
   return (
     <div
-      className="profile-pic-popup hidden"
+      className="profile-pic-popup"
       onClick={() => {
         cancelPopup();
         setSelected(lastSelected);

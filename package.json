@@ -1,5 +1,5 @@
 {
-  "name": "outstagram",
+  "name": "catstagram",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -7,6 +7,8 @@
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
     "emoji-picker-react": "^3.5.1",
+    "firebase": "^9.6.10",
+    "nanoid": "^3.3.2",
     "phosphor-react": "^1.4.1",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",

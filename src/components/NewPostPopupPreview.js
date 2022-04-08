@@ -1,34 +1,39 @@
 import "../styles/NewPostPopupPreview.css";
-import catPost from "../images/cat-post.jpeg";
 import cat from "../images/cat.jpg";
-import { useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import Picker from "emoji-picker-react";
 
 let selectionStart;
 
-function NewPostPopupPreview() {
-  const [textareaValue, setTextareaValue] = useState("");
+function NewPostPopupPreview({ imgURL, caption, setCaption }) {
   const captionTextarea = useRef(null);
+
+  useEffect(() => captionTextarea.current.focus(), []);
 
   const onEmojiClick = (event, emojiObject) => {
     selectionStart = captionTextarea.current.selectionStart;
     captionTextarea.current.focus();
-    setTextareaValue((prevTextareaValue) => {
+    setCaption((prevCaption) => {
       return (
-        prevTextareaValue.slice(0, selectionStart) +
+        prevCaption.slice(0, selectionStart) +
         emojiObject.emoji +
-        prevTextareaValue.slice(selectionStart)
+        prevCaption.slice(selectionStart)
       );
     });
   };
 
   function handleCaptionTextareaChanged(e) {
-    setTextareaValue(e.target.value);
+    setCaption(e.target.value);
   }
 
   return (
     <div className="new-post-popup-preview">
-      <img className="new-post-popup-preview-img" src={catPost} alt="" />
+      <img
+        className="new-post-popup-preview-img"
+        src={imgURL}
+        alt=""
+        referrerPolicy="no-referrer"
+      />
       <div className="new-post-popup-preview-caption-container">
         <div className="new-post-popup-preview-user-bar">
           <img className="new-post-popup-preview-user-img" src={cat} alt="" />
@@ -38,7 +43,7 @@ function NewPostPopupPreview() {
           name="caption-textarea"
           id="caption-textarea"
           placeholder="Write a caption..."
-          value={textareaValue}
+          value={caption}
           ref={captionTextarea}
           onChange={(e) => handleCaptionTextareaChanged(e)}
         ></textarea>

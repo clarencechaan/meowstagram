@@ -10,12 +10,10 @@ function PostHeader(cancelPopup) {
 
   function handleMoreOptionsClicked() {
     setMoreOptionsPopupShown(true);
-    document.body.style.overflow = "hidden";
   }
 
   function cancelMoreOptionsPopup() {
     setMoreOptionsPopupShown(false);
-    document.body.style.overflow = "auto";
   }
 
   return (

@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import "../styles/Post.css";
-import catPost from "../images/cat-post.jpeg";
 import { useState } from "react";
 import React from "react";
 import PostPopup from "./PostPopup";
@@ -11,7 +10,8 @@ import PostLikesCounter from "./PostLikesCounter";
 import PostTimeAgo from "./PostTimeAgo";
 import { Link } from "react-router-dom";
 
-function Post() {
+function Post({ post, now }) {
+  const { URL, caption, timestamp, user } = post;
   const [postPopupShown, setPostPopupShown] = useState(false);
   const [postLiked, setPostLiked] = useState(false);
   const [postSaved, setPostSaved] = useState(false);
@@ -29,7 +29,7 @@ function Post() {
   return (
     <div className="post">
       <PostHeader cancelPostPopup={cancelPostPopup} />
-      <img className="post-img" src={catPost} alt="" />
+      <img className="post-img" src={URL} alt="" />
       <PostButtonsBar
         setPostPopupShown={setPostPopupShown}
         postLiked={postLiked}
@@ -41,13 +41,9 @@ function Post() {
       <div className="post-description">
         <div>
           <Link to="/profile">
-            <span className="post-description-author-username">
-              stc.official
-            </span>
+            <span className="post-description-author-username">{user}</span>
           </Link>
-          <span className="post-description-author-text">
-            I woke up like this.
-          </span>
+          <span className="post-description-author-text">{caption}</span>
         </div>
         <div className="post-description-comment-counter">
           <span onClick={handleViewAllCommentsClicked}>
@@ -55,7 +51,7 @@ function Post() {
           </span>
         </div>
       </div>
-      <PostTimeAgo />
+      <PostTimeAgo timestamp={timestamp} now={now} />
       <PostAddCommentBar />
       {postPopupShown ? (
         <PostPopup
@@ -64,6 +60,7 @@ function Post() {
           postSaved={postSaved}
           setPostLiked={setPostLiked}
           setPostSaved={setPostSaved}
+          post={post}
         />
       ) : null}
     </div>

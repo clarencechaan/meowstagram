@@ -6,7 +6,7 @@ import Explore from "./Explore";
 import Inbox from "./Inbox";
 import { Routes, Route } from "react-router-dom";
 
-function Content({ setNavLinkSelected }) {
+function Content({ setNavLinkSelected, now }) {
   return (
     <div className="Content">
       <Routes>
@@ -14,13 +14,13 @@ function Content({ setNavLinkSelected }) {
           path="/"
           element={
             <>
-              <HomeFeed />
+              <HomeFeed now={now} />
               <SideBar setNavLinkSelected={setNavLinkSelected} />
             </>
           }
         />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/explore" element={<Explore />} />
+        <Route path="/profile" element={<Profile now={now} />} />
+        <Route path="/explore" element={<Explore now={now} />} />
         <Route path="/inbox" element={<Inbox />} />
       </Routes>
     </div>

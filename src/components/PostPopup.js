@@ -1,5 +1,4 @@
 import "../styles/PostPopup.css";
-import catPost from "../images/cat-post-2.jpeg";
 import PostHeader from "./PostHeader";
 import PostButtonsBar from "./PostButtonsBar";
 import PostAddCommentBar from "./PostAddCommentBar";
@@ -15,13 +14,15 @@ function PostPopup({
   postSaved,
   setPostLiked,
   setPostSaved,
+  post,
+  now,
 }) {
+  const { URL, caption, timestamp, user } = post;
   return (
     <div
       className="post-popup"
       onClick={() => {
         cancelPopup();
-        console.log("post popup clicked");
       }}
     >
       <div
@@ -31,7 +32,7 @@ function PostPopup({
           e.stopPropagation();
         }}
       >
-        <img className="post-popup-window-img" src={catPost} alt="" />
+        <img className="post-popup-window-img" src={URL} alt="" />
         <div className="post-popup-window-sidebar">
           <PostHeader cancelPopup={cancelPopup} />
           <div className="post-popup-window-comments">
@@ -45,11 +46,11 @@ function PostPopup({
                 <div className="post-popup-window-comments-author">
                   <Link to="/profile">
                     <span className="post-popup-window-comments-author-username">
-                      stc.official
+                      {user}
                     </span>
                   </Link>
                   <span className="post-popup-window-comments-author-text">
-                    I woke up like this.
+                    {caption}
                   </span>
                 </div>
                 <div className="post-popup-window-comments-description-time-ago">
@@ -71,7 +72,7 @@ function PostPopup({
             setPostPopupShown={() => {}}
           />
           <PostLikesCounter />
-          <PostTimeAgo />
+          <PostTimeAgo timestamp={timestamp} now={now} />
           <PostAddCommentBar />
         </div>
       </div>

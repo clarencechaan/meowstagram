@@ -4,7 +4,7 @@ import ActivityFeedItem from "./ActivityFeedItem";
 function ActivityFeedPopup({ cancelPopup, setSelected, lastSelected }) {
   return (
     <div
-      className="activity-feed-popup hidden"
+      className="activity-feed-popup"
       onClick={() => {
         cancelPopup();
         setSelected(lastSelected);

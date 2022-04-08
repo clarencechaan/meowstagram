@@ -17,15 +17,10 @@ function NavBar({ selected, setSelected }) {
             setLastSelected("home");
           }}
         >
-          <div className="logo">Outstagram</div>
+          <div className="logo">Catstagram</div>
         </Link>
-        <SearchBar
-          cancelPopup={cancelPopup}
-          selected={selected}
-          setSelected={setSelected}
-        />
+        <SearchBar selected={selected} setSelected={setSelected} />
         <NavLinks
-          cancelPopup={cancelPopup}
           selected={selected}
           setSelected={setSelected}
           lastSelected={lastSelected}
@@ -34,18 +29,6 @@ function NavBar({ selected, setSelected }) {
       </div>
     </div>
   );
-}
-
-function cancelPopup() {
-  const newPostPopup = document.querySelector(".new-post-popup");
-  const activityFeedPopup = document.querySelector(".activity-feed-popup");
-  const profilePicPopup = document.querySelector(".profile-pic-popup");
-  const searchBarPopup = document.querySelector(".search-bar-popup");
-  newPostPopup.classList.add("hidden");
-  activityFeedPopup.classList.add("hidden");
-  profilePicPopup.classList.add("hidden");
-  searchBarPopup.classList.add("hidden");
-  document.body.style.overflow = "auto";
 }
 
 export default NavBar;

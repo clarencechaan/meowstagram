@@ -14,31 +14,32 @@ import NewPostPopup from "./NewPostPopup";
 import ActivityFeedPopup from "./ActivityFeedPopup";
 import ProfilePicPopup from "./ProfilePicPopup";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
-function NavLinks({
-  cancelPopup,
-  selected,
-  setSelected,
-  lastSelected,
-  setLastSelected,
-}) {
+function NavLinks({ selected, setSelected, lastSelected, setLastSelected }) {
+  const [newPostPopupShown, setNewPostPopupShown] = useState(false);
+  const [activityFeedPopupShown, setActivityFeedPopupShown] = useState(false);
+  const [profilePicPopupShown, setProfilePicPopupShown] = useState(false);
+
   function handleNewPostNavLinkClicked() {
-    const newPostPopup = document.querySelector(".new-post-popup");
-    newPostPopup.classList.remove("hidden");
+    setNewPostPopupShown(true);
     document.body.style.overflow = "hidden";
     setSelected("new-post");
   }
 
   function handleActivityFeedNavLinkClicked() {
-    const activityFeedPopup = document.querySelector(".activity-feed-popup");
-    activityFeedPopup.classList.remove("hidden");
+    setActivityFeedPopupShown(true);
     setSelected("activity-feed");
   }
 
   function handleProfilePicNavLinkClicked() {
-    const profilePicPopup = document.querySelector(".profile-pic-popup");
-    profilePicPopup.classList.remove("hidden");
+    setProfilePicPopupShown(true);
     setSelected("profile-pic");
+  }
+
+  function cancelNewPostPopup() {
+    setNewPostPopupShown(false);
+    document.body.style.overflow = "auto";
   }
 
   return (
@@ -118,22 +119,28 @@ function NavLinks({
         id="profile-pic-nav-link"
         onClick={handleProfilePicNavLinkClicked}
       />
-      <NewPostPopup
-        cancelPopup={cancelPopup}
-        setSelected={setSelected}
-        lastSelected={lastSelected}
-      />
-      <ActivityFeedPopup
-        cancelPopup={cancelPopup}
-        setSelected={setSelected}
-        lastSelected={lastSelected}
-      />
-      <ProfilePicPopup
-        cancelPopup={cancelPopup}
-        setSelected={setSelected}
-        lastSelected={lastSelected}
-        setLastSelected={setLastSelected}
-      />
+      {newPostPopupShown ? (
+        <NewPostPopup
+          cancelPopup={cancelNewPostPopup}
+          setSelected={setSelected}
+          lastSelected={lastSelected}
+        />
+      ) : null}
+      {activityFeedPopupShown ? (
+        <ActivityFeedPopup
+          cancelPopup={() => setActivityFeedPopupShown(false)}
+          setSelected={setSelected}
+          lastSelected={lastSelected}
+        />
+      ) : null}
+      {profilePicPopupShown ? (
+        <ProfilePicPopup
+          cancelPopup={() => setProfilePicPopupShown(false)}
+          setSelected={setSelected}
+          lastSelected={lastSelected}
+          setLastSelected={setLastSelected}
+        />
+      ) : null}
     </div>
   );
 }
