@@ -19,7 +19,7 @@ function NavBar({ selected, setSelected }) {
         >
           <div className="logo">Catstagram</div>
         </Link>
-        <SearchBar selected={selected} setSelected={setSelected} />
+        <SearchBar />
         <NavLinks
           selected={selected}
           setSelected={setSelected}

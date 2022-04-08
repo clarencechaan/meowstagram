@@ -1,10 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { MagnifyingGlass } from "phosphor-react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "../styles/SearchBar.css";
 import SearchBarPopup from "./SearchBarPopup";
 
-function SearchBar({ cancelPopup }) {
+function SearchBar() {
+  const [searchBarPopupShown, setSearchBarPopupShown] = useState(false);
+
   useEffect(onLoad, []);
 
   function onLoad() {
@@ -32,8 +34,16 @@ function SearchBar({ cancelPopup }) {
 
     function clearSearchBtnClicked() {
       searchInput.value = "";
-      cancelPopup();
+      cancelSearchBarPopup();
     }
+  }
+
+  function handleSearchBarClicked() {
+    setSearchBarPopupShown(true);
+  }
+
+  function cancelSearchBarPopup() {
+    setSearchBarPopupShown(false);
   }
 
   return (
@@ -48,14 +58,11 @@ function SearchBar({ cancelPopup }) {
       <button type="button" className="clear-search-btn">
         ✕
       </button>
-      <SearchBarPopup cancelPopup={cancelPopup} />
+      {searchBarPopupShown ? (
+        <SearchBarPopup cancelPopup={cancelSearchBarPopup} />
+      ) : null}
     </div>
   );
-}
-
-function handleSearchBarClicked() {
-  const searchBarPopup = document.querySelector(".search-bar-popup");
-  searchBarPopup.classList.remove("hidden");
 }
 
 export default SearchBar;

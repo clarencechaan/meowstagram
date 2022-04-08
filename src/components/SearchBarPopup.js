@@ -3,7 +3,7 @@ import SearchBarPopupItem from "./SearchBarPopupItem";
 
 function SearchBarPopup({ cancelPopup }) {
   return (
-    <div className="search-bar-popup hidden" onClick={cancelPopup}>
+    <div className="search-bar-popup" onClick={cancelPopup}>
       <div
         className="search-bar-popup-window"
         // prevent close on clicking
