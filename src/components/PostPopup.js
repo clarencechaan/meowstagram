@@ -7,6 +7,7 @@ import PostTimeAgo from "./PostTimeAgo";
 import cat from "../images/cat.jpg";
 import PostPopupComment from "./PostPopupComment";
 import { Link } from "react-router-dom";
+import { useRef } from "react";
 
 function PostPopup({
   cancelPopup,
@@ -16,8 +17,17 @@ function PostPopup({
   setPostSaved,
   post,
   now,
+  setPost,
 }) {
-  const { URL, caption, timestamp, user } = post;
+  const { URL, caption, timestamp, user, comments, likes } = post;
+  const messagesEndRef = useRef(null);
+  function scrollToBottom() {
+    setTimeout(
+      () => messagesEndRef.current?.scrollIntoView({ behavior: "smooth" }),
+      1
+    );
+  }
+
   return (
     <div
       className="post-popup"
@@ -58,11 +68,16 @@ function PostPopup({
                 </div>
               </div>
             </div>
-            <PostPopupComment cancelPopup={cancelPopup} />
-            <PostPopupComment cancelPopup={cancelPopup} />
-            <PostPopupComment cancelPopup={cancelPopup} />
-            <PostPopupComment cancelPopup={cancelPopup} />
-            <PostPopupComment cancelPopup={cancelPopup} />
+            {comments.map((comment) => (
+              <PostPopupComment
+                cancelPopup={cancelPopup}
+                comment={comment}
+                key={comment.id}
+                post={post}
+                setPost={setPost}
+              />
+            ))}
+            <div ref={messagesEndRef} />
           </div>
           <PostButtonsBar
             postLiked={postLiked}
@@ -70,10 +85,16 @@ function PostPopup({
             setPostLiked={setPostLiked}
             setPostSaved={setPostSaved}
             setPostPopupShown={() => {}}
+            setPost={setPost}
+            post={post}
           />
-          <PostLikesCounter />
+          <PostLikesCounter likesCount={likes.length} />
           <PostTimeAgo timestamp={timestamp} now={now} />
-          <PostAddCommentBar />
+          <PostAddCommentBar
+            post={post}
+            setPost={setPost}
+            scrollToBottom={scrollToBottom}
+          />
         </div>
       </div>
     </div>

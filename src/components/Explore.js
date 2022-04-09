@@ -17,7 +17,7 @@ function Explore({ now }) {
     const q = query(postsRef, orderBy("timestamp", "desc"));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
-      resultArr.push(doc.data());
+      resultArr.push({ ...doc.data(), id: doc.id });
     });
     setPostsArr(resultArr);
   }
@@ -27,9 +27,9 @@ function Explore({ now }) {
       <div className="explore-post-previews">
         {postsArr.map((post, idx) =>
           idx + (1 % 18) === 2 || (idx + 1) % 18 === 10 ? (
-            <PostPreview isBig={true} now={now} post={post} />
+            <PostPreview isBig={true} now={now} post={post} key={post.id} />
           ) : (
-            <PostPreview now={now} post={post} />
+            <PostPreview now={now} post={post} key={post.id} />
           )
         )}
       </div>

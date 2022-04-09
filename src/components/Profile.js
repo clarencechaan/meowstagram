@@ -1,14 +1,13 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import "../styles/Profile.css";
 import catProfile from "../images/cat.jpg";
 import profileHeaderOptions from "../images/profile-header-options.svg";
 import PostPreview from "./PostPreview";
 import { query, orderBy, collection, getDocs } from "firebase/firestore";
 import { db } from "../Firebase";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
-function Profile({ now }) {
-  const [postsArr, setPostsArr] = useState([]);
-
+function Profile({ now, profilePostsArr, setProfilePostsArr }) {
   useEffect(() => {
     fetchProfilePosts();
   }, []);
@@ -19,9 +18,9 @@ function Profile({ now }) {
     const q = query(postsRef, orderBy("timestamp", "desc"));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
-      resultArr.push(doc.data());
+      resultArr.push({ ...doc.data(), id: doc.id });
     });
-    setPostsArr(resultArr);
+    setProfilePostsArr(resultArr);
   }
 
   return (
@@ -58,8 +57,13 @@ function Profile({ now }) {
         </div>
       </div>
       <div className="profile-post-previews-container">
-        {postsArr.map((post) => (
-          <PostPreview post={post} now={now} />
+        {profilePostsArr.map((post) => (
+          <PostPreview
+            post={post}
+            now={now}
+            key={post.id}
+            setProfilePostsArr={setProfilePostsArr}
+          />
         ))}
       </div>
       <div className="footer">

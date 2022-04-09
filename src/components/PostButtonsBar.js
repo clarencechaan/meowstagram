@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import postLike from "../images/post-like.svg";
 import postLikeSelected from "../images/post-like-selected.svg";
 import postComment from "../images/post-comment.svg";
@@ -7,6 +8,8 @@ import postSaveSelected from "../images/post-save-selected.svg";
 import "../styles/PostButtonsBar.css";
 import SharePostPopup from "./SharePostPopup";
 import { useState } from "react";
+import { updateDoc, arrayUnion, doc, arrayRemove } from "firebase/firestore";
+import { db } from "../Firebase";
 
 function PostButtonsBar({
   setPostPopupShown,
@@ -14,6 +17,8 @@ function PostButtonsBar({
   postSaved,
   setPostLiked,
   setPostSaved,
+  post,
+  setPost,
 }) {
   const [sharePostPopupShown, setSharePostPopupShown] = useState(false);
 
@@ -27,7 +32,17 @@ function PostButtonsBar({
     document.body.style.overflow = "hidden";
   }
 
-  function handleLikeClicked() {
+  async function handleLikeClicked() {
+    const postRef = doc(db, "posts", post.id);
+    if (!postLiked) {
+      await updateDoc(postRef, {
+        likes: arrayUnion("stc.official"),
+      });
+    } else {
+      await updateDoc(postRef, {
+        likes: arrayRemove("stc.official"),
+      });
+    }
     setPostLiked((prevPostLiked) => !prevPostLiked);
   }
 

@@ -6,19 +6,29 @@ import NewPostPopupPreview from "./NewPostPopupPreview";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "../Firebase";
 
-function NewPostPopup({ cancelPopup, setSelected, lastSelected }) {
+function NewPostPopup({
+  cancelPopup,
+  setSelected,
+  lastSelected,
+  setHomeFeedPostsArr,
+  setProfilePostsArr,
+}) {
   const [imgURL, setImgURL] = useState(null);
   const [caption, setCaption] = useState("");
 
   async function uploadPost() {
     try {
-      const postRef = await addDoc(collection(db, "posts"), {
+      let post = {
         user: "stc.official",
         caption: caption,
         URL: imgURL,
         timestamp: serverTimestamp(),
-      });
-      console.log("Document written with ID: ", postRef.id);
+        comments: [],
+        likes: [],
+      };
+      const postRef = await addDoc(collection(db, "posts"), post);
+      post = { ...post, id: postRef.id };
+      addToPostsArrs(post);
     } catch (e) {
       console.error("Error adding document: ", e);
     }
@@ -28,6 +38,11 @@ function NewPostPopup({ cancelPopup, setSelected, lastSelected }) {
     uploadPost();
     cancelPopup();
     setSelected(lastSelected);
+  }
+
+  function addToPostsArrs(post) {
+    setHomeFeedPostsArr((prevPostsArr) => [post, ...prevPostsArr]);
+    setProfilePostsArr((prevPostsArr) => [post, ...prevPostsArr]);
   }
 
   return (

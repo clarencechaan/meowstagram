@@ -1,12 +1,11 @@
-import { useEffect, useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect } from "react";
 import "../styles/HomeFeed.css";
 import Post from "./Post";
 import { query, orderBy, collection, getDocs } from "firebase/firestore";
 import { db } from "../Firebase";
 
-function HomeFeed({ now }) {
-  const [postsArr, setPostsArr] = useState([]);
-
+function HomeFeed({ now, homeFeedPostsArr, setHomeFeedPostsArr }) {
   useEffect(() => {
     fetchLatestPosts();
   }, []);
@@ -17,15 +16,20 @@ function HomeFeed({ now }) {
     const q = query(postsRef, orderBy("timestamp", "desc"));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
-      resultArr.push(doc.data());
+      resultArr.push({ ...doc.data(), id: doc.id });
     });
-    setPostsArr(resultArr);
+    setHomeFeedPostsArr(resultArr);
   }
 
   return (
     <div className="home-feed">
-      {postsArr.map((post) => (
-        <Post post={post} now={now} />
+      {homeFeedPostsArr.map((post) => (
+        <Post
+          post={post}
+          now={now}
+          key={post.id}
+          setHomeFeedPostsArr={setHomeFeedPostsArr}
+        />
       ))}
     </div>
   );

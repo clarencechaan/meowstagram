@@ -16,7 +16,14 @@ import ProfilePicPopup from "./ProfilePicPopup";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
-function NavLinks({ selected, setSelected, lastSelected, setLastSelected }) {
+function NavLinks({
+  selected,
+  setSelected,
+  lastSelected,
+  setLastSelected,
+  setHomeFeedPostsArr,
+  setProfilePostsArr,
+}) {
   const [newPostPopupShown, setNewPostPopupShown] = useState(false);
   const [activityFeedPopupShown, setActivityFeedPopupShown] = useState(false);
   const [profilePicPopupShown, setProfilePicPopupShown] = useState(false);
@@ -124,6 +131,8 @@ function NavLinks({ selected, setSelected, lastSelected, setLastSelected }) {
           cancelPopup={cancelNewPostPopup}
           setSelected={setSelected}
           lastSelected={lastSelected}
+          setHomeFeedPostsArr={setHomeFeedPostsArr}
+          setProfilePostsArr={setProfilePostsArr}
         />
       ) : null}
       {activityFeedPopupShown ? (

@@ -16,6 +16,8 @@ const getTimeStamp = httpsCallable(functions, "getTimeStamp");
 function App() {
   const [navLinkSelected, setNavLinkSelected] = useState("home");
   const [now, setNow] = useState(null);
+  const [homeFeedPostsArr, setHomeFeedPostsArr] = useState([]);
+  const [profilePostsArr, setProfilePostsArr] = useState([]);
 
   useEffect(() => {
     getTimeStamp().then((res) => {
@@ -26,8 +28,20 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <NavBar selected={navLinkSelected} setSelected={setNavLinkSelected} />
-        <Content setNavLinkSelected={setNavLinkSelected} now={now} />
+        <NavBar
+          selected={navLinkSelected}
+          setSelected={setNavLinkSelected}
+          setHomeFeedPostsArr={setHomeFeedPostsArr}
+          setProfilePostsArr={setProfilePostsArr}
+        />
+        <Content
+          setNavLinkSelected={setNavLinkSelected}
+          now={now}
+          homeFeedPostsArr={homeFeedPostsArr}
+          setHomeFeedPostsArr={setHomeFeedPostsArr}
+          profilePostsArr={profilePostsArr}
+          setProfilePostsArr={setProfilePostsArr}
+        />
       </BrowserRouter>
     </div>
   );

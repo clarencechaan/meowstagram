@@ -6,7 +6,7 @@ function ProgressBar() {
 
   useEffect(() => {
     function incrementProg() {
-      setProg((prevProg) => prevProg + 1);
+      setProg((prevProg) => Math.min(prevProg + 1, 100));
     }
 
     const timer = setInterval(incrementProg, 5);
