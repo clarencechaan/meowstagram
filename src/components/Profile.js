@@ -6,6 +6,7 @@ import PostPreview from "./PostPreview";
 import { query, orderBy, collection, getDocs } from "firebase/firestore";
 import { db } from "../Firebase";
 import { useEffect } from "react";
+import Footer from "./Footer";
 
 function Profile({ now, profilePostsArr, setProfilePostsArr }) {
   useEffect(() => {
@@ -62,26 +63,11 @@ function Profile({ now, profilePostsArr, setProfilePostsArr }) {
             post={post}
             now={now}
             key={post.id}
-            setProfilePostsArr={setProfilePostsArr}
+            setParentPostsArr={setProfilePostsArr}
           />
         ))}
       </div>
-      <div className="footer">
-        <div className="footer-row">
-          <span>About</span> <span>Blog</span> <span>Jobs</span>{" "}
-          <span>Help</span> <span>API</span> <span>Privacy</span>{" "}
-          <span>Terms</span> <span>Top Accounts</span> <span>Hashtags</span>{" "}
-          <span>Locations</span>
-          <span>Catstagram Lite</span>
-        </div>
-        <div className="footer-row">
-          <span>English</span>
-          <span>
-            Made with ♥ love by{" "}
-            <a href="https://github.com/clarencechaan/">Clarence Chan</a>!
-          </span>
-        </div>
-      </div>
+      <Footer />
     </div>
   );
 }

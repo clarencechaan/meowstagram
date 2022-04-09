@@ -3,8 +3,9 @@ import { Heart } from "phosphor-react";
 import { ChatCircle } from "phosphor-react";
 import PostPopup from "./PostPopup";
 import { useState } from "react";
+import { setPost, setPostLiked } from "../scripts/setPost";
 
-function PostPreview({ isBig, post, now, setProfilePostsArr }) {
+function PostPreview({ isBig, post, now, setParentPostsArr }) {
   const [isPostPopupShown, setIsPostPopupShown] = useState(false);
   const postLiked = post.likes.includes("stc.official");
   const [postSaved, setPostSaved] = useState(false);
@@ -19,51 +20,12 @@ function PostPreview({ isBig, post, now, setProfilePostsArr }) {
     document.body.style.overflow = "auto";
   }
 
-  function setPost(param) {
-    setProfilePostsArr((prevPostsArr) => {
-      let updatedPost;
-      if (typeof param === "function") {
-        updatedPost = param(post);
-      } else {
-        updatedPost = param;
-      }
-      const index = prevPostsArr.indexOf(post);
-      return [
-        ...prevPostsArr.slice(0, index),
-        updatedPost,
-        ...prevPostsArr.slice(index + 1),
-      ];
-    });
+  function setProfilePost(param) {
+    setPost(param, setParentPostsArr, post);
   }
 
-  function setPostLiked(param) {
-    setProfilePostsArr((prevPostsArr) => {
-      let updatedPostLiked;
-      if (typeof param === "function") {
-        updatedPostLiked = param(postLiked);
-      } else {
-        updatedPostLiked = param;
-      }
-      let updatedPost;
-      if (updatedPostLiked) {
-        updatedPost = { ...post, likes: [...post.likes, "stc.official"] };
-      } else {
-        const index = post.likes.indexOf("stc.official");
-        updatedPost = {
-          ...post,
-          likes: [
-            ...post.likes.slice(0, index),
-            ...post.likes.slice(index + 1),
-          ],
-        };
-      }
-      const index = prevPostsArr.indexOf(post);
-      return [
-        ...prevPostsArr.slice(0, index),
-        updatedPost,
-        ...prevPostsArr.slice(index + 1),
-      ];
-    });
+  function setProfilePostLiked(param) {
+    setPostLiked(param, setParentPostsArr, post, postLiked);
   }
 
   return (
@@ -84,11 +46,11 @@ function PostPreview({ isBig, post, now, setProfilePostsArr }) {
           cancelPopup={cancelPostPopup}
           postLiked={postLiked}
           postSaved={postSaved}
-          setPostLiked={setPostLiked}
+          setPostLiked={setProfilePostLiked}
           setPostSaved={setPostSaved}
           post={post}
           now={now}
-          setPost={setPost}
+          setPost={setProfilePost}
         />
       ) : null}
     </div>

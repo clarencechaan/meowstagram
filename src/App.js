@@ -1,6 +1,7 @@
 import "./App.css";
 import NavBar from "./components/NavBar";
 import Content from "./components/Content";
+import LogIn from "./components/LogIn";
 import { BrowserRouter } from "react-router-dom";
 import { useEffect, useState } from "react";
 import {
@@ -18,6 +19,7 @@ function App() {
   const [now, setNow] = useState(null);
   const [homeFeedPostsArr, setHomeFeedPostsArr] = useState([]);
   const [profilePostsArr, setProfilePostsArr] = useState([]);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     getTimeStamp().then((res) => {
@@ -28,20 +30,26 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <NavBar
-          selected={navLinkSelected}
-          setSelected={setNavLinkSelected}
-          setHomeFeedPostsArr={setHomeFeedPostsArr}
-          setProfilePostsArr={setProfilePostsArr}
-        />
-        <Content
-          setNavLinkSelected={setNavLinkSelected}
-          now={now}
-          homeFeedPostsArr={homeFeedPostsArr}
-          setHomeFeedPostsArr={setHomeFeedPostsArr}
-          profilePostsArr={profilePostsArr}
-          setProfilePostsArr={setProfilePostsArr}
-        />
+        {user ? (
+          <>
+            <NavBar
+              selected={navLinkSelected}
+              setSelected={setNavLinkSelected}
+              setHomeFeedPostsArr={setHomeFeedPostsArr}
+              setProfilePostsArr={setProfilePostsArr}
+            />
+            <Content
+              setNavLinkSelected={setNavLinkSelected}
+              now={now}
+              homeFeedPostsArr={homeFeedPostsArr}
+              setHomeFeedPostsArr={setHomeFeedPostsArr}
+              profilePostsArr={profilePostsArr}
+              setProfilePostsArr={setProfilePostsArr}
+            />
+          </>
+        ) : (
+          <LogIn setUser={setUser} />
+        )}
       </BrowserRouter>
     </div>
   );

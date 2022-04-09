@@ -3,6 +3,7 @@ import PostPreview from "./PostPreview";
 import { useEffect, useState } from "react";
 import { query, orderBy, collection, getDocs } from "firebase/firestore";
 import { db } from "../Firebase";
+import Footer from "./Footer";
 
 function Explore({ now }) {
   const [postsArr, setPostsArr] = useState([]);
@@ -27,28 +28,24 @@ function Explore({ now }) {
       <div className="explore-post-previews">
         {postsArr.map((post, idx) =>
           idx + (1 % 18) === 2 || (idx + 1) % 18 === 10 ? (
-            <PostPreview isBig={true} now={now} post={post} key={post.id} />
+            <PostPreview
+              isBig={true}
+              now={now}
+              post={post}
+              key={post.id}
+              setParentPostsArr={setPostsArr}
+            />
           ) : (
-            <PostPreview now={now} post={post} key={post.id} />
+            <PostPreview
+              now={now}
+              post={post}
+              key={post.id}
+              setParentPostsArr={setPostsArr}
+            />
           )
         )}
       </div>
-      <div className="footer">
-        <div className="footer-row">
-          <span>About</span> <span>Blog</span> <span>Jobs</span>{" "}
-          <span>Help</span> <span>API</span> <span>Privacy</span>{" "}
-          <span>Terms</span> <span>Top Accounts</span> <span>Hashtags</span>{" "}
-          <span>Locations</span>
-          <span>Catstagram Lite</span>
-        </div>
-        <div className="footer-row">
-          <span>English</span>
-          <span>
-            Made with ♥ love by{" "}
-            <a href="https://github.com/clarencechaan/">Clarence Chan</a>!
-          </span>
-        </div>
-      </div>
+      <Footer />
     </div>
   );
 }

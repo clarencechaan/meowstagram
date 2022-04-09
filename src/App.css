@@ -8,6 +8,11 @@
   }
 }
 
+@font-face {
+  font-family: "Billabong";
+  src: local("Billabong"), url(./fonts/Billabong.ttf) format("truetype");
+}
+
 body,
 #root,
 .App {

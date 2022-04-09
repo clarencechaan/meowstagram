@@ -1,0 +1,87 @@
+.log-in {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.log-in-window {
+  width: 100%;
+  height: 624px;
+  background-color: white;
+  border: 1px solid lightgray;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.log-in-header {
+  font-family: "Billabong";
+  font-size: 84px;
+  margin-bottom: 12px;
+}
+
+.log-ins-container {
+  display: flex;
+}
+
+.guest-log-in-container {
+  display: flex;
+  column-gap: 16px;
+  margin-bottom: 16px;
+}
+
+.guest-log-in-container img {
+  width: 100%;
+}
+
+.log-in-label {
+  font-size: 24px;
+}
+
+.google-log-in-btn {
+  font-family: inherit;
+  border: none;
+  background-color: #0095f6;
+  color: white;
+  font-size: inherit;
+  border-radius: 4px;
+  padding: 6px 12px 6px 12px;
+  cursor: pointer;
+}
+
+.guest-log-in-btn {
+  width: 170px;
+  height: 230px;
+  background-color: transparent;
+  border: 1px solid black;
+  font-weight: 700;
+  font-family: inherit;
+  margin-bottom: 10px;
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.guest-log-in-btn:hover {
+  background-color: #f3f3f3;
+}
+
+.guest-log-in-btn-name {
+  display: flex;
+  flex: 1;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.guest-log-in-btn-username {
+  font-size: 20px;
+}

@@ -1,0 +1,19 @@
+.footer {
+  height: 82px;
+  padding-bottom: 30px;
+  text-align: center;
+  font-size: 12px;
+  color: gray;
+}
+
+.footer-row {
+  margin-top: 24px;
+}
+
+.footer-row > span {
+  margin-right: 14px;
+}
+
+.footer-row:first-child > span > a {
+  text-decoration: none;
+}
