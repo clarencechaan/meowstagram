@@ -13,6 +13,7 @@ function Content({
   setHomeFeedPostsArr,
   profilePostsArr,
   setProfilePostsArr,
+  me,
 }) {
   return (
     <div className="Content">
@@ -25,8 +26,9 @@ function Content({
                 now={now}
                 homeFeedPostsArr={homeFeedPostsArr}
                 setHomeFeedPostsArr={setHomeFeedPostsArr}
+                me={me}
               />
-              <SideBar setNavLinkSelected={setNavLinkSelected} />
+              <SideBar setNavLinkSelected={setNavLinkSelected} me={me} />
             </>
           }
         />
@@ -37,10 +39,11 @@ function Content({
               now={now}
               profilePostsArr={profilePostsArr}
               setProfilePostsArr={setProfilePostsArr}
+              me={me}
             />
           }
         />
-        <Route path="/explore" element={<Explore now={now} />} />
+        <Route path="/explore" element={<Explore now={now} me={me} />} />
         <Route path="/inbox" element={<Inbox />} />
       </Routes>
     </div>

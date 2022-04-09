@@ -1,5 +1,5 @@
 import "../styles/PostTimeAgo.css";
-import getTimeAgo from "../scripts/timeConversion";
+import { getTimeAgo } from "../scripts/timeConversion";
 
 function PostTimeAgo({ timestamp, now }) {
   return (

@@ -1,82 +1,29 @@
 import "../styles/LogIn.css";
 import Footer from "./Footer";
+import uploadGuestUsers from "../scripts/uploadGuestUsers";
+import guestsArray from "../scripts/guests";
 
-function LogIn({ setUser }) {
+function LogIn({ setMe }) {
   return (
     <div className="log-in">
       <div className="log-in-window">
         <div className="log-in-header">Catstagram</div>
         <div className="guest-log-in-container">
-          <button
-            className="guest-log-in-btn"
-            onClick={() => setUser("blueberry")}
-          >
-            <img
-              src="https://imgur.com/MLoJBiX.jpg"
-              alt=""
-              referrerPolicy="no-referrer"
-            />
-            <div className="guest-log-in-btn-name">
-              <div className="guest-log-in-btn-username">@blueberry</div>
-              (Blueberry Onyx)
-            </div>
-          </button>
-          <button
-            className="guest-log-in-btn"
-            onClick={() => setUser("omelette")}
-          >
-            <img
-              src="https://imgur.com/xwFnZFN.jpg"
-              alt=""
-              referrerPolicy="no-referrer"
-            />
-            <div className="guest-log-in-btn-name">
-              <div className="guest-log-in-btn-username">@omelette</div>
-              (Omelette Sapphire II)
-            </div>
-          </button>
-          <button
-            className="guest-log-in-btn"
-            onClick={() => setUser("widget")}
-          >
-            <img
-              src="https://imgur.com/1qkpVEx.jpg"
-              alt=""
-              referrerPolicy="no-referrer"
-            />
-            <div className="guest-log-in-btn-name">
-              <div className="guest-log-in-btn-username">@widget</div>
-              (Widget Apollo Jr.)
-            </div>
-          </button>
-          <button
-            className="guest-log-in-btn"
-            onClick={() => setUser("critter")}
-          >
-            <img
-              src="https://imgur.com/MEFWOzT.jpg"
-              alt=""
-              referrerPolicy="no-referrer"
-            />
-            <div className="guest-log-in-btn-name">
-              <div className="guest-log-in-btn-username">@critter</div>
-              (Critter Cupcake)
-            </div>
-          </button>
-          <button
-            className="guest-log-in-btn"
-            onClick={() => setUser("pumpkin")}
-          >
-            <img
-              src="https://imgur.com/5BQjio2.jpg"
-              alt=""
-              referrerPolicy="no-referrer"
-            />
-            <div className="guest-log-in-btn-name">
-              <div className="guest-log-in-btn-username">@pumpkin</div>
-              (Pumpkin Pie III)
-            </div>
-          </button>
+          {guestsArray.map((guest) => (
+            <button
+              className="guest-log-in-btn"
+              onClick={() => setMe(guest)}
+              key={guest.username}
+            >
+              <img src={guest.imgURL} alt="" referrerPolicy="no-referrer" />
+              <div className="guest-log-in-btn-name">
+                <div className="guest-log-in-btn-username">
+                  @{guest.username}
+                </div>
+                ({guest.fullname})
+              </div>
+            </button>
+          ))}
         </div>
         <div className="log-in-label">
           Log In as a Guest or{" "}
@@ -84,6 +31,7 @@ function LogIn({ setUser }) {
         </div>
       </div>
       <Footer />
+      <button onClick={uploadGuestUsers}>upload guests</button>
     </div>
   );
 }

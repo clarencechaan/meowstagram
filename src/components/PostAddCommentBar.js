@@ -5,10 +5,25 @@ import Picker from "emoji-picker-react";
 import { db } from "../Firebase";
 import { updateDoc, doc, arrayUnion } from "firebase/firestore";
 import { nanoid } from "nanoid";
+import {
+  getFunctions,
+  httpsCallable,
+  connectFunctionsEmulator,
+} from "firebase/functions";
+
+const functions = getFunctions();
+connectFunctionsEmulator(functions, "localhost", 5001);
+const getTimeStamp = httpsCallable(functions, "getTimeStamp");
 
 let selectionStart;
 
-function PostAddCommentsBar({ post, setPost, setMyComments, scrollToBottom }) {
+function PostAddCommentsBar({
+  post,
+  setPost,
+  setMyComments,
+  scrollToBottom,
+  me,
+}) {
   const [inputValue, setInputValue] = useState("");
   const [emojiPickerShown, setEmojiPickerShown] = useState(false);
   const addCommentInput = useRef(null);
@@ -41,10 +56,11 @@ function PostAddCommentsBar({ post, setPost, setMyComments, scrollToBottom }) {
   function handlePostCommentBtnClicked() {
     uploadComment();
     const comment = {
-      user: "stc.official",
+      user: me.username,
       text: inputValue,
       id: id,
       likes: [],
+      timestamp: getTimeStamp(),
     };
     setPost((prevPost) => ({
       ...prevPost,
@@ -58,13 +74,17 @@ function PostAddCommentsBar({ post, setPost, setMyComments, scrollToBottom }) {
 
   async function uploadComment() {
     const postRef = doc(db, "posts", post.id);
-    await updateDoc(postRef, {
-      comments: arrayUnion({
-        user: "stc.official",
-        text: inputValue,
-        id: id,
-        likes: [],
-      }),
+
+    getTimeStamp().then((res) => {
+      updateDoc(postRef, {
+        comments: arrayUnion({
+          user: me.username,
+          text: inputValue,
+          id: id,
+          likes: [],
+          timestamp: Math.round(res.data / 1000),
+        }),
+      });
     });
   }
 

@@ -1,10 +1,17 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import "../styles/LikesPopupUser.css";
-import cat from "../images/cat.jpg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../Firebase";
 
-function LikesPopupUser() {
+function LikesPopupUser({ username }) {
   const [isFollowing, setIsFollowing] = useState(false);
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    fetchUser();
+  }, []);
 
   function handleFollowBtnClicked() {
     setIsFollowing(true);
@@ -18,19 +25,25 @@ function LikesPopupUser() {
     document.body.style.overflow = "auto";
   }
 
+  async function fetchUser() {
+    const userRef = doc(db, "users", username);
+    const userSnap = await getDoc(userRef);
+    setUser(userSnap.data());
+  }
+
   return (
     <div className="likes-popup-user">
       <Link to="/profile" onClick={handleUserClicked}>
-        <img className="likes-popup-user-img" src={cat} alt="" />
+        <img className="likes-popup-user-img" src={user.imgURL} alt="" />
       </Link>
       <div>
         <div className="likes-popup-user-username">
           <Link to="/profile" onClick={handleUserClicked}>
-            <span>stc.official</span>
+            <span>{username}</span>
           </Link>
         </div>
         <div className="likes-popup-user-full-name">
-          <span>Sushi the Cat</span>
+          <span>{user.fullname}</span>
         </div>
       </div>
 

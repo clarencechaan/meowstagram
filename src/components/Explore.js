@@ -5,7 +5,7 @@ import { query, orderBy, collection, getDocs } from "firebase/firestore";
 import { db } from "../Firebase";
 import Footer from "./Footer";
 
-function Explore({ now }) {
+function Explore({ now, me }) {
   const [postsArr, setPostsArr] = useState([]);
 
   useEffect(() => {
@@ -34,6 +34,7 @@ function Explore({ now }) {
               post={post}
               key={post.id}
               setParentPostsArr={setPostsArr}
+              me={me}
             />
           ) : (
             <PostPreview
@@ -41,6 +42,7 @@ function Explore({ now }) {
               post={post}
               key={post.id}
               setParentPostsArr={setPostsArr}
+              me={me}
             />
           )
         )}

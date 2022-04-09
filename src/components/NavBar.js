@@ -9,6 +9,7 @@ function NavBar({
   setSelected,
   setHomeFeedPostsArr,
   setProfilePostsArr,
+  me,
 }) {
   const [lastSelected, setLastSelected] = useState("home");
 
@@ -32,6 +33,7 @@ function NavBar({
           setLastSelected={setLastSelected}
           setHomeFeedPostsArr={setHomeFeedPostsArr}
           setProfilePostsArr={setProfilePostsArr}
+          me={me}
         />
       </div>
     </div>

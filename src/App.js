@@ -19,7 +19,7 @@ function App() {
   const [now, setNow] = useState(null);
   const [homeFeedPostsArr, setHomeFeedPostsArr] = useState([]);
   const [profilePostsArr, setProfilePostsArr] = useState([]);
-  const [user, setUser] = useState(null);
+  const [me, setMe] = useState(null);
 
   useEffect(() => {
     getTimeStamp().then((res) => {
@@ -30,13 +30,14 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        {user ? (
+        {me ? (
           <>
             <NavBar
               selected={navLinkSelected}
               setSelected={setNavLinkSelected}
               setHomeFeedPostsArr={setHomeFeedPostsArr}
               setProfilePostsArr={setProfilePostsArr}
+              me={me}
             />
             <Content
               setNavLinkSelected={setNavLinkSelected}
@@ -45,10 +46,11 @@ function App() {
               setHomeFeedPostsArr={setHomeFeedPostsArr}
               profilePostsArr={profilePostsArr}
               setProfilePostsArr={setProfilePostsArr}
+              me={me}
             />
           </>
         ) : (
-          <LogIn setUser={setUser} />
+          <LogIn setMe={setMe} />
         )}
       </BrowserRouter>
     </div>

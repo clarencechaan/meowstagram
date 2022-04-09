@@ -20,6 +20,7 @@
 
 .likes-popup-user-username span {
   cursor: pointer;
+  font-weight: 700;
 }
 
 .likes-popup-user-username span:hover {

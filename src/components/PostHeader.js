@@ -1,12 +1,26 @@
-import catProfile from "../images/cat.jpg";
+/* eslint-disable react-hooks/exhaustive-deps */
 import postHeaderMoreOptions from "../images/post-header-more-options.svg";
 import "../styles/PostHeader.css";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import MoreOptionsPopup from "./MoreOptionsPopup";
+import { useEffect } from "react";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../Firebase";
 
-function PostHeader(cancelPopup) {
+function PostHeader({ cancelPopup, authorUsername }) {
   const [moreOptionsPopupShown, setMoreOptionsPopupShown] = useState(false);
+  const [author, setAuthor] = useState({});
+
+  useEffect(() => {
+    fetchAuthor();
+  }, []);
+
+  async function fetchAuthor() {
+    const userRef = doc(db, "users", authorUsername);
+    const userSnap = await getDoc(userRef);
+    setAuthor(userSnap.data());
+  }
 
   function handleMoreOptionsClicked() {
     setMoreOptionsPopupShown(true);
@@ -19,10 +33,10 @@ function PostHeader(cancelPopup) {
   return (
     <div className="post-header">
       <Link to="/profile" onClick={cancelPopup}>
-        <img className="post-header-img" src={catProfile} alt="" />
+        <img className="post-header-img" src={author.imgURL} alt="" />
       </Link>
       <Link to="/profile" onClick={cancelPopup}>
-        <div className="post-header-username">stc.official</div>
+        <div className="post-header-username">{authorUsername}</div>
       </Link>
       <img
         className="post-header-more-options"

@@ -15,7 +15,7 @@ function setPost(param, setParentPostsArr, post) {
   });
 }
 
-function setPostLiked(param, setParentPostsArr, post, postLiked) {
+function setPostLiked(param, setParentPostsArr, post, postLiked, me) {
   setParentPostsArr((prevPostsArr) => {
     let updatedPostLiked;
     if (typeof param === "function") {
@@ -25,9 +25,9 @@ function setPostLiked(param, setParentPostsArr, post, postLiked) {
     }
     let updatedPost;
     if (updatedPostLiked) {
-      updatedPost = { ...post, likes: [...post.likes, "stc.official"] };
+      updatedPost = { ...post, likes: [...post.likes, me.username] };
     } else {
-      const index = post.likes.indexOf("stc.official");
+      const index = post.likes.indexOf(me.username);
       updatedPost = {
         ...post,
         likes: [...post.likes.slice(0, index), ...post.likes.slice(index + 1)],

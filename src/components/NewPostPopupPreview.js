@@ -1,11 +1,10 @@
 import "../styles/NewPostPopupPreview.css";
-import cat from "../images/cat.jpg";
 import { useEffect, useRef } from "react";
 import Picker from "emoji-picker-react";
 
 let selectionStart;
 
-function NewPostPopupPreview({ imgURL, caption, setCaption }) {
+function NewPostPopupPreview({ imgURL, caption, setCaption, me }) {
   const captionTextarea = useRef(null);
 
   useEffect(() => captionTextarea.current.focus(), []);
@@ -36,8 +35,12 @@ function NewPostPopupPreview({ imgURL, caption, setCaption }) {
       />
       <div className="new-post-popup-preview-caption-container">
         <div className="new-post-popup-preview-user-bar">
-          <img className="new-post-popup-preview-user-img" src={cat} alt="" />
-          <div className="new-post-popup-preview-username">stc.official</div>
+          <img
+            className="new-post-popup-preview-user-img"
+            src={me.imgURL}
+            alt=""
+          />
+          <div className="new-post-popup-preview-username">{me.username}</div>
         </div>
         <textarea
           name="caption-textarea"

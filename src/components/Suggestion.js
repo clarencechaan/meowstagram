@@ -1,9 +1,8 @@
 import "../styles/Suggestion.css";
-import catProfile from "../images/cat.jpg";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-function Suggestion() {
+function Suggestion({ user }) {
   const [isFollowing, setIsFollowing] = useState(false);
 
   function handleFollowBtnClicked() {
@@ -17,13 +16,13 @@ function Suggestion() {
   return (
     <div className="suggestion">
       <Link to="/profile">
-        <img className="suggestion-profile-img" src={catProfile} alt="" />
+        <img className="suggestion-profile-img" src={user.imgURL} alt="" />
       </Link>
       <div className="suggestion-names">
         <Link to="/profile">
-          <div className="suggestion-username">stc.official</div>
+          <div className="suggestion-username">{user.username}</div>
         </Link>
-        <div className="suggestion-fullname">Sushi the Cat</div>
+        <div className="suggestion-fullname">{user.fullname}</div>
       </div>
       {isFollowing ? (
         <button

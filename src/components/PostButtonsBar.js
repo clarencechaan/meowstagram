@@ -18,7 +18,7 @@ function PostButtonsBar({
   setPostLiked,
   setPostSaved,
   post,
-  setPost,
+  me,
 }) {
   const [sharePostPopupShown, setSharePostPopupShown] = useState(false);
 
@@ -36,11 +36,11 @@ function PostButtonsBar({
     const postRef = doc(db, "posts", post.id);
     if (!postLiked) {
       await updateDoc(postRef, {
-        likes: arrayUnion("stc.official"),
+        likes: arrayUnion(me.username),
       });
     } else {
       await updateDoc(postRef, {
-        likes: arrayRemove("stc.official"),
+        likes: arrayRemove(me.username),
       });
     }
     setPostLiked((prevPostLiked) => !prevPostLiked);

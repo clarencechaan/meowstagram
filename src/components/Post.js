@@ -9,58 +9,20 @@ import PostAddCommentBar from "./PostAddCommentBar";
 import PostLikesCounter from "./PostLikesCounter";
 import PostTimeAgo from "./PostTimeAgo";
 import { Link } from "react-router-dom";
+import { setPost, setPostLiked } from "../scripts/setPost";
 
-function Post({ post, now, setHomeFeedPostsArr }) {
+function Post({ post, now, setHomeFeedPostsArr, me }) {
   const [postPopupShown, setPostPopupShown] = useState(false);
   const [postSaved, setPostSaved] = useState(false);
   const [myComments, setMyComments] = useState([]);
-  const postLiked = post.likes.includes("stc.official");
+  const postLiked = post.likes.includes(me.username);
 
-  function setPost(param) {
-    setHomeFeedPostsArr((prevPostsArr) => {
-      let updatedPost;
-      if (typeof param === "function") {
-        updatedPost = param(post);
-      } else {
-        updatedPost = param;
-      }
-      const index = prevPostsArr.indexOf(post);
-      return [
-        ...prevPostsArr.slice(0, index),
-        updatedPost,
-        ...prevPostsArr.slice(index + 1),
-      ];
-    });
+  function setHomeFeedPost(param) {
+    setPost(param, setHomeFeedPostsArr, post);
   }
 
-  function setPostLiked(param) {
-    setHomeFeedPostsArr((prevPostsArr) => {
-      let updatedPostLiked;
-      if (typeof param === "function") {
-        updatedPostLiked = param(postLiked);
-      } else {
-        updatedPostLiked = param;
-      }
-      let updatedPost;
-      if (updatedPostLiked) {
-        updatedPost = { ...post, likes: [...post.likes, "stc.official"] };
-      } else {
-        const index = post.likes.indexOf("stc.official");
-        updatedPost = {
-          ...post,
-          likes: [
-            ...post.likes.slice(0, index),
-            ...post.likes.slice(index + 1),
-          ],
-        };
-      }
-      const index = prevPostsArr.indexOf(post);
-      return [
-        ...prevPostsArr.slice(0, index),
-        updatedPost,
-        ...prevPostsArr.slice(index + 1),
-      ];
-    });
+  function setHomeFeedPostLiked(param) {
+    setPostLiked(param, setHomeFeedPostsArr, post, postLiked, me);
   }
 
   function cancelPostPopup() {
@@ -85,7 +47,10 @@ function Post({ post, now, setHomeFeedPostsArr }) {
 
   return (
     <div className="post">
-      <PostHeader cancelPostPopup={cancelPostPopup} />
+      <PostHeader
+        cancelPostPopup={cancelPostPopup}
+        authorUsername={post.user}
+      />
       <img
         className="post-img"
         src={post.URL}
@@ -96,12 +61,13 @@ function Post({ post, now, setHomeFeedPostsArr }) {
         setPostPopupShown={setPostPopupShown}
         postLiked={postLiked}
         postSaved={postSaved}
-        setPostLiked={setPostLiked}
+        setPostLiked={setHomeFeedPostLiked}
         setPostSaved={setPostSaved}
         post={post}
-        setPost={setPost}
+        setPost={setHomeFeedPost}
+        me={me}
       />
-      <PostLikesCounter likesCount={post.likes.length} />
+      <PostLikesCounter likesCount={post.likes.length} likes={post.likes} />
       <div className="post-description">
         <div>
           <Link to="/profile">
@@ -134,19 +100,21 @@ function Post({ post, now, setHomeFeedPostsArr }) {
       <PostTimeAgo timestamp={post.timestamp} now={now} />
       <PostAddCommentBar
         post={post}
-        setPost={setPost}
+        setPost={setHomeFeedPost}
         setMyComments={setMyComments}
+        me={me}
       />
       {postPopupShown ? (
         <PostPopup
           cancelPopup={cancelPostPopup}
           postLiked={postLiked}
           postSaved={postSaved}
-          setPostLiked={setPostLiked}
+          setPostLiked={setHomeFeedPostLiked}
           setPostSaved={setPostSaved}
           post={post}
-          setPost={setPost}
+          setPost={setHomeFeedPost}
           now={now}
+          me={me}
         />
       ) : null}
     </div>

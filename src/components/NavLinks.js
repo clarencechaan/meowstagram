@@ -8,7 +8,6 @@ import findPeopleSelected from "../images/find-people-selected.svg";
 import findPeopleUnselected from "../images/find-people-unselected.svg";
 import activityFeedSelected from "../images/activity-feed-selected.svg";
 import activityFeedUnselected from "../images/activity-feed-unselected.svg";
-import placeholderProfilePic from "../images/placeholder-profile-150x150.jpg";
 import "../styles/NavLinks.css";
 import NewPostPopup from "./NewPostPopup";
 import ActivityFeedPopup from "./ActivityFeedPopup";
@@ -23,6 +22,7 @@ function NavLinks({
   setLastSelected,
   setHomeFeedPostsArr,
   setProfilePostsArr,
+  me,
 }) {
   const [newPostPopupShown, setNewPostPopupShown] = useState(false);
   const [activityFeedPopupShown, setActivityFeedPopupShown] = useState(false);
@@ -118,7 +118,7 @@ function NavLinks({
         onClick={handleActivityFeedNavLinkClicked}
       />
       <img
-        src={placeholderProfilePic}
+        src={me.imgURL}
         alt=""
         className={
           selected === "profile-pic" ? "nav-link bordered" : "nav-link"
@@ -133,6 +133,7 @@ function NavLinks({
           lastSelected={lastSelected}
           setHomeFeedPostsArr={setHomeFeedPostsArr}
           setProfilePostsArr={setProfilePostsArr}
+          me={me}
         />
       ) : null}
       {activityFeedPopupShown ? (

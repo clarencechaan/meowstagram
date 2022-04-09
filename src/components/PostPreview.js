@@ -5,9 +5,9 @@ import PostPopup from "./PostPopup";
 import { useState } from "react";
 import { setPost, setPostLiked } from "../scripts/setPost";
 
-function PostPreview({ isBig, post, now, setParentPostsArr }) {
+function PostPreview({ isBig, post, now, setParentPostsArr, me }) {
   const [isPostPopupShown, setIsPostPopupShown] = useState(false);
-  const postLiked = post.likes.includes("stc.official");
+  const postLiked = post.likes.includes(me.username);
   const [postSaved, setPostSaved] = useState(false);
 
   function handlePostPreviewClicked() {
@@ -20,13 +20,15 @@ function PostPreview({ isBig, post, now, setParentPostsArr }) {
     document.body.style.overflow = "auto";
   }
 
-  function setProfilePost(param) {
+  function setParentPost(param) {
     setPost(param, setParentPostsArr, post);
   }
 
-  function setProfilePostLiked(param) {
-    setPostLiked(param, setParentPostsArr, post, postLiked);
+  function setParentPostLiked(param) {
+    setPostLiked(param, setParentPostsArr, post, postLiked, me);
   }
+
+  console.log(post.likes);
 
   return (
     <div className={isBig ? "post-preview big" : "post-preview"}>
@@ -46,11 +48,12 @@ function PostPreview({ isBig, post, now, setParentPostsArr }) {
           cancelPopup={cancelPostPopup}
           postLiked={postLiked}
           postSaved={postSaved}
-          setPostLiked={setProfilePostLiked}
+          setPostLiked={setParentPostLiked}
           setPostSaved={setPostSaved}
           post={post}
           now={now}
-          setPost={setProfilePost}
+          setPost={setParentPost}
+          me={me}
         />
       ) : null}
     </div>

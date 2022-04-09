@@ -12,6 +12,7 @@ function NewPostPopup({
   lastSelected,
   setHomeFeedPostsArr,
   setProfilePostsArr,
+  me,
 }) {
   const [imgURL, setImgURL] = useState(null);
   const [caption, setCaption] = useState("");
@@ -19,7 +20,7 @@ function NewPostPopup({
   async function uploadPost() {
     try {
       let post = {
-        user: "stc.official",
+        user: me.username,
         caption: caption,
         URL: imgURL,
         timestamp: serverTimestamp(),
@@ -83,6 +84,7 @@ function NewPostPopup({
             imgURL={imgURL}
             caption={caption}
             setCaption={setCaption}
+            me={me}
           />
         )}
       </div>

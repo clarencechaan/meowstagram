@@ -1,13 +1,16 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import "../styles/PostPopup.css";
 import PostHeader from "./PostHeader";
 import PostButtonsBar from "./PostButtonsBar";
 import PostAddCommentBar from "./PostAddCommentBar";
 import PostLikesCounter from "./PostLikesCounter";
 import PostTimeAgo from "./PostTimeAgo";
-import cat from "../images/cat.jpg";
 import PostPopupComment from "./PostPopupComment";
 import { Link } from "react-router-dom";
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../Firebase";
+import { getTimeAgoShort } from "../scripts/timeConversion";
 
 function PostPopup({
   cancelPopup,
@@ -18,9 +21,22 @@ function PostPopup({
   post,
   now,
   setPost,
+  me,
 }) {
   const { URL, caption, timestamp, user, comments, likes } = post;
   const messagesEndRef = useRef(null);
+  const [author, setAuthor] = useState({});
+
+  useEffect(() => {
+    fetchAuthor();
+  }, []);
+
+  async function fetchAuthor() {
+    const userRef = doc(db, "users", post.user);
+    const userSnap = await getDoc(userRef);
+    setAuthor(userSnap.data());
+  }
+
   function scrollToBottom() {
     setTimeout(
       () => messagesEndRef.current?.scrollIntoView({ behavior: "smooth" }),
@@ -44,12 +60,12 @@ function PostPopup({
       >
         <img className="post-popup-window-img" src={URL} alt="" />
         <div className="post-popup-window-sidebar">
-          <PostHeader cancelPopup={cancelPopup} />
+          <PostHeader cancelPopup={cancelPopup} authorUsername={post.user} />
           <div className="post-popup-window-comments">
             <div className="post-popup-window-comments-description">
               <img
                 className="post-popup-window-comments-author-img"
-                src={cat}
+                src={author.imgURL}
                 alt=""
               />
               <div>
@@ -64,7 +80,7 @@ function PostPopup({
                   </span>
                 </div>
                 <div className="post-popup-window-comments-description-time-ago">
-                  1d
+                  {getTimeAgoShort(timestamp.seconds, now)}
                 </div>
               </div>
             </div>
@@ -75,6 +91,8 @@ function PostPopup({
                 key={comment.id}
                 post={post}
                 setPost={setPost}
+                me={me}
+                now={now}
               />
             ))}
             <div ref={messagesEndRef} />
@@ -87,13 +105,15 @@ function PostPopup({
             setPostPopupShown={() => {}}
             setPost={setPost}
             post={post}
+            me={me}
           />
-          <PostLikesCounter likesCount={likes.length} />
+          <PostLikesCounter likesCount={likes.length} likes={post.likes} />
           <PostTimeAgo timestamp={timestamp} now={now} />
           <PostAddCommentBar
             post={post}
             setPost={setPost}
             scrollToBottom={scrollToBottom}
+            me={me}
           />
         </div>
       </div>

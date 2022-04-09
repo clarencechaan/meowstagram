@@ -1,22 +1,31 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import "../styles/PostPopupComment.css";
-import cat from "../images/cat.jpg";
 import commentLike from "../images/comment-like.svg";
 import commentLikeSelected from "../images/comment-like-selected.svg";
 import { Link } from "react-router-dom";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { db } from "../Firebase";
+import { useEffect, useState } from "react";
+import LikesPopup from "./LikesPopup";
+import { getTimeAgoShort } from "../scripts/timeConversion";
 
-function PostPopupComment({ cancelPopup, comment, post, setPost }) {
-  const { user, text, likes, id } = comment;
-  const liked = likes.includes("stc.official");
+function PostPopupComment({ cancelPopup, comment, post, setPost, me, now }) {
+  const { user, text, likes, id, timestamp } = comment;
+  const [author, setAuthor] = useState({});
+  const [likesPopupShown, setLikesPopupShown] = useState(false);
+  const liked = likes.includes(me.username);
+
+  useEffect(() => {
+    fetchAuthor();
+  }, []);
 
   function handleLikeClicked() {
     setPost((prevPost) => {
       let updatedLikes;
-      if (!likes.includes("stc.official")) {
-        updatedLikes = [...likes, "stc.official"];
+      if (!likes.includes(me.username)) {
+        updatedLikes = [...likes, me.username];
       } else {
-        const index = likes.indexOf("stc.official");
+        const index = likes.indexOf(me.username);
         updatedLikes = [...likes.slice(0, index), ...likes.slice(index + 1)];
       }
       const updatedComment = { ...comment, likes: updatedLikes };
@@ -33,6 +42,20 @@ function PostPopupComment({ cancelPopup, comment, post, setPost }) {
     uploadLike();
   }
 
+  function cancelLikesPopup() {
+    setLikesPopupShown(false);
+  }
+
+  function handleLikeCounterClicked() {
+    setLikesPopupShown(true);
+  }
+
+  async function fetchAuthor() {
+    const userRef = doc(db, "users", user);
+    const userSnap = await getDoc(userRef);
+    setAuthor(userSnap.data());
+  }
+
   async function uploadLike() {
     const postRef = doc(db, "posts", post.id);
     const postSnap = await getDoc(postRef);
@@ -41,13 +64,13 @@ function PostPopupComment({ cancelPopup, comment, post, setPost }) {
       .comments.findIndex((comment) => comment.id === id);
     const oldComment = postSnap.data().comments[index];
     let updatedComment;
-    if (!oldComment.likes.includes("stc.official")) {
+    if (!oldComment.likes.includes(me.username)) {
       updatedComment = {
         ...oldComment,
-        likes: [...oldComment.likes, "stc.official"],
+        likes: [...oldComment.likes, me.username],
       };
     } else {
-      const index = oldComment.likes.indexOf("stc.official");
+      const index = oldComment.likes.indexOf(me.username);
       updatedComment = {
         ...oldComment,
         likes: [
@@ -80,7 +103,7 @@ function PostPopupComment({ cancelPopup, comment, post, setPost }) {
       <Link to="/profile">
         <img
           className="post-popup-comment-img"
-          src={cat}
+          src={author.imgURL}
           alt=""
           onClick={cancelPopup}
         />
@@ -98,8 +121,13 @@ function PostPopupComment({ cancelPopup, comment, post, setPost }) {
           <span className="post-popup-comment-author-text">{text}</span>
         </div>
         <div className="post-popup-comment-stats">
-          <span className="post-popup-comment-time-ago">1d</span>
-          <span className="post-popup-comment-likes-counter">
+          <span className="post-popup-comment-time-ago">
+            {getTimeAgoShort(timestamp, now)}
+          </span>
+          <span
+            className="post-popup-comment-likes-counter"
+            onClick={handleLikeCounterClicked}
+          >
             {getLikesCountStr()}
           </span>
         </div>
@@ -116,6 +144,9 @@ function PostPopupComment({ cancelPopup, comment, post, setPost }) {
           onClick={handleLikeClicked}
         />
       </div>
+      {likesPopupShown ? (
+        <LikesPopup cancelPopup={cancelLikesPopup} likes={comment.likes} />
+      ) : null}
     </div>
   );
 }
