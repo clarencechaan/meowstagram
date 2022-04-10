@@ -8,7 +8,7 @@ import { db } from "../Firebase";
 import { useEffect } from "react";
 import Footer from "./Footer";
 
-function Profile({ now, profilePostsArr, setProfilePostsArr, me }) {
+function Profile({ now, profilePostsArr, setProfilePostsArr, me, setMe }) {
   useEffect(() => {
     fetchProfilePosts();
   }, []);
@@ -65,6 +65,7 @@ function Profile({ now, profilePostsArr, setProfilePostsArr, me }) {
             key={post.id}
             setParentPostsArr={setProfilePostsArr}
             me={me}
+            setMe={setMe}
           />
         ))}
       </div>

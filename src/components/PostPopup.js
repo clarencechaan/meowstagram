@@ -22,6 +22,7 @@ function PostPopup({
   now,
   setPost,
   me,
+  setMe,
 }) {
   const { URL, caption, timestamp, user, comments, likes } = post;
   const messagesEndRef = useRef(null);
@@ -93,6 +94,7 @@ function PostPopup({
                 setPost={setPost}
                 me={me}
                 now={now}
+                setMe={setMe}
               />
             ))}
             <div ref={messagesEndRef} />
@@ -107,7 +109,12 @@ function PostPopup({
             post={post}
             me={me}
           />
-          <PostLikesCounter likesCount={likes.length} likes={post.likes} />
+          <PostLikesCounter
+            likesCount={likes.length}
+            likes={post.likes}
+            me={me}
+            setMe={setMe}
+          />
           <PostTimeAgo timestamp={timestamp} now={now} />
           <PostAddCommentBar
             post={post}

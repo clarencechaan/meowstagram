@@ -5,7 +5,7 @@ import Post from "./Post";
 import { query, orderBy, collection, getDocs } from "firebase/firestore";
 import { db } from "../Firebase";
 
-function HomeFeed({ now, homeFeedPostsArr, setHomeFeedPostsArr, me }) {
+function HomeFeed({ now, homeFeedPostsArr, setHomeFeedPostsArr, me, setMe }) {
   useEffect(() => {
     fetchLatestPosts();
   }, []);
@@ -30,6 +30,7 @@ function HomeFeed({ now, homeFeedPostsArr, setHomeFeedPostsArr, me }) {
           key={post.id}
           setHomeFeedPostsArr={setHomeFeedPostsArr}
           me={me}
+          setMe={setMe}
         />
       ))}
     </div>

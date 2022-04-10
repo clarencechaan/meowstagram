@@ -11,7 +11,7 @@ import PostTimeAgo from "./PostTimeAgo";
 import { Link } from "react-router-dom";
 import { setPost, setPostLiked } from "../scripts/setPost";
 
-function Post({ post, now, setHomeFeedPostsArr, me }) {
+function Post({ post, now, setHomeFeedPostsArr, me, setMe }) {
   const [postPopupShown, setPostPopupShown] = useState(false);
   const [postSaved, setPostSaved] = useState(false);
   const [myComments, setMyComments] = useState([]);
@@ -67,7 +67,12 @@ function Post({ post, now, setHomeFeedPostsArr, me }) {
         setPost={setHomeFeedPost}
         me={me}
       />
-      <PostLikesCounter likesCount={post.likes.length} likes={post.likes} />
+      <PostLikesCounter
+        likesCount={post.likes.length}
+        likes={post.likes}
+        me={me}
+        setMe={setMe}
+      />
       <div className="post-description">
         <div>
           <Link to="/profile">
@@ -115,6 +120,7 @@ function Post({ post, now, setHomeFeedPostsArr, me }) {
           setPost={setHomeFeedPost}
           now={now}
           me={me}
+          setMe={setMe}
         />
       ) : null}
     </div>

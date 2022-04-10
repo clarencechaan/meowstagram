@@ -1,7 +1,7 @@
 import "../styles/LikesPopup.css";
 import LikesPopupUser from "./LikesPopupUser";
 
-function LikesPopup({ cancelPopup, likes }) {
+function LikesPopup({ cancelPopup, likes, me, setMe }) {
   return (
     <div className="likes-popup" onClick={cancelPopup}>
       <div
@@ -14,7 +14,12 @@ function LikesPopup({ cancelPopup, likes }) {
         <div className="likes-popup-window-header">Likes</div>
         <div className="likes-popup-users-container">
           {likes.map((username) => (
-            <LikesPopupUser username={username} key={username} />
+            <LikesPopupUser
+              username={username}
+              key={username}
+              me={me}
+              setMe={setMe}
+            />
           ))}
         </div>
       </div>

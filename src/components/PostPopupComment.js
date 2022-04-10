@@ -9,7 +9,15 @@ import { useEffect, useState } from "react";
 import LikesPopup from "./LikesPopup";
 import { getTimeAgoShort } from "../scripts/timeConversion";
 
-function PostPopupComment({ cancelPopup, comment, post, setPost, me, now }) {
+function PostPopupComment({
+  cancelPopup,
+  comment,
+  post,
+  setPost,
+  me,
+  now,
+  setMe,
+}) {
   const { user, text, likes, id, timestamp } = comment;
   const [author, setAuthor] = useState({});
   const [likesPopupShown, setLikesPopupShown] = useState(false);
@@ -145,7 +153,12 @@ function PostPopupComment({ cancelPopup, comment, post, setPost, me, now }) {
         />
       </div>
       {likesPopupShown ? (
-        <LikesPopup cancelPopup={cancelLikesPopup} likes={comment.likes} />
+        <LikesPopup
+          cancelPopup={cancelLikesPopup}
+          likes={comment.likes}
+          me={me}
+          setMe={setMe}
+        />
       ) : null}
     </div>
   );

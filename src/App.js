@@ -47,6 +47,7 @@ function App() {
               profilePostsArr={profilePostsArr}
               setProfilePostsArr={setProfilePostsArr}
               me={me}
+              setMe={setMe}
             />
           </>
         ) : (

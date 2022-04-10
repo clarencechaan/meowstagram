@@ -2,14 +2,23 @@ import "../styles/LogIn.css";
 import Footer from "./Footer";
 import uploadGuestUsers from "../scripts/uploadGuestUsers";
 import guestsArray from "../scripts/guests";
+import { useEffect, useState } from "react";
 
 function LogIn({ setMe }) {
+  const [guestsArr, setGuestsArr] = useState([]);
+
+  useEffect(() => {
+    guestsArray.then((arr) => {
+      setGuestsArr(arr);
+    });
+  }, []);
+
   return (
     <div className="log-in">
       <div className="log-in-window">
         <div className="log-in-header">Catstagram</div>
         <div className="guest-log-in-container">
-          {guestsArray.map((guest) => (
+          {guestsArr.map((guest) => (
             <button
               className="guest-log-in-btn"
               onClick={() => setMe(guest)}

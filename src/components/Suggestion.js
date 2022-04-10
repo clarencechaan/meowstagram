@@ -1,16 +1,51 @@
 import "../styles/Suggestion.css";
-import { useState } from "react";
 import { Link } from "react-router-dom";
+import { follow, unfollow } from "../scripts/follow";
 
-function Suggestion({ user }) {
-  const [isFollowing, setIsFollowing] = useState(false);
+function Suggestion({ user, me, setMe }) {
+  const isFollowing = me.following.includes(user.username);
 
   function handleFollowBtnClicked() {
-    setIsFollowing(true);
+    follow(me.username, user.username);
+    setMe((prevMe) => ({
+      ...prevMe,
+      following: [...prevMe.following, user.username],
+    }));
   }
 
   function handleUnfollowBtnClicked() {
-    setIsFollowing(false);
+    unfollow(me.username, user.username);
+    setMe((prevMe) => {
+      const index = prevMe.following.indexOf(user.username);
+      return {
+        ...prevMe,
+        following: [
+          ...prevMe.following.slice(0, index),
+          ...prevMe.following.slice(index + 1),
+        ],
+      };
+    });
+  }
+
+  function getFollowBtn() {
+    if (me.username === user.username) {
+      return null;
+    } else if (isFollowing) {
+      return (
+        <button
+          className="suggestion-unfollow"
+          onClick={handleUnfollowBtnClicked}
+        >
+          Following
+        </button>
+      );
+    } else {
+      return (
+        <button className="suggestion-follow" onClick={handleFollowBtnClicked}>
+          Follow
+        </button>
+      );
+    }
   }
 
   return (
@@ -24,18 +59,7 @@ function Suggestion({ user }) {
         </Link>
         <div className="suggestion-fullname">{user.fullname}</div>
       </div>
-      {isFollowing ? (
-        <button
-          className="suggestion-unfollow"
-          onClick={handleUnfollowBtnClicked}
-        >
-          Following
-        </button>
-      ) : (
-        <button className="suggestion-follow" onClick={handleFollowBtnClicked}>
-          Follow
-        </button>
-      )}
+      {getFollowBtn()}
     </div>
   );
 }

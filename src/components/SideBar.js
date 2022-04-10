@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { collection, query, limit, getDocs, where } from "firebase/firestore";
 import { db } from "../Firebase";
 
-function SideBar({ setNavLinkSelected, me }) {
+function SideBar({ setNavLinkSelected, me, setMe }) {
   const [suggestedUsers, setSuggestedUsers] = useState([]);
 
   useEffect(() => {
@@ -45,7 +45,7 @@ function SideBar({ setNavLinkSelected, me }) {
         </div>
         <div className="suggestions-content">
           {suggestedUsers.map((user) => (
-            <Suggestion user={user} key={user.username} />
+            <Suggestion user={user} key={user.username} me={me} setMe={setMe} />
           ))}
         </div>
       </div>

@@ -4,9 +4,12 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../Firebase";
+import { follow, unfollow } from "../scripts/follow";
 
-function LikesPopupUser({ username }) {
-  const [isFollowing, setIsFollowing] = useState(false);
+function LikesPopupUser({ username, me, setMe }) {
+  const [isFollowing, setIsFollowing] = useState(
+    me.following.includes(username)
+  );
   const [user, setUser] = useState({});
 
   useEffect(() => {
@@ -15,10 +18,26 @@ function LikesPopupUser({ username }) {
 
   function handleFollowBtnClicked() {
     setIsFollowing(true);
+    setMe((prevMe) => ({
+      ...prevMe,
+      following: [...prevMe.following, username],
+    }));
+    follow(me.username, username);
   }
 
   function handleUnfollowBtnClicked() {
     setIsFollowing(false);
+    setMe((prevMe) => {
+      const index = prevMe.following.indexOf(username);
+      return {
+        ...prevMe,
+        following: [
+          ...prevMe.following.slice(0, index),
+          ...prevMe.following.slice(index + 1),
+        ],
+      };
+    });
+    unfollow(me.username, username);
   }
 
   function handleUserClicked() {
@@ -29,6 +48,30 @@ function LikesPopupUser({ username }) {
     const userRef = doc(db, "users", username);
     const userSnap = await getDoc(userRef);
     setUser(userSnap.data());
+  }
+
+  function getFollowBtn() {
+    if (me.username === username) {
+      return null;
+    } else if (isFollowing) {
+      return (
+        <button
+          className="likes-popup-user-unfollow-btn"
+          onClick={handleUnfollowBtnClicked}
+        >
+          Following
+        </button>
+      );
+    } else {
+      return (
+        <button
+          className="likes-popup-user-follow-btn"
+          onClick={handleFollowBtnClicked}
+        >
+          Follow
+        </button>
+      );
+    }
   }
 
   return (
@@ -46,22 +89,7 @@ function LikesPopupUser({ username }) {
           <span>{user.fullname}</span>
         </div>
       </div>
-
-      {isFollowing ? (
-        <button
-          className="likes-popup-user-unfollow-btn"
-          onClick={handleUnfollowBtnClicked}
-        >
-          Following
-        </button>
-      ) : (
-        <button
-          className="likes-popup-user-follow-btn"
-          onClick={handleFollowBtnClicked}
-        >
-          Follow
-        </button>
-      )}
+      {getFollowBtn()}
     </div>
   );
 }
