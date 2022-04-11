@@ -7,6 +7,8 @@ import { db } from "../Firebase";
 //   imgURL: "https://imgur.com/MLoJBiX.jpg",
 //   following: [],
 //   followers: [],
+//   bio: "Hi! This is my bio.",
+//   saved: [],
 // };
 
 // const omelette = {
@@ -15,6 +17,8 @@ import { db } from "../Firebase";
 //   imgURL: "https://imgur.com/xwFnZFN.jpg",
 //   following: [],
 //   followers: [],
+//   bio: "Hi! This is my bio."
+//   saved: [],
 // };
 
 // const widget = {
@@ -23,6 +27,8 @@ import { db } from "../Firebase";
 //   imgURL: "https://imgur.com/1qkpVEx.jpg",
 //   following: [],
 //   followers: [],
+//   bio: "Hi! This is my bio."
+//   saved: [],
 // };
 
 // const critter = {
@@ -31,6 +37,8 @@ import { db } from "../Firebase";
 //   imgURL: "https://imgur.com/MEFWOzT.jpg",
 //   following: [],
 //   followers: [],
+//   bio: "Hi! This is my bio."
+//   saved: [],
 // };
 
 // const pumpkin = {
@@ -39,6 +47,8 @@ import { db } from "../Firebase";
 //   imgURL: "https://imgur.com/5BQjio2.jpg",
 //   following: [],
 //   followers: [],
+//   bio: "Hi! This is my bio."
+//   saved: [],
 // };
 
 // const sushi = {
@@ -47,6 +57,8 @@ import { db } from "../Firebase";
 //   imgURL: "https://imgur.com/faIACfv.jpg",
 //   following: [],
 //   followers: [],
+//   bio: "Hi! This is my bio."
+//   saved: [],
 // };
 
 async function fetchGuests() {

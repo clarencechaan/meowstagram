@@ -1,7 +1,7 @@
 import "../styles/LikesPopup.css";
 import LikesPopupUser from "./LikesPopupUser";
 
-function LikesPopup({ cancelPopup, likes, me, setMe }) {
+function LikesPopup({ cancelPopup, likes, me, setMe, cancelPostPopup }) {
   return (
     <div className="likes-popup" onClick={cancelPopup}>
       <div
@@ -19,6 +19,7 @@ function LikesPopup({ cancelPopup, likes, me, setMe }) {
               key={username}
               me={me}
               setMe={setMe}
+              cancelPostPopup={cancelPostPopup}
             />
           ))}
         </div>

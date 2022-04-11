@@ -18,7 +18,6 @@ function App() {
   const [navLinkSelected, setNavLinkSelected] = useState("home");
   const [now, setNow] = useState(null);
   const [homeFeedPostsArr, setHomeFeedPostsArr] = useState([]);
-  const [profilePostsArr, setProfilePostsArr] = useState([]);
   const [me, setMe] = useState(null);
 
   useEffect(() => {
@@ -36,7 +35,6 @@ function App() {
               selected={navLinkSelected}
               setSelected={setNavLinkSelected}
               setHomeFeedPostsArr={setHomeFeedPostsArr}
-              setProfilePostsArr={setProfilePostsArr}
               me={me}
             />
             <Content
@@ -44,8 +42,6 @@ function App() {
               now={now}
               homeFeedPostsArr={homeFeedPostsArr}
               setHomeFeedPostsArr={setHomeFeedPostsArr}
-              profilePostsArr={profilePostsArr}
-              setProfilePostsArr={setProfilePostsArr}
               me={me}
               setMe={setMe}
             />

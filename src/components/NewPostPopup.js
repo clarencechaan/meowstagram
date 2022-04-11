@@ -11,7 +11,6 @@ function NewPostPopup({
   setSelected,
   lastSelected,
   setHomeFeedPostsArr,
-  setProfilePostsArr,
   me,
 }) {
   const [imgURL, setImgURL] = useState(null);
@@ -43,7 +42,6 @@ function NewPostPopup({
 
   function addToPostsArrs(post) {
     setHomeFeedPostsArr((prevPostsArr) => [post, ...prevPostsArr]);
-    setProfilePostsArr((prevPostsArr) => [post, ...prevPostsArr]);
   }
 
   return (

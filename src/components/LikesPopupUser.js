@@ -6,7 +6,7 @@ import { doc, getDoc } from "firebase/firestore";
 import { db } from "../Firebase";
 import { follow, unfollow } from "../scripts/follow";
 
-function LikesPopupUser({ username, me, setMe }) {
+function LikesPopupUser({ username, me, setMe, cancelPostPopup }) {
   const [isFollowing, setIsFollowing] = useState(
     me.following.includes(username)
   );
@@ -42,6 +42,7 @@ function LikesPopupUser({ username, me, setMe }) {
 
   function handleUserClicked() {
     document.body.style.overflow = "auto";
+    cancelPostPopup();
   }
 
   async function fetchUser() {
@@ -76,12 +77,12 @@ function LikesPopupUser({ username, me, setMe }) {
 
   return (
     <div className="likes-popup-user">
-      <Link to="/profile" onClick={handleUserClicked}>
+      <Link to={"/profile/" + username} onClick={handleUserClicked}>
         <img className="likes-popup-user-img" src={user.imgURL} alt="" />
       </Link>
       <div>
         <div className="likes-popup-user-username">
-          <Link to="/profile" onClick={handleUserClicked}>
+          <Link to={"/profile/" + username} onClick={handleUserClicked}>
             <span>{username}</span>
           </Link>
         </div>

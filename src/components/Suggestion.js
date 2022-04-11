@@ -50,11 +50,11 @@ function Suggestion({ user, me, setMe }) {
 
   return (
     <div className="suggestion">
-      <Link to="/profile">
+      <Link to={"/profile/" + user.username}>
         <img className="suggestion-profile-img" src={user.imgURL} alt="" />
       </Link>
       <div className="suggestion-names">
-        <Link to="/profile">
+        <Link to={"/profile/" + user.username}>
           <div className="suggestion-username">{user.username}</div>
         </Link>
         <div className="suggestion-fullname">{user.fullname}</div>

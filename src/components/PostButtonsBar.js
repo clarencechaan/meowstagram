@@ -19,6 +19,7 @@ function PostButtonsBar({
   setPostSaved,
   post,
   me,
+  setMe,
 }) {
   const [sharePostPopupShown, setSharePostPopupShown] = useState(false);
 
@@ -46,8 +47,25 @@ function PostButtonsBar({
     setPostLiked((prevPostLiked) => !prevPostLiked);
   }
 
-  function handleSaveClicked() {
-    setPostSaved((prevPostSaved) => !prevPostSaved);
+  async function handleSaveClicked() {
+    const meRef = doc(db, "users", me.username);
+    if (!postSaved) {
+      await updateDoc(meRef, { saved: arrayUnion(post.id) });
+      setMe((prevMe) => ({ ...prevMe, saved: [...prevMe.saved, post.id] }));
+    } else {
+      await updateDoc(meRef, { saved: arrayRemove(post.id) });
+      setMe((prevMe) => {
+        const index = prevMe.saved.indexOf(post.id);
+        return {
+          ...prevMe,
+          saved: [
+            ...prevMe.saved.slice(0, index),
+            ...prevMe.saved.slice(index + 1),
+          ],
+        };
+      });
+    }
+    // setPostSaved((prevPostSaved) => !prevPostSaved);
   }
 
   function handleShareButtonClicked() {

@@ -17,6 +17,7 @@ function PostPopupComment({
   me,
   now,
   setMe,
+  cancelPostPopup,
 }) {
   const { user, text, likes, id, timestamp } = comment;
   const [author, setAuthor] = useState({});
@@ -108,7 +109,7 @@ function PostPopupComment({
 
   return (
     <div className="post-popup-comment">
-      <Link to="/profile">
+      <Link to={"/profile/" + user}>
         <img
           className="post-popup-comment-img"
           src={author.imgURL}
@@ -118,7 +119,7 @@ function PostPopupComment({
       </Link>
       <div className="post-popup-comment-author-stats-container">
         <div className="post-popup-comment-author">
-          <Link to="/profile">
+          <Link to={"/profile/" + user}>
             <span
               className="post-popup-comment-author-username"
               onClick={cancelPopup}
@@ -158,6 +159,7 @@ function PostPopupComment({
           likes={comment.likes}
           me={me}
           setMe={setMe}
+          cancelPostPopup={cancelPostPopup}
         />
       ) : null}
     </div>

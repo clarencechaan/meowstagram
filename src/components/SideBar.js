@@ -24,19 +24,34 @@ function SideBar({ setNavLinkSelected, me, setMe }) {
     setSuggestedUsers(resultArr);
   }
 
+  function handleSwitchBtnClicked() {
+    setMe(null);
+  }
+
   return (
     <div className="SideBar">
       <div className="sidebar-user">
-        <Link to="/profile" onClick={() => setNavLinkSelected("profile-pic")}>
+        <Link
+          to={"/profile/" + me.username}
+          onClick={() => setNavLinkSelected("profile-pic")}
+        >
           <img className="sidebar-profile-img" src={me.imgURL} alt="" />
         </Link>
         <div className="sidebar-user-names">
-          <Link to="/profile" onClick={() => setNavLinkSelected("profile-pic")}>
+          <Link
+            to={"/profile/" + me.username}
+            onClick={() => setNavLinkSelected("profile-pic")}
+          >
             <div className="sidebar-user-username">{me.username}</div>
           </Link>
           <div className="sidebar-user-fullname">{me.fullname}</div>
         </div>
-        <button className="sidebar-user-switch">Switch</button>
+        <button
+          className="sidebar-user-switch"
+          onClick={handleSwitchBtnClicked}
+        >
+          Switch
+        </button>
       </div>
       <div className="suggestions">
         <div className="suggestions-header">

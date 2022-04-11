@@ -11,8 +11,6 @@ function Content({
   now,
   homeFeedPostsArr,
   setHomeFeedPostsArr,
-  profilePostsArr,
-  setProfilePostsArr,
   me,
   setMe,
 }) {
@@ -39,16 +37,8 @@ function Content({
           }
         />
         <Route
-          path="/profile"
-          element={
-            <Profile
-              now={now}
-              profilePostsArr={profilePostsArr}
-              setProfilePostsArr={setProfilePostsArr}
-              me={me}
-              setMe={setMe}
-            />
-          }
+          path="/profile/:username"
+          element={<Profile now={now} me={me} setMe={setMe} />}
         />
         <Route
           path="/explore"

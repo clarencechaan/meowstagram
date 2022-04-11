@@ -10,6 +10,7 @@ function ProfilePicPopup({
   setSelected,
   lastSelected,
   setLastSelected,
+  me,
 }) {
   return (
     <div
@@ -24,7 +25,7 @@ function ProfilePicPopup({
         {/* hides triangle bottom shadow */}
         <div className="profile-pic-popup-window-overlay">
           <Link
-            to="/profile"
+            to={"/profile/" + me.username}
             onClick={(e) => {
               setSelected("profile-pic");
               e.stopPropagation();

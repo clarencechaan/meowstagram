@@ -13,9 +13,9 @@ import { setPost, setPostLiked } from "../scripts/setPost";
 
 function Post({ post, now, setHomeFeedPostsArr, me, setMe }) {
   const [postPopupShown, setPostPopupShown] = useState(false);
-  const [postSaved, setPostSaved] = useState(false);
   const [myComments, setMyComments] = useState([]);
   const postLiked = post.likes.includes(me.username);
+  const postSaved = me.saved.includes(post.id);
 
   function setHomeFeedPost(param) {
     setPost(param, setHomeFeedPostsArr, post);
@@ -62,20 +62,21 @@ function Post({ post, now, setHomeFeedPostsArr, me, setMe }) {
         postLiked={postLiked}
         postSaved={postSaved}
         setPostLiked={setHomeFeedPostLiked}
-        setPostSaved={setPostSaved}
         post={post}
         setPost={setHomeFeedPost}
         me={me}
+        setMe={setMe}
       />
       <PostLikesCounter
         likesCount={post.likes.length}
         likes={post.likes}
         me={me}
         setMe={setMe}
+        cancelPostPopup={cancelPostPopup}
       />
       <div className="post-description">
         <div>
-          <Link to="/profile">
+          <Link to={"/profile/" + post.user}>
             <span className="post-description-author-username">
               {post.user}
             </span>
@@ -115,7 +116,6 @@ function Post({ post, now, setHomeFeedPostsArr, me, setMe }) {
           postLiked={postLiked}
           postSaved={postSaved}
           setPostLiked={setHomeFeedPostLiked}
-          setPostSaved={setPostSaved}
           post={post}
           setPost={setHomeFeedPost}
           now={now}

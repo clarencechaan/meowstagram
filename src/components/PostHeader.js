@@ -32,10 +32,10 @@ function PostHeader({ cancelPopup, authorUsername }) {
 
   return (
     <div className="post-header">
-      <Link to="/profile" onClick={cancelPopup}>
+      <Link to={"/profile/" + authorUsername} onClick={cancelPopup}>
         <img className="post-header-img" src={author.imgURL} alt="" />
       </Link>
-      <Link to="/profile" onClick={cancelPopup}>
+      <Link to={"/profile/" + authorUsername} onClick={cancelPopup}>
         <div className="post-header-username">{authorUsername}</div>
       </Link>
       <img

@@ -8,7 +8,7 @@ import { setPost, setPostLiked } from "../scripts/setPost";
 function PostPreview({ isBig, post, now, setParentPostsArr, me, setMe }) {
   const [isPostPopupShown, setIsPostPopupShown] = useState(false);
   const postLiked = post.likes.includes(me.username);
-  const [postSaved, setPostSaved] = useState(false);
+  const postSaved = me.saved.includes(post.id);
 
   function handlePostPreviewClicked() {
     setIsPostPopupShown(true);
@@ -47,7 +47,6 @@ function PostPreview({ isBig, post, now, setParentPostsArr, me, setMe }) {
           postLiked={postLiked}
           postSaved={postSaved}
           setPostLiked={setParentPostLiked}
-          setPostSaved={setPostSaved}
           post={post}
           now={now}
           setPost={setParentPost}

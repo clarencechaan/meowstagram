@@ -17,7 +17,6 @@ function PostPopup({
   postLiked,
   postSaved,
   setPostLiked,
-  setPostSaved,
   post,
   now,
   setPost,
@@ -71,7 +70,7 @@ function PostPopup({
               />
               <div>
                 <div className="post-popup-window-comments-author">
-                  <Link to="/profile">
+                  <Link to={"/profile/" + post.user} onClick={cancelPopup}>
                     <span className="post-popup-window-comments-author-username">
                       {user}
                     </span>
@@ -95,6 +94,7 @@ function PostPopup({
                 me={me}
                 now={now}
                 setMe={setMe}
+                cancelPostPopup={cancelPopup}
               />
             ))}
             <div ref={messagesEndRef} />
@@ -103,17 +103,18 @@ function PostPopup({
             postLiked={postLiked}
             postSaved={postSaved}
             setPostLiked={setPostLiked}
-            setPostSaved={setPostSaved}
             setPostPopupShown={() => {}}
             setPost={setPost}
             post={post}
             me={me}
+            setMe={setMe}
           />
           <PostLikesCounter
             likesCount={likes.length}
             likes={post.likes}
             me={me}
             setMe={setMe}
+            cancelPostPopup={cancelPopup}
           />
           <PostTimeAgo timestamp={timestamp} now={now} />
           <PostAddCommentBar
