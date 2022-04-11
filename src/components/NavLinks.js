@@ -22,6 +22,7 @@ function NavLinks({
   setLastSelected,
   setHomeFeedPostsArr,
   me,
+  setMe,
 }) {
   const [newPostPopupShown, setNewPostPopupShown] = useState(false);
   const [activityFeedPopupShown, setActivityFeedPopupShown] = useState(false);
@@ -148,6 +149,7 @@ function NavLinks({
           lastSelected={lastSelected}
           setLastSelected={setLastSelected}
           me={me}
+          setMe={setMe}
         />
       ) : null}
     </div>

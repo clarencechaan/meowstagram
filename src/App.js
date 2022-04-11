@@ -36,6 +36,7 @@ function App() {
               setSelected={setNavLinkSelected}
               setHomeFeedPostsArr={setHomeFeedPostsArr}
               me={me}
+              setMe={setMe}
             />
             <Content
               setNavLinkSelected={setNavLinkSelected}

@@ -2,7 +2,15 @@ import "../styles/PostLikesCounter.css";
 import LikesPopup from "./LikesPopup";
 import { useState } from "react";
 
-function PostLikesCounter({ likesCount, likes, me, setMe, cancelPostPopup }) {
+function PostLikesCounter({
+  likesCount,
+  likes,
+  me,
+  setMe,
+  cancelPostPopup,
+  profileUser,
+  setProfileUser,
+}) {
   const [likesPopupShown, setLikesPopupShown] = useState(false);
 
   function cancelLikesPopup() {
@@ -35,6 +43,8 @@ function PostLikesCounter({ likesCount, likes, me, setMe, cancelPostPopup }) {
           me={me}
           setMe={setMe}
           cancelPostPopup={cancelPostPopup}
+          profileUser={profileUser}
+          setProfileUser={setProfileUser}
         />
       ) : null}
     </div>

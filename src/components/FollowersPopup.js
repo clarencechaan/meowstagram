@@ -1,12 +1,11 @@
-import "../styles/LikesPopup.css";
+import "../styles/LikesPopupUser.css";
 import LikesPopupUser from "./LikesPopupUser";
 
-function LikesPopup({
+function FollowersPopup({
   cancelPopup,
-  likes,
+  followers,
   me,
   setMe,
-  cancelPostPopup,
   profileUser,
   setProfileUser,
 }) {
@@ -19,15 +18,15 @@ function LikesPopup({
           e.stopPropagation();
         }}
       >
-        <div className="likes-popup-window-header">Likes</div>
+        <div className="likes-popup-window-header">Followers</div>
         <div className="likes-popup-users-container">
-          {likes.map((username) => (
+          {followers.map((username) => (
             <LikesPopupUser
               username={username}
               key={username}
               me={me}
               setMe={setMe}
-              cancelPostPopup={cancelPostPopup}
+              cancelPostPopup={cancelPopup}
               profileUser={profileUser}
               setProfileUser={setProfileUser}
             />
@@ -38,4 +37,4 @@ function LikesPopup({
   );
 }
 
-export default LikesPopup;
+export default FollowersPopup;

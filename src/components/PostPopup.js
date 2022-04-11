@@ -22,6 +22,8 @@ function PostPopup({
   setPost,
   me,
   setMe,
+  profileUser,
+  setProfileUser,
 }) {
   const { URL, caption, timestamp, user, comments, likes } = post;
   const messagesEndRef = useRef(null);
@@ -95,6 +97,8 @@ function PostPopup({
                 now={now}
                 setMe={setMe}
                 cancelPostPopup={cancelPopup}
+                profileUser={profileUser}
+                setProfileUser={setProfileUser}
               />
             ))}
             <div ref={messagesEndRef} />
@@ -115,6 +119,8 @@ function PostPopup({
             me={me}
             setMe={setMe}
             cancelPostPopup={cancelPopup}
+            profileUser={profileUser}
+            setProfileUser={setProfileUser}
           />
           <PostTimeAgo timestamp={timestamp} now={now} />
           <PostAddCommentBar

@@ -53,16 +53,6 @@
   align-items: center;
 }
 
-.suggestions-see-all {
-  margin-left: auto;
-  font-family: inherit;
-  border: none;
-  background-color: transparent;
-  font-size: 12px;
-  font-weight: 600;
-  cursor: pointer;
-}
-
 .suggestions-content {
   margin-top: 16px;
   padding-left: 5px;

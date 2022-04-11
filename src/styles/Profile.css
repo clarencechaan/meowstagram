@@ -32,16 +32,28 @@
   margin-right: 20px;
 }
 
-.profile-header-edit-btn {
+.profile-header-follow-btn,
+.profile-header-edit-btn,
+.profile-header-unfollow-btn {
   width: 94px;
   height: 30px;
   padding: 5px 9px 5px 9px;
-  background-color: transparent;
-  border: 1px solid lightgray;
   border-radius: 4px;
   font-family: inherit;
   font-weight: 600;
   cursor: pointer;
+}
+
+.profile-header-edit-btn,
+.profile-header-unfollow-btn {
+  background-color: transparent;
+  border: 1px solid lightgray;
+}
+
+.profile-header-follow-btn {
+  background-color: #0095f6;
+  border: none;
+  color: white;
 }
 
 .profile-header-options {

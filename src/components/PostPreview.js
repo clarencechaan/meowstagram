@@ -5,7 +5,16 @@ import PostPopup from "./PostPopup";
 import { useState } from "react";
 import { setPost, setPostLiked } from "../scripts/setPost";
 
-function PostPreview({ isBig, post, now, setParentPostsArr, me, setMe }) {
+function PostPreview({
+  isBig,
+  post,
+  now,
+  setParentPostsArr,
+  me,
+  setMe,
+  profileUser,
+  setProfileUser,
+}) {
   const [isPostPopupShown, setIsPostPopupShown] = useState(false);
   const postLiked = post.likes.includes(me.username);
   const postSaved = me.saved.includes(post.id);
@@ -52,6 +61,8 @@ function PostPreview({ isBig, post, now, setParentPostsArr, me, setMe }) {
           setPost={setParentPost}
           me={me}
           setMe={setMe}
+          profileUser={profileUser}
+          setProfileUser={setProfileUser}
         />
       ) : null}
     </div>

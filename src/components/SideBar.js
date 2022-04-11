@@ -56,7 +56,6 @@ function SideBar({ setNavLinkSelected, me, setMe }) {
       <div className="suggestions">
         <div className="suggestions-header">
           <div className="suggestions-title">Suggestions For You</div>
-          <button className="suggestions-see-all">See All</button>
         </div>
         <div className="suggestions-content">
           {suggestedUsers.map((user) => (

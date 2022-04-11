@@ -4,7 +4,7 @@ import NavLinks from "./NavLinks";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
-function NavBar({ selected, setSelected, setHomeFeedPostsArr, me }) {
+function NavBar({ selected, setSelected, setHomeFeedPostsArr, me, setMe }) {
   const [lastSelected, setLastSelected] = useState("home");
 
   return (
@@ -27,6 +27,7 @@ function NavBar({ selected, setSelected, setHomeFeedPostsArr, me }) {
           setLastSelected={setLastSelected}
           setHomeFeedPostsArr={setHomeFeedPostsArr}
           me={me}
+          setMe={setMe}
         />
       </div>
     </div>

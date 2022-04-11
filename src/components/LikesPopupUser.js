@@ -6,7 +6,14 @@ import { doc, getDoc } from "firebase/firestore";
 import { db } from "../Firebase";
 import { follow, unfollow } from "../scripts/follow";
 
-function LikesPopupUser({ username, me, setMe, cancelPostPopup }) {
+function LikesPopupUser({
+  username,
+  me,
+  setMe,
+  cancelPostPopup,
+  profileUser,
+  setProfileUser,
+}) {
   const [isFollowing, setIsFollowing] = useState(
     me.following.includes(username)
   );
@@ -23,6 +30,17 @@ function LikesPopupUser({ username, me, setMe, cancelPostPopup }) {
       following: [...prevMe.following, username],
     }));
     follow(me.username, username);
+    if (profileUser && profileUser.username === username) {
+      setProfileUser((prevUser) => ({
+        ...prevUser,
+        followers: [...prevUser.followers, me.username],
+      }));
+    } else if (profileUser && profileUser.username === me.username) {
+      setProfileUser((prevUser) => ({
+        ...prevUser,
+        following: [...prevUser.following, username],
+      }));
+    }
   }
 
   function handleUnfollowBtnClicked() {
@@ -38,6 +56,29 @@ function LikesPopupUser({ username, me, setMe, cancelPostPopup }) {
       };
     });
     unfollow(me.username, username);
+    if (profileUser && profileUser.username === username) {
+      setProfileUser((prevUser) => {
+        const index = prevUser.followers.indexOf(me.username);
+        return {
+          ...prevUser,
+          followers: [
+            ...prevUser.followers.slice(0, index),
+            ...prevUser.followers.slice(index + 1),
+          ],
+        };
+      });
+    } else if (profileUser && profileUser.username === me.username) {
+      setProfileUser((prevUser) => {
+        const index = prevUser.following.indexOf(username);
+        return {
+          ...prevUser,
+          following: [
+            ...prevUser.following.slice(0, index),
+            ...prevUser.following.slice(index + 1),
+          ],
+        };
+      });
+    }
   }
 
   function handleUserClicked() {

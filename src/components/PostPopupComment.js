@@ -18,6 +18,8 @@ function PostPopupComment({
   now,
   setMe,
   cancelPostPopup,
+  profileUser,
+  setProfileUser,
 }) {
   const { user, text, likes, id, timestamp } = comment;
   const [author, setAuthor] = useState({});
@@ -160,6 +162,8 @@ function PostPopupComment({
           me={me}
           setMe={setMe}
           cancelPostPopup={cancelPostPopup}
+          profileUser={profileUser}
+          setProfileUser={setProfileUser}
         />
       ) : null}
     </div>

@@ -11,6 +11,7 @@ function ProfilePicPopup({
   lastSelected,
   setLastSelected,
   me,
+  setMe,
 }) {
   return (
     <div
@@ -44,11 +45,15 @@ function ProfilePicPopup({
             <img src={profilePicPopupSettings} alt="" />
             Settings
           </button>
-          <button>
-            <img src={profilePicPopupSwitch} alt="" />
-            Switch Accounts
-          </button>
-          <button>Log Out</button>
+          <Link to="/" onClick={() => setMe(null)}>
+            <button>
+              <img src={profilePicPopupSwitch} alt="" />
+              Switch Accounts
+            </button>
+          </Link>
+          <Link to="/" onClick={() => setMe(null)}>
+            <button>Log Out</button>
+          </Link>
         </div>
       </div>
     </div>

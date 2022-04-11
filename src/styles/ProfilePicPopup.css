@@ -50,6 +50,13 @@
   font-size: 14px;
 }
 
+.profile-pic-popup-window-overlay > * > button {
+  background-color: inherit;
+  border: inherit;
+  padding: 0;
+  cursor: inherit;
+}
+
 .profile-pic-popup-window-overlay > *:hover {
   background-color: #fafafa;
 }
