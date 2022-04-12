@@ -17,7 +17,7 @@ function NavBar({ selected, setSelected, setHomeFeedPostsArr, me, setMe }) {
             setLastSelected("home");
           }}
         >
-          <div className="logo">Catstagram</div>
+          <div className="logo">Meowstagram</div>
         </Link>
         <SearchBar />
         <NavLinks

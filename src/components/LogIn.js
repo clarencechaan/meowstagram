@@ -7,7 +7,7 @@ function LogIn({ setMe, guestsArr }) {
   return (
     <div className="log-in">
       <div className="log-in-window">
-        <div className="log-in-header">Catstagram</div>
+        <div className="log-in-header">Meowstagram</div>
         <div className="guest-log-in-container">
           {guestsArr.map((guest) => (
             <button

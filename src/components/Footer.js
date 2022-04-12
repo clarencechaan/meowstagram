@@ -35,7 +35,7 @@ function Footer() {
           <a href="https://github.com/clarencechaan/">Locations</a>
         </span>
         <span>
-          <a href="https://github.com/clarencechaan/">Catstagram Lite</a>
+          <a href="https://github.com/clarencechaan/">Meowstagram Lite</a>
         </span>
       </div>
       <div className="footer-row">
