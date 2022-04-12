@@ -4,7 +4,10 @@ import HomeFeed from "./HomeFeed";
 import Profile from "./Profile";
 import Explore from "./Explore";
 import Inbox from "./Inbox";
+import PostPage from "./PostPage";
 import { Routes, Route } from "react-router-dom";
+import ProgressBar from "./ProgressBar";
+import { useState } from "react";
 
 function Content({
   setNavLinkSelected,
@@ -14,8 +17,10 @@ function Content({
   me,
   setMe,
 }) {
+  const [loading, setLoading] = useState(false);
   return (
     <div className="Content">
+      {loading ? <ProgressBar /> : null}
       <Routes>
         <Route
           path="/"
@@ -38,13 +43,19 @@ function Content({
         />
         <Route
           path="/profile/:username"
-          element={<Profile now={now} me={me} setMe={setMe} />}
+          element={
+            <Profile now={now} me={me} setMe={setMe} setLoading={setLoading} />
+          }
         />
         <Route
           path="/explore"
           element={<Explore now={now} me={me} setMe={setMe} />}
         />
         <Route path="/inbox" element={<Inbox />} />
+        <Route
+          path="/post/:postID"
+          element={<PostPage now={now} me={me} setMe={setMe} />}
+        />
       </Routes>
     </div>
   );

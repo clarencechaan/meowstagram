@@ -24,14 +24,15 @@ function PostPopup({
   setMe,
   profileUser,
   setProfileUser,
+  onPostPage,
 }) {
   const { URL, caption, timestamp, user, comments, likes } = post;
   const messagesEndRef = useRef(null);
   const [author, setAuthor] = useState({});
 
   useEffect(() => {
-    fetchAuthor();
-  }, []);
+    if (post.user) fetchAuthor();
+  }, [post.user]);
 
   async function fetchAuthor() {
     const userRef = doc(db, "users", post.user);
@@ -48,13 +49,13 @@ function PostPopup({
 
   return (
     <div
-      className="post-popup"
+      className={onPostPage ? "post-page" : "post-popup"}
       onClick={() => {
         cancelPopup();
       }}
     >
       <div
-        className="post-popup-window"
+        className={onPostPage ? "post-page-window" : "post-popup-window"}
         // prevent close on clicking
         onClick={(e) => {
           e.stopPropagation();
@@ -62,7 +63,15 @@ function PostPopup({
       >
         <img className="post-popup-window-img" src={URL} alt="" />
         <div className="post-popup-window-sidebar">
-          <PostHeader cancelPopup={cancelPopup} authorUsername={post.user} />
+          <PostHeader
+            cancelPopup={cancelPopup}
+            authorUsername={post.user}
+            postID={post.id}
+            me={me}
+            setMe={setMe}
+            profileUser={profileUser}
+            setProfileUser={setProfileUser}
+          />
           <div className="post-popup-window-comments">
             <div className="post-popup-window-comments-description">
               <img
@@ -107,7 +116,6 @@ function PostPopup({
             postLiked={postLiked}
             postSaved={postSaved}
             setPostLiked={setPostLiked}
-            setPostPopupShown={() => {}}
             setPost={setPost}
             post={post}
             me={me}

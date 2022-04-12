@@ -15,26 +15,29 @@
   display: flex;
   flex-direction: column;
   width: 400px;
-  height: 336px;
   background-color: white;
   border-radius: 12px;
   animation: scale-down 0.1s;
   overflow: hidden;
 }
 
-.more-options-popup-window > button {
-  flex: 1;
+.more-options-popup-window button,
+.more-options-popup-window > * {
   background-color: transparent;
   border: none;
   cursor: pointer;
   font-size: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
 }
 
-.more-options-popup-window > button:active {
+.more-options-popup-window > *:active {
   background-color: #e5e5e5;
 }
 
-.more-options-popup-window > button:not(:last-child) {
+.more-options-popup-window *:not(:last-child) {
   border-bottom: 1px solid lightgray;
 }
 

@@ -8,12 +8,14 @@ function getTimeAgo(start, now) {
   let resultStr = "";
 
   if (weeks > 4) {
-    resultStr = Date(seconds * 1000).toLocaleDateString("en-US", {
-      weekday: "long",
-      month: "long",
-      day: "numeric",
-      year: "numeric",
-    });
+    resultStr = new Date(start * 1000)
+      .toLocaleDateString("en-US", {
+        weekday: "long",
+        month: "long",
+        day: "numeric",
+        year: "numeric",
+      })
+      .toLocaleUpperCase();
   } else if (weeks > 1) {
     resultStr = weeks + " WEEKS AGO";
   } else if (weeks === 1) {

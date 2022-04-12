@@ -9,6 +9,7 @@ import {
   httpsCallable,
   connectFunctionsEmulator,
 } from "firebase/functions";
+import guestsArray from "./scripts/guests";
 
 const functions = getFunctions();
 connectFunctionsEmulator(functions, "localhost", 5001);
@@ -19,12 +20,30 @@ function App() {
   const [now, setNow] = useState(null);
   const [homeFeedPostsArr, setHomeFeedPostsArr] = useState([]);
   const [me, setMe] = useState(null);
+  const [guestsArr, setGuestsArr] = useState([]);
 
   useEffect(() => {
     getTimeStamp().then((res) => {
       setNow(Math.round(res.data / 1000));
     });
+    guestsArray.then((arr) => {
+      setGuestsArr(arr);
+    });
   }, []);
+
+  useEffect(() => {
+    if (!me) return;
+    setGuestsArr((prevArr) => {
+      const index = prevArr.findIndex(
+        (guest) => guest.username === me.username
+      );
+      if (index !== -1) {
+        return [...prevArr.slice(0, index), me, ...prevArr.slice(index + 1)];
+      } else {
+        return prevArr;
+      }
+    });
+  }, [me]);
 
   return (
     <div className="App">
@@ -48,7 +67,11 @@ function App() {
             />
           </>
         ) : (
-          <LogIn setMe={setMe} />
+          <LogIn
+            setMe={setMe}
+            guestsArr={guestsArr}
+            setGuestsArr={setGuestsArr}
+          />
         )}
       </BrowserRouter>
     </div>

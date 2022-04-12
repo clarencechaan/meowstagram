@@ -8,13 +8,21 @@ import { useEffect } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../Firebase";
 
-function PostHeader({ cancelPopup, authorUsername }) {
+function PostHeader({
+  cancelPopup,
+  authorUsername,
+  postID,
+  me,
+  setMe,
+  profileUser,
+  setProfileUser,
+}) {
   const [moreOptionsPopupShown, setMoreOptionsPopupShown] = useState(false);
   const [author, setAuthor] = useState({});
 
   useEffect(() => {
-    fetchAuthor();
-  }, []);
+    if (authorUsername) fetchAuthor();
+  }, [authorUsername]);
 
   async function fetchAuthor() {
     const userRef = doc(db, "users", authorUsername);
@@ -28,6 +36,7 @@ function PostHeader({ cancelPopup, authorUsername }) {
 
   function cancelMoreOptionsPopup() {
     setMoreOptionsPopupShown(false);
+    document.body.style.overflow = "auto";
   }
 
   return (
@@ -45,7 +54,15 @@ function PostHeader({ cancelPopup, authorUsername }) {
         onClick={handleMoreOptionsClicked}
       />
       {moreOptionsPopupShown ? (
-        <MoreOptionsPopup cancelPopup={cancelMoreOptionsPopup} />
+        <MoreOptionsPopup
+          cancelPopup={cancelMoreOptionsPopup}
+          authorUsername={authorUsername}
+          postID={postID}
+          me={me}
+          setMe={setMe}
+          profileUser={profileUser}
+          setProfileUser={setProfileUser}
+        />
       ) : null}
     </div>
   );

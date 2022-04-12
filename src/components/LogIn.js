@@ -1,18 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import "../styles/LogIn.css";
 import Footer from "./Footer";
 import uploadGuestUsers from "../scripts/uploadGuestUsers";
-import guestsArray from "../scripts/guests";
-import { useEffect, useState } from "react";
 
-function LogIn({ setMe }) {
-  const [guestsArr, setGuestsArr] = useState([]);
-
-  useEffect(() => {
-    guestsArray.then((arr) => {
-      setGuestsArr(arr);
-    });
-  }, []);
-
+function LogIn({ setMe, guestsArr }) {
   return (
     <div className="log-in">
       <div className="log-in-window">

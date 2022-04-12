@@ -1,0 +1,27 @@
+.post-page {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.post-page-window {
+  display: flex;
+  width: calc(89.86vw * 0.9);
+  max-width: calc(153.67vh * 0.9);
+  height: calc(58.68vw * 0.9);
+  max-height: calc(94.43vh * 0.9);
+  background-color: white;
+  border-radius: 0 4px 4px 0;
+  animation: scale-down 0.1s;
+  overflow: hidden;
+  border: 1px solid lightgray;
+  margin-top: -24px;
+}
+
+.post-page-window > .post-popup-window-img {
+  height: 100%;
+  /* width: calc(65.28% * 0.9); */
+  max-width: calc(94.43vh * 0.9);
+  object-fit: cover;
+}

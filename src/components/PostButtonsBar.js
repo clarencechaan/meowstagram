@@ -16,7 +16,6 @@ function PostButtonsBar({
   postLiked,
   postSaved,
   setPostLiked,
-  setPostSaved,
   post,
   me,
   setMe,
@@ -65,7 +64,6 @@ function PostButtonsBar({
         };
       });
     }
-    // setPostSaved((prevPostSaved) => !prevPostSaved);
   }
 
   function handleShareButtonClicked() {
@@ -81,12 +79,14 @@ function PostButtonsBar({
         alt=""
         onClick={handleLikeClicked}
       />
-      <img
-        className="post-comment"
-        src={postComment}
-        alt=""
-        onClick={handleCommentBtnClicked}
-      />
+      {setPostPopupShown ? (
+        <img
+          className="post-comment"
+          src={postComment}
+          alt=""
+          onClick={handleCommentBtnClicked}
+        />
+      ) : null}
       <img
         className="post-share"
         src={postShare}

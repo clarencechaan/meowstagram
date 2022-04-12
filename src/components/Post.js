@@ -50,6 +50,9 @@ function Post({ post, now, setHomeFeedPostsArr, me, setMe }) {
       <PostHeader
         cancelPostPopup={cancelPostPopup}
         authorUsername={post.user}
+        postID={post.id}
+        me={me}
+        setMe={setMe}
       />
       <img
         className="post-img"

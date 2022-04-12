@@ -10,16 +10,39 @@ import {
   doc,
   getDoc,
   where,
+  updateDoc,
 } from "firebase/firestore";
 import { db } from "../Firebase";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Footer from "./Footer";
 import { useParams } from "react-router-dom";
 import { follow, unfollow } from "../scripts/follow";
 import FollowersPopup from "./FollowersPopup";
 import FollowingPopup from "./FollowingPopup";
 
-function Profile({ now, me, setMe }) {
+function uploadImage(file) {
+   
+
+  let myHeaders = new Headers();
+  myHeaders.append("Authorization", `Client-ID ${CLIENT_ID}`);
+
+  let formdata = new FormData();
+  formdata.append("image", file);
+
+  const requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: formdata,
+    redirect: "follow",
+  };
+
+  return fetch("https://api.imgur.com/3/image", requestOptions)
+    .then((response) => response.text())
+    .then((result) => JSON.parse(result).data.link)
+    .catch((error) => console.log("error", error));
+}
+
+function Profile({ now, me, setMe, setLoading }) {
   const username = useParams().username;
   const [user, setUser] = useState({
     username: "",
@@ -33,6 +56,8 @@ function Profile({ now, me, setMe }) {
   const [postsArr, setPostsArr] = useState([]);
   const [isFollowersPopupShown, setIsFollowersPopupShown] = useState(false);
   const [isFollowingPopupShown, setIsFollowingPopupShown] = useState(false);
+  const bioRef = useRef(null);
+  const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
     fetchProfilePosts();
@@ -43,12 +68,6 @@ function Profile({ now, me, setMe }) {
     fetchProfilePosts();
     fetchUser();
   }, [username]);
-
-  // useEffect(() => {
-  //   if (username === me.username) {
-  //     setUser(me);
-  //   }
-  // }, [me]);
 
   async function fetchProfilePosts() {
     const postsRef = collection(db, "posts");
@@ -75,7 +94,17 @@ function Profile({ now, me, setMe }) {
     if (userIsMe) {
       return (
         <>
-          <button className="profile-header-edit-btn">Edit Profile</button>
+          {!isEditing ? (
+            <button
+              className="profile-header-edit-btn"
+              onMouseDown={(e) => handleEditBioBtnClicked(e)}
+            >
+              Edit Bio
+            </button>
+          ) : (
+            <button className="profile-header-edit-btn">Done</button>
+          )}
+
           <img
             className="profile-header-options"
             src={profileHeaderOptions}
@@ -156,10 +185,69 @@ function Profile({ now, me, setMe }) {
     setIsFollowingPopupShown(true);
   }
 
+  function handleEditBioBtnClicked(e) {
+    e.preventDefault();
+    bioRef.current.disabled = false;
+    bioRef.current.select();
+    setIsEditing(true);
+  }
+
+  async function handleBioBlur() {
+    bioRef.current.disabled = true;
+    setIsEditing(false);
+    const meRef = doc(db, "users", me.username);
+    await updateDoc(meRef, {
+      bio: user.bio,
+    });
+  }
+
+  function handleBioInputChange(value) {
+    setUser((prevUser) => ({ ...prevUser, bio: value }));
+  }
+
+  async function handleImagePicked(e) {
+    if (!e.target.files[0]) return;
+    setLoading(true);
+    uploadImage(e.target.files[0]).then(async (result) => {
+      setMeImgURL(result);
+      const meRef = doc(db, "users", me.username);
+      await updateDoc(meRef, {
+        imgURL: result,
+      });
+      setLoading(false);
+    });
+  }
+
+  function setMeImgURL(URL) {
+    setMe((prevMe) => ({ ...prevMe, imgURL: URL }));
+  }
+
   return (
     <div className="profile">
       <div className="profile-header">
-        <img className="profile-header-img" src={user.imgURL} alt="" />
+        <label
+          htmlFor={userIsMe ? "profile-pic-file-input" : ""}
+          className="profile-pic-file-input-label"
+        >
+          <img
+            className={
+              userIsMe ? "profile-header-img" : "profile-header-img disabled"
+            }
+            src={userIsMe ? me.imgURL : user.imgURL}
+            alt=""
+            referrerPolicy="no-referrer"
+          />
+        </label>
+        <input
+          type="file"
+          id="profile-pic-file-input"
+          className="hidden"
+          accept="image/png, image/jpeg"
+          onChange={(e) => {
+            handleImagePicked(e);
+          }}
+          max-file-size="10485760"
+        />
         <div>
           <div>
             <div className="profile-header-username">{user.username}</div>
@@ -191,7 +279,21 @@ function Profile({ now, me, setMe }) {
           </div>
           <div>
             <div className="profile-header-full-name">{user.fullname}</div>
-            <div className="profile-header-bio">{user.bio}</div>
+            <textarea
+              className="profile-header-bio"
+              onChange={(e) => handleBioInputChange(e.target.value)}
+              value={user.bio}
+              type="text"
+              disabled
+              ref={bioRef}
+              maxLength="126"
+              onBlur={handleBioBlur}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.target.blur();
+                }
+              }}
+            />
           </div>
         </div>
       </div>
