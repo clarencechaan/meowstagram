@@ -51,28 +51,14 @@ function NavLinks({
 
   return (
     <div className="nav-links">
-      <Link
-        to="/"
-        className="nav-link"
-        onClick={() => {
-          setSelected("home");
-          setLastSelected("home");
-        }}
-      >
+      <Link to="/" className="nav-link">
         <img
           src={selected === "home" ? homeSelected : homeUnselected}
           alt=""
           id="home-nav-link"
         />
       </Link>
-      <Link
-        to="/inbox"
-        className="nav-link"
-        onClick={() => {
-          setSelected("messenger");
-          setLastSelected("messenger");
-        }}
-      >
+      <Link to="/inbox" className="nav-link">
         <img
           src={
             selected === "messenger" ? messengerSelected : messengerUnselected
@@ -88,14 +74,7 @@ function NavLinks({
         id="new-post-nav-link"
         onClick={handleNewPostNavLinkClicked}
       />
-      <Link
-        to="/explore"
-        className="nav-link"
-        onClick={() => {
-          setSelected("find-people");
-          setLastSelected("find-people");
-        }}
-      >
+      <Link to="/explore" className="nav-link">
         <img
           src={
             selected === "find-people"

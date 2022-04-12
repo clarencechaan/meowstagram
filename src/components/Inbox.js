@@ -1,14 +1,18 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import "../styles/Inbox.css";
 import newMessage from "../images/inbox-new-message.svg";
 import InboxContact from "./InboxContact";
 import paperPlane from "../images/paper-plane.png";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import InboxChat from "./InboxChat";
 import InboxChatNewMessagePopup from "./InboxChatNewMessagePopup";
 
-function Inbox() {
+function Inbox({ me, setNavLinkSelectedHard }) {
   const [contactSelected, setContactSelected] = useState(null);
   const [sendMessagePopupShown, setSendMessagePopupShown] = useState(false);
+  const contactsArr = [...new Set([...me.followers, ...me.following])];
+
+  useEffect(() => setNavLinkSelectedHard("messenger"), []);
 
   function cancelSendMessagePopup() {
     setSendMessagePopupShown(false);
@@ -24,7 +28,7 @@ function Inbox() {
     <div className="inbox">
       <div className="inbox-sidebar">
         <div className="inbox-sidebar-header">
-          <span>stc.official</span>
+          <span>{me.username}</span>
           <img
             className="inbox-sidebar-header-new-message-btn"
             src={newMessage}
@@ -33,27 +37,14 @@ function Inbox() {
           />
         </div>
         <div className="inbox-sidebar-contacts">
-          <InboxContact />
-          <InboxContact />
-          <InboxContact />
-          <InboxContact />
-          <InboxContact />
-          <InboxContact />
-          <InboxContact />
-          <InboxContact />
-          <InboxContact />
-          <InboxContact />
-          <InboxContact />
-          <InboxContact />
-          <InboxContact />
-          <InboxContact />
-          <InboxContact />
-          <InboxContact />
-          <InboxContact />
-          <InboxContact />
-          <InboxContact />
-          <InboxContact />
-          <InboxContact />
+          {contactsArr.map((username) => (
+            <InboxContact
+              username={username}
+              contactSelected={contactSelected}
+              setContactSelected={setContactSelected}
+              key={username}
+            />
+          ))}
         </div>
       </div>
       {!contactSelected ? (
@@ -71,7 +62,7 @@ function Inbox() {
           </button>
         </div>
       ) : (
-        <InboxChat />
+        <InboxChat me={me} contactSelected={contactSelected} />
       )}
       {sendMessagePopupShown ? (
         <InboxChatNewMessagePopup cancelPopup={cancelSendMessagePopup} />

@@ -17,6 +17,7 @@ const getTimeStamp = httpsCallable(functions, "getTimeStamp");
 
 function App() {
   const [navLinkSelected, setNavLinkSelected] = useState("home");
+  const [lastNavLinkSelected, setLastNavLinkSelected] = useState("home");
   const [now, setNow] = useState(null);
   const [homeFeedPostsArr, setHomeFeedPostsArr] = useState([]);
   const [me, setMe] = useState(null);
@@ -45,6 +46,11 @@ function App() {
     });
   }, [me]);
 
+  function setNavLinkSelectedHard(link) {
+    setNavLinkSelected(link);
+    setLastNavLinkSelected(link);
+  }
+
   return (
     <div className="App">
       <BrowserRouter>
@@ -53,17 +59,19 @@ function App() {
             <NavBar
               selected={navLinkSelected}
               setSelected={setNavLinkSelected}
+              lastSelected={lastNavLinkSelected}
+              setLastSelected={setLastNavLinkSelected}
               setHomeFeedPostsArr={setHomeFeedPostsArr}
               me={me}
               setMe={setMe}
             />
             <Content
-              setNavLinkSelected={setNavLinkSelected}
               now={now}
               homeFeedPostsArr={homeFeedPostsArr}
               setHomeFeedPostsArr={setHomeFeedPostsArr}
               me={me}
               setMe={setMe}
+              setNavLinkSelectedHard={setNavLinkSelectedHard}
             />
           </>
         ) : (

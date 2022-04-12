@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { collection, query, limit, getDocs, where } from "firebase/firestore";
 import { db } from "../Firebase";
 
-function SideBar({ setNavLinkSelected, me, setMe }) {
+function SideBar({ me, setMe }) {
   const [suggestedUsers, setSuggestedUsers] = useState([]);
 
   useEffect(() => {
@@ -31,17 +31,11 @@ function SideBar({ setNavLinkSelected, me, setMe }) {
   return (
     <div className="SideBar">
       <div className="sidebar-user">
-        <Link
-          to={"/profile/" + me.username}
-          onClick={() => setNavLinkSelected("profile-pic")}
-        >
+        <Link to={"/profile/" + me.username}>
           <img className="sidebar-profile-img" src={me.imgURL} alt="" />
         </Link>
         <div className="sidebar-user-names">
-          <Link
-            to={"/profile/" + me.username}
-            onClick={() => setNavLinkSelected("profile-pic")}
-          >
+          <Link to={"/profile/" + me.username}>
             <div className="sidebar-user-username">{me.username}</div>
           </Link>
           <div className="sidebar-user-fullname">{me.fullname}</div>

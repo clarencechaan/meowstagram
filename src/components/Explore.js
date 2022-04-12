@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import "../styles/Explore.css";
 import PostPreview from "./PostPreview";
 import { useEffect, useState } from "react";
@@ -5,11 +6,12 @@ import { query, orderBy, collection, getDocs } from "firebase/firestore";
 import { db } from "../Firebase";
 import Footer from "./Footer";
 
-function Explore({ now, me, setMe }) {
+function Explore({ now, me, setMe, setNavLinkSelectedHard }) {
   const [postsArr, setPostsArr] = useState([]);
 
   useEffect(() => {
     fetchExplorePosts();
+    setNavLinkSelectedHard("find-people");
   }, []);
 
   async function fetchExplorePosts() {

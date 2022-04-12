@@ -7,7 +7,11 @@
   cursor: pointer;
 }
 
-.inbox-contact:hover {
+.inbox-contact.selected {
+  background-color: #efefef;
+}
+
+.inbox-contact:not(.selected):hover {
   background-color: #fafafa;
 }
 

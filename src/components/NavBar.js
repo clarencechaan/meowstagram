@@ -2,11 +2,16 @@ import "../styles/NavBar.css";
 import SearchBar from "./SearchBar";
 import NavLinks from "./NavLinks";
 import { Link } from "react-router-dom";
-import { useState } from "react";
 
-function NavBar({ selected, setSelected, setHomeFeedPostsArr, me, setMe }) {
-  const [lastSelected, setLastSelected] = useState("home");
-
+function NavBar({
+  selected,
+  setSelected,
+  lastSelected,
+  setLastSelected,
+  setHomeFeedPostsArr,
+  me,
+  setMe,
+}) {
   return (
     <div className="NavBar">
       <div className="navbar-content">

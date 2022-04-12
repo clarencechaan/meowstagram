@@ -83,3 +83,8 @@
   cursor: initial;
   opacity: 0.5;
 }
+
+.inbox-chat form {
+  flex: 1;
+  display: flex;
+}

@@ -1,15 +1,15 @@
 import "../styles/InboxChatMessage.css";
 
-function InboxChatMessage({ sender }) {
+function InboxChatMessage({ me, sender, text }) {
   return (
     <div className="inbox-chat-message">
-      {sender === "me" ? (
+      {sender === me.username ? (
         <div className="inbox-chat-message-bubble sent-by-me">
-          <span>Who lives in a pineapple under the sea?</span>
+          <span>{text}</span>
         </div>
       ) : (
         <div className="inbox-chat-message-bubble sent-by-contact">
-          <span>SPONGE. BOB. SQUARE. PANTS.</span>
+          <span>{text}</span>
         </div>
       )}
     </div>

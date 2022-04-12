@@ -52,6 +52,7 @@
   font-family: inherit;
   font-weight: 600;
   cursor: pointer;
+  margin-right: 8px;
 }
 
 .profile-header-edit-btn,
@@ -67,7 +68,6 @@
 }
 
 .profile-header-options {
-  margin-left: 5px;
   padding: 8px;
   cursor: pointer;
 }
@@ -101,6 +101,14 @@
 .profile-header-full-name {
   font-weight: 600;
   margin-bottom: 8px;
+  font-family: inherit;
+  border: none;
+  font-size: inherit;
+  color: black;
+  padding: 0;
+  resize: none;
+  height: 18px;
+  background-color: transparent;
 }
 
 .profile-header-bio {

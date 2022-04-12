@@ -5,9 +5,17 @@ import Post from "./Post";
 import { query, orderBy, collection, getDocs } from "firebase/firestore";
 import { db } from "../Firebase";
 
-function HomeFeed({ now, homeFeedPostsArr, setHomeFeedPostsArr, me, setMe }) {
+function HomeFeed({
+  now,
+  homeFeedPostsArr,
+  setHomeFeedPostsArr,
+  me,
+  setMe,
+  setNavLinkSelectedHard,
+}) {
   useEffect(() => {
     fetchLatestPosts();
+    setNavLinkSelectedHard("home");
   }, []);
 
   async function fetchLatestPosts() {

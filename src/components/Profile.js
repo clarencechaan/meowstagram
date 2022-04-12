@@ -42,7 +42,7 @@ function uploadImage(file) {
     .catch((error) => console.log("error", error));
 }
 
-function Profile({ now, me, setMe, setLoading }) {
+function Profile({ now, me, setMe, setLoading, setNavLinkSelectedHard }) {
   const username = useParams().username;
   const [user, setUser] = useState({
     username: "",
@@ -57,11 +57,14 @@ function Profile({ now, me, setMe, setLoading }) {
   const [isFollowersPopupShown, setIsFollowersPopupShown] = useState(false);
   const [isFollowingPopupShown, setIsFollowingPopupShown] = useState(false);
   const bioRef = useRef(null);
-  const [isEditing, setIsEditing] = useState(false);
+  const fullnameRef = useRef(null);
+  const [isEditingBio, setIsEditingBio] = useState(false);
+  const [isEditingFullname, setIsEditingFullname] = useState(false);
 
   useEffect(() => {
     fetchProfilePosts();
     fetchUser();
+    setNavLinkSelectedHard("profile-pic");
   }, []);
 
   useEffect(() => {
@@ -94,7 +97,17 @@ function Profile({ now, me, setMe, setLoading }) {
     if (userIsMe) {
       return (
         <>
-          {!isEditing ? (
+          {!isEditingFullname ? (
+            <button
+              className="profile-header-edit-btn"
+              onMouseDown={(e) => handleEditNameBtnClicked(e)}
+            >
+              Edit Name
+            </button>
+          ) : (
+            <button className="profile-header-edit-btn">Done</button>
+          )}
+          {!isEditingBio ? (
             <button
               className="profile-header-edit-btn"
               onMouseDown={(e) => handleEditBioBtnClicked(e)}
@@ -104,7 +117,6 @@ function Profile({ now, me, setMe, setLoading }) {
           ) : (
             <button className="profile-header-edit-btn">Done</button>
           )}
-
           <img
             className="profile-header-options"
             src={profileHeaderOptions}
@@ -189,20 +201,41 @@ function Profile({ now, me, setMe, setLoading }) {
     e.preventDefault();
     bioRef.current.disabled = false;
     bioRef.current.select();
-    setIsEditing(true);
+    setIsEditingBio(true);
+  }
+
+  function handleEditNameBtnClicked(e) {
+    e.preventDefault();
+    fullnameRef.current.disabled = false;
+    fullnameRef.current.select();
+    setIsEditingFullname(true);
   }
 
   async function handleBioBlur() {
     bioRef.current.disabled = true;
-    setIsEditing(false);
+    setIsEditingBio(false);
     const meRef = doc(db, "users", me.username);
     await updateDoc(meRef, {
       bio: user.bio,
     });
   }
 
+  async function handleFullnameBlur() {
+    fullnameRef.current.disabled = true;
+    setIsEditingFullname(false);
+    const meRef = doc(db, "users", me.username);
+    await updateDoc(meRef, {
+      fullname: user.fullname,
+    });
+    setMe((prevMe) => ({ ...prevMe, fullname: user.fullname }));
+  }
+
   function handleBioInputChange(value) {
     setUser((prevUser) => ({ ...prevUser, bio: value }));
+  }
+
+  function handleFullnameInputChange(value) {
+    setUser((prevUser) => ({ ...prevUser, fullname: value }));
   }
 
   async function handleImagePicked(e) {
@@ -278,12 +311,24 @@ function Profile({ now, me, setMe, setLoading }) {
             </div>
           </div>
           <div>
-            <div className="profile-header-full-name">{user.fullname}</div>
+            <textarea
+              className="profile-header-full-name"
+              onChange={(e) => handleFullnameInputChange(e.target.value)}
+              value={user.fullname}
+              disabled
+              ref={fullnameRef}
+              maxLength="64"
+              onBlur={handleFullnameBlur}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.target.blur();
+                }
+              }}
+            />
             <textarea
               className="profile-header-bio"
               onChange={(e) => handleBioInputChange(e.target.value)}
               value={user.bio}
-              type="text"
               disabled
               ref={bioRef}
               maxLength="126"
