@@ -9,6 +9,10 @@ function follow(meUsername, username) {
   });
   updateDoc(userRef, {
     followers: arrayUnion(meUsername),
+    activityFeed: arrayUnion({
+      category: "follow",
+      username: meUsername,
+    }),
   });
 }
 
@@ -20,6 +24,10 @@ function unfollow(meUsername, username) {
   });
   updateDoc(userRef, {
     followers: arrayRemove(meUsername),
+    activityFeed: arrayRemove({
+      category: "follow",
+      username: meUsername,
+    }),
   });
 }
 

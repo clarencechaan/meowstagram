@@ -1,22 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import "../styles/InboxContact.css";
-import { useEffect, useState } from "react";
-import { doc, getDoc } from "firebase/firestore";
-import { db } from "../Firebase";
 
-function InboxContact({ username, contactSelected, setContactSelected }) {
-  const [user, setUser] = useState({});
-
-  useEffect(() => {
-    fetchUser();
-  }, []);
-
-  async function fetchUser() {
-    const userRef = doc(db, "users", username);
-    const userSnap = await getDoc(userRef);
-    setUser(userSnap.data());
-  }
-
+function InboxContact({ user, contactSelected, setContactSelected }) {
   function handleContactClicked() {
     setContactSelected(user);
   }
@@ -24,7 +9,7 @@ function InboxContact({ username, contactSelected, setContactSelected }) {
   return (
     <div
       className={
-        contactSelected && contactSelected.username === username
+        contactSelected && contactSelected.username === user.username
           ? "inbox-contact selected"
           : "inbox-contact"
       }

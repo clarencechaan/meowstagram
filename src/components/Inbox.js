@@ -6,13 +6,19 @@ import paperPlane from "../images/paper-plane.png";
 import { useEffect, useState } from "react";
 import InboxChat from "./InboxChat";
 import InboxChatNewMessagePopup from "./InboxChatNewMessagePopup";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../Firebase";
 
 function Inbox({ me, setNavLinkSelectedHard }) {
   const [contactSelected, setContactSelected] = useState(null);
   const [sendMessagePopupShown, setSendMessagePopupShown] = useState(false);
-  const contactsArr = [...new Set([...me.followers, ...me.following])];
+  const contactUsernames = [...new Set([...me.followers, ...me.following])];
+  const [contacts, setContacts] = useState([]);
 
-  useEffect(() => setNavLinkSelectedHard("messenger"), []);
+  useEffect(() => {
+    setNavLinkSelectedHard("messenger");
+    fetchUsers();
+  }, []);
 
   function cancelSendMessagePopup() {
     setSendMessagePopupShown(false);
@@ -22,6 +28,16 @@ function Inbox({ me, setNavLinkSelectedHard }) {
   function handleNewMessageBtnClicked() {
     setSendMessagePopupShown(true);
     document.body.style.overflow = "hidden";
+  }
+
+  async function fetchUsers() {
+    let contactsArr = [];
+    for (const username of contactUsernames) {
+      const userRef = doc(db, "users", username);
+      const userSnap = await getDoc(userRef);
+      contactsArr.push(userSnap.data());
+    }
+    setContacts(contactsArr);
   }
 
   return (
@@ -37,14 +53,19 @@ function Inbox({ me, setNavLinkSelectedHard }) {
           />
         </div>
         <div className="inbox-sidebar-contacts">
-          {contactsArr.map((username) => (
+          {contacts.map((contact) => (
             <InboxContact
-              username={username}
+              user={contact}
               contactSelected={contactSelected}
               setContactSelected={setContactSelected}
-              key={username}
+              key={contact.username}
             />
           ))}
+          {contacts.length === 0 ? (
+            <div className="inbox-sidebar-no-contacts-msg">
+              You are not following anyone and no one is following you.
+            </div>
+          ) : null}
         </div>
       </div>
       {!contactSelected ? (
@@ -65,7 +86,11 @@ function Inbox({ me, setNavLinkSelectedHard }) {
         <InboxChat me={me} contactSelected={contactSelected} />
       )}
       {sendMessagePopupShown ? (
-        <InboxChatNewMessagePopup cancelPopup={cancelSendMessagePopup} />
+        <InboxChatNewMessagePopup
+          cancelPopup={cancelSendMessagePopup}
+          setContactSelected={setContactSelected}
+          contacts={contacts}
+        />
       ) : null}
     </div>
   );

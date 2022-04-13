@@ -65,3 +65,8 @@
   font-weight: 600;
   margin: 16px;
 }
+
+.inbox-chat-new-message-popup-no-contacts {
+  padding: 90px;
+  text-align: center;
+}

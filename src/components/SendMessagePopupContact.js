@@ -1,14 +1,24 @@
 import "../styles/SendMessagePopupContact.css";
-import cat from "../images/cat.jpg";
 
-function SendMessagePopupContact() {
+function SendMessagePopupContact({ user, setContactSelected, cancelPopup }) {
+  function handleContactClicked() {
+    setContactSelected(user);
+    cancelPopup();
+  }
+
   return (
-    <div className="send-message-popup-contact">
-      <img className="send-message-popup-contact-img" src={cat} alt="" />
+    <div className="send-message-popup-contact" onClick={handleContactClicked}>
+      <img
+        className="send-message-popup-contact-img"
+        src={user.imgURL}
+        alt=""
+      />
       <div className="send-message-popup-contact-names">
-        <div className="send-message-popup-contact-username">stc.official</div>
+        <div className="send-message-popup-contact-username">
+          {user.username}
+        </div>
         <div className="send-message-popup-contact-full-name">
-          Sushi the Cat
+          {user.fullname}
         </div>
       </div>
     </div>

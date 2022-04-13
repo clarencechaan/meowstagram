@@ -119,6 +119,9 @@ function NavLinks({
           cancelPopup={() => setActivityFeedPopupShown(false)}
           setSelected={setSelected}
           lastSelected={lastSelected}
+          feed={me.activityFeed}
+          me={me}
+          setMe={setMe}
         />
       ) : null}
       {profilePicPopupShown ? (

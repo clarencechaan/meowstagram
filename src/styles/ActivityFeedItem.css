@@ -13,6 +13,10 @@
   margin-right: 12px;
 }
 
+.activity-feed-item-text {
+  padding-right: 16px;
+}
+
 .activity-feed-item-username {
   font-weight: 600;
 }
@@ -27,17 +31,25 @@
   height: 40px;
 }
 
-.acitivty-feed-item-follow-btn {
+.acitivty-feed-item-follow-btn,
+.acitivty-feed-item-unfollow-btn {
   margin-left: auto;
-  width: 62px;
   height: 28px;
   padding: 5px 9px 5px 9px;
-  background-color: #0095f6;
-  color: white;
-  border: none;
   border-radius: 4px;
   font-family: inherit;
   font-size: inherit;
   font-weight: 700;
   cursor: pointer;
+}
+
+.acitivty-feed-item-follow-btn {
+  background-color: #0095f6;
+  color: white;
+  border: none;
+}
+
+.acitivty-feed-item-unfollow-btn {
+  background-color: transparent;
+  border: 1px solid gray;
 }

@@ -34,14 +34,31 @@ function PostButtonsBar({
 
   async function handleLikeClicked() {
     const postRef = doc(db, "posts", post.id);
+    const userRef = doc(db, "users", post.user);
     if (!postLiked) {
       await updateDoc(postRef, {
         likes: arrayUnion(me.username),
       });
+      if (me.username !== post.user)
+        await updateDoc(userRef, {
+          activityFeed: arrayUnion({
+            category: "like",
+            postID: post.id,
+            username: me.username,
+          }),
+        });
     } else {
       await updateDoc(postRef, {
         likes: arrayRemove(me.username),
       });
+      if (me.username !== post.user)
+        await updateDoc(userRef, {
+          activityFeed: arrayRemove({
+            category: "like",
+            postID: post.id,
+            username: me.username,
+          }),
+        });
     }
     setPostLiked((prevPostLiked) => !prevPostLiked);
   }

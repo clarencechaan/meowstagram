@@ -47,6 +47,13 @@
   font-weight: 600;
 }
 
+.activity-feed-popup-window-no-recent-activity {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .hidden {
   display: none;
 }

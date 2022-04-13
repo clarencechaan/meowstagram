@@ -40,6 +40,11 @@
   overflow: scroll;
 }
 
+.inbox-sidebar-no-contacts-msg {
+  padding: 60px;
+  text-align: center;
+}
+
 .inbox-messages {
   display: flex;
   flex-direction: column;

@@ -151,6 +151,7 @@ function Profile({ now, me, setMe, setLoading, setNavLinkSelectedHard }) {
       ...prevMe,
       following: [...prevMe.following, username],
     }));
+    if (user.followers.includes(me.username)) return;
     setUser((prevUser) => ({
       ...prevUser,
       followers: [...prevUser.followers, me.username],
@@ -169,6 +170,7 @@ function Profile({ now, me, setMe, setLoading, setNavLinkSelectedHard }) {
         ],
       };
     });
+    if (!user.followers.includes(me.username)) return;
     setUser((prevUser) => {
       const index = prevUser.followers.indexOf(me.username);
       return {

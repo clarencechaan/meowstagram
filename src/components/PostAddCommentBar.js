@@ -70,6 +70,18 @@ function PostAddCommentsBar({
       setMyComments((prevComments) => [...prevComments, comment]);
     if (scrollToBottom) scrollToBottom();
     setInputValue("");
+
+    const userRef = doc(db, "users", post.user);
+    if (me.username !== post.user)
+      updateDoc(userRef, {
+        activityFeed: arrayUnion({
+          category: "comment",
+          postID: post.id,
+          username: me.username,
+          text: inputValue,
+          id: id,
+        }),
+      });
   }
 
   async function uploadComment() {

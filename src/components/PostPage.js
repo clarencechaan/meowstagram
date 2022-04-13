@@ -19,7 +19,7 @@ function PostPage({ now, me, setMe }) {
 
   useEffect(() => {
     fetchPost();
-  }, []);
+  }, [postID]);
 
   async function fetchPost() {
     const postRef = doc(db, "posts", postID);
