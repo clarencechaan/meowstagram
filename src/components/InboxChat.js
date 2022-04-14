@@ -41,13 +41,13 @@ function InboxChat({ me, contactSelected, postID }) {
     emojiToggle.current.addEventListener("click", () => {
       setEmojiPickerShown((prevEmojiPickerShown) => !prevEmojiPickerShown);
     });
-    fetchChat();
+    fetchChat().then(() => {
+      if (postID) sharePost();
+    });
     const unsub = onSnapshot(doc(db, "chats", getChatID()), (doc) => {
       if (doc.data()) setChat(doc.data());
       scrollToBottom();
     });
-
-    if (postID) sharePost();
 
     return () => {
       unsub();
