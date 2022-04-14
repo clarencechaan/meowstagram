@@ -5,11 +5,11 @@ function InboxChatMessage({ me, sender, text }) {
     <div className="inbox-chat-message">
       {sender === me.username ? (
         <div className="inbox-chat-message-bubble sent-by-me">
-          <span>{text}</span>
+          <span dangerouslySetInnerHTML={{ __html: text }} />
         </div>
       ) : (
         <div className="inbox-chat-message-bubble sent-by-contact">
-          <span>{text}</span>
+          <span dangerouslySetInnerHTML={{ __html: text }} />
         </div>
       )}
     </div>

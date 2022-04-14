@@ -8,8 +8,11 @@ import InboxChat from "./InboxChat";
 import InboxChatNewMessagePopup from "./InboxChatNewMessagePopup";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../Firebase";
+import { useParams, useLocation } from "react-router-dom";
 
 function Inbox({ me, setNavLinkSelectedHard }) {
+  const username = useParams().username;
+  const postID = useLocation()?.state?.postID;
   const [contactSelected, setContactSelected] = useState(null);
   const [sendMessagePopupShown, setSendMessagePopupShown] = useState(false);
   const contactUsernames = [...new Set([...me.followers, ...me.following])];
@@ -19,6 +22,13 @@ function Inbox({ me, setNavLinkSelectedHard }) {
     setNavLinkSelectedHard("messenger");
     fetchUsers();
   }, []);
+
+  useEffect(() => {
+    if (username)
+      setContactSelected(
+        contacts.find((contact) => contact.username === username)
+      );
+  }, [contacts]);
 
   function cancelSendMessagePopup() {
     setSendMessagePopupShown(false);
@@ -83,7 +93,7 @@ function Inbox({ me, setNavLinkSelectedHard }) {
           </button>
         </div>
       ) : (
-        <InboxChat me={me} contactSelected={contactSelected} />
+        <InboxChat me={me} contactSelected={contactSelected} postID={postID} />
       )}
       {sendMessagePopupShown ? (
         <InboxChatNewMessagePopup

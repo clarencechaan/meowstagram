@@ -68,6 +68,12 @@ function Content({
           }
         />
         <Route
+          path="/inbox/:username"
+          element={
+            <Inbox me={me} setNavLinkSelectedHard={setNavLinkSelectedHard} />
+          }
+        />
+        <Route
           path="/post/:postID"
           element={<PostPage now={now} me={me} setMe={setMe} />}
         />

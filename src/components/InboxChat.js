@@ -20,6 +20,7 @@ import {
 } from "firebase/functions";
 import { nanoid } from "nanoid";
 import { Link } from "react-router-dom";
+import convertLinks from "../scripts/convertLinks";
 
 const functions = getFunctions();
 connectFunctionsEmulator(functions, "localhost", 5001);
@@ -27,7 +28,7 @@ const getTimeStamp = httpsCallable(functions, "getTimeStamp");
 
 let selectionStart;
 
-function InboxChat({ me, contactSelected }) {
+function InboxChat({ me, contactSelected, postID }) {
   const emptyChat = { messages: [], timestamp: 0 };
   const [inputValue, setInputValue] = useState("");
   const [emojiPickerShown, setEmojiPickerShown] = useState(false);
@@ -45,6 +46,8 @@ function InboxChat({ me, contactSelected }) {
       if (doc.data()) setChat(doc.data());
       scrollToBottom();
     });
+
+    if (postID) sharePost();
 
     return () => {
       unsub();
@@ -100,10 +103,12 @@ function InboxChat({ me, contactSelected }) {
     }
   }
 
-  function handleSendBtnClicked() {
+  function handleSendBtnClicked(text) {
+    let textContent = text ? text : inputValue;
+    textContent = convertLinks(textContent);
     const newMessage = {
       sender: me.username,
-      text: inputValue,
+      text: textContent,
       id: nanoid(),
     };
     uploadMessage(newMessage);
@@ -124,6 +129,13 @@ function InboxChat({ me, contactSelected }) {
         1
       );
     }
+  }
+
+  function sharePost() {
+    const postURL = window.location.origin + "/post/" + postID;
+    const sharePostMessage = "Check out this post! " + postURL;
+    handleSendBtnClicked(sharePostMessage);
+    window.history.replaceState(null, "");
   }
 
   return (
@@ -195,7 +207,7 @@ function InboxChat({ me, contactSelected }) {
             ) : (
               <button
                 className="inbox-chat-message-send-btn"
-                onClick={handleSendBtnClicked}
+                onClick={() => handleSendBtnClicked()}
               >
                 Send
               </button>

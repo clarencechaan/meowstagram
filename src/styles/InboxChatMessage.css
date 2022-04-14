@@ -8,6 +8,7 @@
   max-width: 202px;
   line-height: 18px;
   border-radius: 22px;
+  word-wrap: break-word;
 }
 
 .inbox-chat-message-bubble.sent-by-me {

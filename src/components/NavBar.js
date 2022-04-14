@@ -24,7 +24,7 @@ function NavBar({
         >
           <div className="logo">Meowstagram</div>
         </Link>
-        <SearchBar />
+        <SearchBar me={me} setMe={setMe} />
         <NavLinks
           selected={selected}
           setSelected={setSelected}

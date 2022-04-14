@@ -117,7 +117,11 @@ function PostButtonsBar({
         onClick={handleSaveClicked}
       />
       {sharePostPopupShown ? (
-        <SharePostPopup cancelPopup={cancelSharePostPopup} />
+        <SharePostPopup
+          me={me}
+          cancelPopup={cancelSharePostPopup}
+          postID={post.id}
+        />
       ) : null}
     </div>
   );
