@@ -9,7 +9,18 @@ import {
   httpsCallable,
   connectFunctionsEmulator,
 } from "firebase/functions";
-import guestsArray from "./scripts/guests";
+import { guestsArray } from "./scripts/guests";
+import { onAuthStateChanged, getAuth } from "firebase/auth";
+import {
+  getDocs,
+  query,
+  where,
+  collection,
+  getDoc,
+  limit,
+  doc,
+} from "firebase/firestore";
+import { db } from "./Firebase";
 
 const functions = getFunctions();
 connectFunctionsEmulator(functions, "localhost", 5001);
@@ -22,29 +33,41 @@ function App() {
   const [homeFeedPostsArr, setHomeFeedPostsArr] = useState([]);
   const [me, setMe] = useState(null);
   const [guestsArr, setGuestsArr] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     getTimeStamp().then((res) => {
       setNow(Math.round(res.data / 1000));
     });
-    guestsArray.then((arr) => {
-      setGuestsArr(arr);
+    setLoading(true);
+    const auth = getAuth();
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        await fetchUserFromUID(user.uid);
+        setLoading(false);
+      } else {
+        const username = localStorage.getItem("username");
+        if (username) {
+          const userRef = doc(db, "users", username);
+          const userSnap = await getDoc(userRef);
+          const user = userSnap.data();
+          setMe(user);
+        }
+        guestsArray.then((arr) => {
+          setGuestsArr(arr);
+          setLoading(false);
+        });
+      }
     });
   }, []);
 
-  useEffect(() => {
-    if (!me) return;
-    setGuestsArr((prevArr) => {
-      const index = prevArr.findIndex(
-        (guest) => guest.username === me.username
-      );
-      if (index !== -1) {
-        return [...prevArr.slice(0, index), me, ...prevArr.slice(index + 1)];
-      } else {
-        return prevArr;
-      }
-    });
-  }, [me]);
+  async function fetchUserFromUID(uid) {
+    const usersRef = collection(db, "users");
+    const q = query(usersRef, where("uid", "==", uid), limit(1));
+    const snap = await getDocs(q);
+    const user = snap.docs[0];
+    if (user?.exists()) setMe(user.data());
+  }
 
   function setNavLinkSelectedHard(link) {
     setNavLinkSelected(link);
@@ -76,9 +99,13 @@ function App() {
           </>
         ) : (
           <LogIn
+            me={me}
             setMe={setMe}
-            guestsArr={guestsArr}
+            setHomeFeedPostsArr={setHomeFeedPostsArr}
             setGuestsArr={setGuestsArr}
+            guestsArr={guestsArr}
+            loading={loading}
+            setLoading={setLoading}
           />
         )}
       </BrowserRouter>

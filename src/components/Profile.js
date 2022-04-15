@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import "../styles/Profile.css";
-import profileHeaderOptions from "../images/profile-header-options.svg";
 import PostPreview from "./PostPreview";
 import {
   query,
@@ -19,8 +18,11 @@ import { useParams } from "react-router-dom";
 import { follow, unfollow } from "../scripts/follow";
 import FollowersPopup from "./FollowersPopup";
 import FollowingPopup from "./FollowingPopup";
+import postsTab from "../images/profile-posts.svg";
+import savedTab from "../images/profile-saved.svg";
+import { Link } from "react-router-dom";
 
-function uploadImage(file) {
+async function uploadImage(file) {
    
 
   let myHeaders = new Headers();
@@ -42,7 +44,14 @@ function uploadImage(file) {
     .catch((error) => console.log("error", error));
 }
 
-function Profile({ now, me, setMe, setLoading, setNavLinkSelectedHard }) {
+function Profile({
+  now,
+  me,
+  setMe,
+  setLoading,
+  setNavLinkSelectedHard,
+  onSaved,
+}) {
   const username = useParams().username;
   const [user, setUser] = useState({
     username: "",
@@ -60,17 +69,36 @@ function Profile({ now, me, setMe, setLoading, setNavLinkSelectedHard }) {
   const fullnameRef = useRef(null);
   const [isEditingBio, setIsEditingBio] = useState(false);
   const [isEditingFullname, setIsEditingFullname] = useState(false);
+  const [tabSelected, setTabSelected] = useState(null);
+  const [savedArr, setSavedArr] = useState([]);
 
   useEffect(() => {
-    fetchProfilePosts();
     fetchUser();
     setNavLinkSelectedHard("profile-pic");
-  }, []);
+    setPostsArr([]);
+    setSavedArr([]);
+
+    if (userIsMe && onSaved) {
+      fetchSavedPosts();
+    } else {
+      fetchProfilePosts();
+    }
+  }, [username]);
 
   useEffect(() => {
-    fetchProfilePosts();
-    fetchUser();
-  }, [username]);
+    if (
+      (!userIsMe || (userIsMe && tabSelected === "posts")) &&
+      postsArr.length === 0
+    ) {
+      fetchProfilePosts();
+    } else if (userIsMe && tabSelected === "saved" && savedArr.length === 0) {
+      fetchSavedPosts();
+    }
+  }, [tabSelected]);
+
+  useEffect(() => {
+    onSaved ? setTabSelected("saved") : setTabSelected("posts");
+  }, [onSaved]);
 
   async function fetchProfilePosts() {
     const postsRef = collection(db, "posts");
@@ -85,12 +113,26 @@ function Profile({ now, me, setMe, setLoading, setNavLinkSelectedHard }) {
       resultArr.push({ ...doc.data(), id: doc.id });
     });
     setPostsArr(resultArr);
+    setTabSelected("posts");
   }
 
   async function fetchUser() {
     const userRef = doc(db, "users", username);
     const userSnap = await getDoc(userRef);
     setUser(userSnap.data());
+  }
+
+  async function fetchSavedPosts() {
+    setLoading(true);
+    let resultArr = [];
+    for (const postID of me.saved) {
+      const postRef = doc(db, "posts", postID);
+      const postSnap = await getDoc(postRef);
+      resultArr.unshift({ ...postSnap.data(), id: postSnap.id });
+    }
+    setSavedArr(resultArr);
+    setTabSelected("saved");
+    setLoading(false);
   }
 
   function getUserButtons() {
@@ -117,11 +159,6 @@ function Profile({ now, me, setMe, setLoading, setNavLinkSelectedHard }) {
           ) : (
             <button className="profile-header-edit-btn">Done</button>
           )}
-          <img
-            className="profile-header-options"
-            src={profileHeaderOptions}
-            alt=""
-          />
         </>
       );
     } else if (!me.following.includes(username)) {
@@ -242,6 +279,10 @@ function Profile({ now, me, setMe, setLoading, setNavLinkSelectedHard }) {
 
   async function handleImagePicked(e) {
     if (!e.target.files[0]) return;
+    if (e.target.files[0].size > 10485760) {
+      alert("File is too big. Max size is 10MB.");
+      return;
+    }
     setLoading(true);
     uploadImage(e.target.files[0]).then(async (result) => {
       setMeImgURL(result);
@@ -255,6 +296,47 @@ function Profile({ now, me, setMe, setLoading, setNavLinkSelectedHard }) {
 
   function setMeImgURL(URL) {
     setMe((prevMe) => ({ ...prevMe, imgURL: URL }));
+  }
+
+  function handlePostsTabClicked() {
+    setTabSelected("posts");
+  }
+
+  function handleSavedTabClicked() {
+    setTabSelected("saved");
+  }
+
+  function getProfileTabs() {
+    return userIsMe ? (
+      <div className="profile-tabs">
+        <Link to={"/profile/" + me.username}>
+          <span
+            className={
+              tabSelected === "posts"
+                ? "profile-tab-posts selected"
+                : "profile-tab-posts unselected"
+            }
+            onClick={handlePostsTabClicked}
+          >
+            <img src={postsTab} alt="" /> POSTS
+          </span>
+        </Link>
+        <Link to={"/profile/" + me.username + "/saved"}>
+          <span
+            className={
+              tabSelected === "saved"
+                ? "profile-tab-saved selected"
+                : "profile-tab-saved unselected"
+            }
+            onClick={handleSavedTabClicked}
+          >
+            <img src={savedTab} alt="" /> SAVED
+          </span>
+        </Link>
+      </div>
+    ) : (
+      <div className="profile-tabs"></div>
+    );
   }
 
   return (
@@ -344,19 +426,40 @@ function Profile({ now, me, setMe, setLoading, setNavLinkSelectedHard }) {
           </div>
         </div>
       </div>
+      {getProfileTabs()}
       <div className="profile-post-previews-container">
-        {postsArr.map((post) => (
-          <PostPreview
-            post={post}
-            now={now}
-            key={post.id}
-            setParentPostsArr={setPostsArr}
-            me={me}
-            setMe={setMe}
-            profileUser={user}
-            setProfileUser={setUser}
-          />
-        ))}
+        {!userIsMe || (userIsMe && tabSelected === "posts")
+          ? postsArr.map((post) => (
+              <PostPreview
+                post={post}
+                now={now}
+                key={post.id}
+                setParentPostsArr={setPostsArr}
+                me={me}
+                setMe={setMe}
+                profileUser={user}
+                setProfileUser={setUser}
+              />
+            ))
+          : null}
+        {userIsMe && tabSelected === "saved"
+          ? savedArr.map((post) => (
+              <PostPreview
+                post={post}
+                now={now}
+                key={post.id}
+                setParentPostsArr={setSavedArr}
+                me={me}
+                setMe={setMe}
+                profileUser={user}
+                setProfileUser={setUser}
+              />
+            ))
+          : null}
+        {(tabSelected === "posts" && postsArr.length === 0) ||
+        (tabSelected === "saved" && savedArr.length === 0) ? (
+          <div className="profile-no-posts-message">No posts found.</div>
+        ) : null}
       </div>
       <Footer />
       {isFollowersPopupShown ? (

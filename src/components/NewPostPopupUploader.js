@@ -3,7 +3,7 @@ import mediaImportIcon from "../images/media-import-icon.svg";
 import ProgressBar from "./ProgressBar";
 import { useState } from "react";
 
-function uploadImage(file) {
+async function uploadImage(file) {
    
 
   let myHeaders = new Headers();
@@ -27,8 +27,13 @@ function uploadImage(file) {
 
 function NewPostPopupUploader({ setImgURL }) {
   const [loading, setLoading] = useState(false);
+  const [sizeAlertShown, setSizeAlertShown] = useState(false);
 
   function handleImagePicked(e) {
+    if (e.target.files[0].size > 10485760) {
+      setSizeAlertShown(true);
+      return;
+    }
     uploadImage(e.target.files[0]).then((result) => setImgURL(result));
     setLoading(true);
   }
@@ -51,6 +56,9 @@ function NewPostPopupUploader({ setImgURL }) {
       <label htmlFor="file-input" className="file-input-label">
         Select from computer
       </label>
+      <div className="new-post-size-alert">
+        {sizeAlertShown ? "File is too big. Max size is 10MB." : <br />}
+      </div>
     </div>
   );
 }

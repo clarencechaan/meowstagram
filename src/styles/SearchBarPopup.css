@@ -60,6 +60,7 @@
 .search-bar-popup-window-content {
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 .search-bar-popup-no-recents,

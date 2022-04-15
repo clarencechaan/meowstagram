@@ -51,7 +51,13 @@ function NavLinks({
 
   return (
     <div className="nav-links">
-      <Link to="/" className="nav-link">
+      <Link
+        to="/"
+        className="nav-link"
+        onClick={() => {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }}
+      >
         <img
           src={selected === "home" ? homeSelected : homeUnselected}
           alt=""

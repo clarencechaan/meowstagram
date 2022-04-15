@@ -38,6 +38,7 @@
   padding-top: 8px;
   flex: 1;
   overflow: scroll;
+  position: relative;
 }
 
 .inbox-sidebar-no-contacts-msg {

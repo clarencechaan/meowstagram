@@ -5,6 +5,7 @@ import SearchBarPopupItem from "./SearchBarPopupItem";
 import { useState } from "react";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../Firebase";
+import ProgressBar from "./ProgressBar";
 
 function SearchBarPopup({
   cancelPopup,
@@ -16,6 +17,7 @@ function SearchBarPopup({
 }) {
   const recentSearchUsernames = me.recentSearches;
   const [recentSearches, setRecentSearches] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchRecentSearches();
@@ -29,6 +31,7 @@ function SearchBarPopup({
       recentArr.push(userSnap.data());
     }
     setRecentSearches(recentArr);
+    setLoading(false);
   }
 
   async function clearRecentSearches() {
@@ -56,7 +59,6 @@ function SearchBarPopup({
             <div className="search-bar-popup-window-title">
               {!inputValue ? "Recent" : "Search Results"}
             </div>
-
             {!inputValue ? (
               <div
                 className="search-bar-popup-window-clear-all"
@@ -67,6 +69,7 @@ function SearchBarPopup({
             ) : null}
           </div>
           <div className="search-bar-popup-window-content">
+            {loading ? <ProgressBar speed={3} /> : null}
             {inputValue && searchResults.length >= 1
               ? searchResults.map((user) => (
                   <SearchBarPopupItem

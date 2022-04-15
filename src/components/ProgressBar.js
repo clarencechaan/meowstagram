@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import "../styles/ProgressBar.css";
 
-function ProgressBar() {
+function ProgressBar({ speed }) {
   const [prog, setProg] = useState(0);
 
   useEffect(() => {
     function incrementProg() {
-      setProg((prevProg) => Math.min(prevProg + 1, 100));
+      setProg((prevProg) => Math.min(prevProg + 1 * (speed ? speed : 1), 100));
     }
 
     const timer = setInterval(incrementProg, 5);

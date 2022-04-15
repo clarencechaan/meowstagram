@@ -18,6 +18,7 @@ function NavBar({
         <Link
           to="/"
           onClick={() => {
+            window.scrollTo({ top: 0, behavior: "smooth" });
             setSelected("home");
             setLastSelected("home");
           }}

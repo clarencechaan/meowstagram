@@ -2,3 +2,9 @@
   padding-right: 28px;
   width: 616px;
 }
+
+.home-feed-no-posts-message {
+  width: 100%;
+  text-align: center;
+  margin-top: 52px;
+}

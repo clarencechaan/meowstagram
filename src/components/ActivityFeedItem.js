@@ -9,6 +9,9 @@ import { follow, unfollow } from "../scripts/follow";
 function ActivityFeedItem({ item, me, setMe }) {
   const [user, setUser] = useState({});
   const [post, setPost] = useState({});
+  const [isFollowing, setIsFollowing] = useState(
+    me.following.includes(item.username)
+  );
 
   useEffect(() => {
     fetchUser();
@@ -48,6 +51,7 @@ function ActivityFeedItem({ item, me, setMe }) {
       ...prevMe,
       following: [...prevMe.following, item.username],
     }));
+    setIsFollowing(true);
     follow(me.username, item.username);
   }
 
@@ -64,6 +68,7 @@ function ActivityFeedItem({ item, me, setMe }) {
         ],
       };
     });
+    setIsFollowing(false);
     unfollow(me.username, item.username);
   }
 
@@ -82,7 +87,7 @@ function ActivityFeedItem({ item, me, setMe }) {
         {item.category === "like" || item.category === "comment" ? (
           <img className="activity-feed-item-post-img" src={post.URL} alt="" />
         ) : null}
-        {item.category === "follow" && !me.following.includes(item.username) ? (
+        {item.category === "follow" && !isFollowing ? (
           <button
             className="acitivty-feed-item-follow-btn"
             onClick={(e) => handleFollowBtnClicked(e)}
@@ -90,7 +95,7 @@ function ActivityFeedItem({ item, me, setMe }) {
             Follow
           </button>
         ) : null}
-        {item.category === "follow" && me.following.includes(item.username) ? (
+        {item.category === "follow" && isFollowing ? (
           <button
             className="acitivty-feed-item-unfollow-btn"
             onClick={(e) => handleUnfollowBtnClicked(e)}

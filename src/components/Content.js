@@ -51,6 +51,19 @@ function Content({
           }
         />
         <Route
+          path="/profile/:username/saved"
+          element={
+            <Profile
+              now={now}
+              me={me}
+              setMe={setMe}
+              setLoading={setLoading}
+              setNavLinkSelectedHard={setNavLinkSelectedHard}
+              onSaved={true}
+            />
+          }
+        />
+        <Route
           path="/explore"
           element={
             <Explore

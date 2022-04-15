@@ -20,6 +20,8 @@
 
 .post-buttons-bar > img {
   padding: 8px;
+  width: 24px;
+  height: 24px;
   cursor: pointer;
 }
 

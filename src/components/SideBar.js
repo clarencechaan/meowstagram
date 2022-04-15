@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { collection, query, limit, getDocs, where } from "firebase/firestore";
 import { db } from "../Firebase";
+import { signOut, getAuth } from "firebase/auth";
 
 function SideBar({ me, setMe }) {
   const [suggestedUsers, setSuggestedUsers] = useState([]);
@@ -24,7 +25,10 @@ function SideBar({ me, setMe }) {
     setSuggestedUsers(resultArr);
   }
 
-  function handleSwitchBtnClicked() {
+  async function handleSwitchBtnClicked() {
+    const auth = getAuth();
+    localStorage.removeItem("username");
+    await signOut(auth);
     setMe(null);
   }
 

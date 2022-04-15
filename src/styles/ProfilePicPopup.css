@@ -9,7 +9,7 @@
 .profile-pic-popup-window {
   position: fixed;
   width: 230px;
-  height: 194px;
+  height: 156px;
   left: calc(100vw / 2 + 263px);
   top: 57px;
   background-color: white;
@@ -48,6 +48,7 @@
   align-items: center;
   padding: 8px 16px 8px 16px;
   font-size: 14px;
+  height: 23px;
 }
 
 .profile-pic-popup-window-overlay > * > button {

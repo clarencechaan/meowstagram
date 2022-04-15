@@ -9,6 +9,7 @@ import InboxChatNewMessagePopup from "./InboxChatNewMessagePopup";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../Firebase";
 import { useParams, useLocation } from "react-router-dom";
+import ProgressBar from "./ProgressBar";
 
 function Inbox({ me, setNavLinkSelectedHard }) {
   const username = useParams().username;
@@ -17,6 +18,7 @@ function Inbox({ me, setNavLinkSelectedHard }) {
   const [sendMessagePopupShown, setSendMessagePopupShown] = useState(false);
   const contactUsernames = [...new Set([...me.followers, ...me.following])];
   const [contacts, setContacts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     setNavLinkSelectedHard("messenger");
@@ -48,6 +50,7 @@ function Inbox({ me, setNavLinkSelectedHard }) {
       contactsArr.push(userSnap.data());
     }
     setContacts(contactsArr);
+    setLoading(false);
   }
 
   return (
@@ -63,6 +66,7 @@ function Inbox({ me, setNavLinkSelectedHard }) {
           />
         </div>
         <div className="inbox-sidebar-contacts">
+          {loading ? <ProgressBar speed={2} /> : null}
           {contacts.map((contact) => (
             <InboxContact
               user={contact}
@@ -71,7 +75,7 @@ function Inbox({ me, setNavLinkSelectedHard }) {
               key={contact.username}
             />
           ))}
-          {contacts.length === 0 ? (
+          {contacts.length === 0 && !loading ? (
             <div className="inbox-sidebar-no-contacts-msg">
               You are not following anyone and no one is following you.
             </div>

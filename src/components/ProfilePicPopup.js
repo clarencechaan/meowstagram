@@ -1,9 +1,9 @@
 import "../styles/ProfilePicPopup.css";
 import profilePicPopupProfile from "../images/profile-pic-popup-profile.svg";
 import profilePicPopupSaved from "../images/profile-pic-popup-saved.svg";
-import profilePicPopupSettings from "../images/profile-pic-popup-settings.svg";
 import profilePicPopupSwitch from "../images/profile-pic-popup-switch.svg";
 import { Link } from "react-router-dom";
+import { signOut, getAuth } from "firebase/auth";
 
 function ProfilePicPopup({
   cancelPopup,
@@ -13,6 +13,15 @@ function ProfilePicPopup({
   me,
   setMe,
 }) {
+  async function handleSignOutBtnClicked() {
+    const auth = getAuth();
+    localStorage.removeItem("username");
+    setTimeout(async () => {
+      await signOut(auth);
+    }, 1);
+    setMe(null);
+  }
+
   return (
     <div
       className="profile-pic-popup"
@@ -37,21 +46,19 @@ function ProfilePicPopup({
             <img src={profilePicPopupProfile} alt="" />
             Profile
           </Link>
-          <button>
-            <img src={profilePicPopupSaved} alt="" />
-            Saved
-          </button>
-          <button>
-            <img src={profilePicPopupSettings} alt="" />
-            Settings
-          </button>
-          <Link to="/" onClick={() => setMe(null)}>
+          <Link to={"/profile/" + me.username + "/saved"}>
+            <button>
+              <img src={profilePicPopupSaved} alt="" />
+              Saved
+            </button>
+          </Link>
+          <Link to="/" onClick={handleSignOutBtnClicked}>
             <button>
               <img src={profilePicPopupSwitch} alt="" />
               Switch Accounts
             </button>
           </Link>
-          <Link to="/" onClick={() => setMe(null)}>
+          <Link to="/" onClick={handleSignOutBtnClicked}>
             <button>Log Out</button>
           </Link>
         </div>
