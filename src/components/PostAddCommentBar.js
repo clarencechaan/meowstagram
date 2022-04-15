@@ -8,11 +8,11 @@ import { nanoid } from "nanoid";
 import {
   getFunctions,
   httpsCallable,
-  connectFunctionsEmulator,
+  // connectFunctionsEmulator,
 } from "firebase/functions";
 
 const functions = getFunctions();
-connectFunctionsEmulator(functions, "localhost", 5001);
+// connectFunctionsEmulator(functions, "localhost", 5001);
 const getTimeStamp = httpsCallable(functions, "getTimeStamp");
 
 let selectionStart;

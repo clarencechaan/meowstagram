@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import {
   getFunctions,
   httpsCallable,
-  connectFunctionsEmulator,
+  // connectFunctionsEmulator,
 } from "firebase/functions";
 import { guestsArray } from "./scripts/guests";
 import { onAuthStateChanged, getAuth } from "firebase/auth";
@@ -23,7 +23,7 @@ import {
 import { db } from "./Firebase";
 
 const functions = getFunctions();
-connectFunctionsEmulator(functions, "localhost", 5001);
+// connectFunctionsEmulator(functions, "localhost", 5001);
 const getTimeStamp = httpsCallable(functions, "getTimeStamp");
 
 function App() {

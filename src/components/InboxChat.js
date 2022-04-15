@@ -16,14 +16,14 @@ import Picker from "emoji-picker-react";
 import {
   getFunctions,
   httpsCallable,
-  connectFunctionsEmulator,
+  // connectFunctionsEmulator,
 } from "firebase/functions";
 import { nanoid } from "nanoid";
 import { Link } from "react-router-dom";
 import convertLinks from "../scripts/convertLinks";
 
 const functions = getFunctions();
-connectFunctionsEmulator(functions, "localhost", 5001);
+// connectFunctionsEmulator(functions, "localhost", 5001);
 const getTimeStamp = httpsCallable(functions, "getTimeStamp");
 
 let selectionStart;
