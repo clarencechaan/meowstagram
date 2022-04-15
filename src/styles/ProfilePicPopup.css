@@ -51,11 +51,14 @@
   height: 23px;
 }
 
-.profile-pic-popup-window-overlay > * > button {
+.profile-pic-popup-window-overlay button {
   background-color: inherit;
-  border: inherit;
+  border: none;
   padding: 0;
   cursor: inherit;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
 }
 
 .profile-pic-popup-window-overlay > *:hover {
@@ -66,7 +69,7 @@
   margin-right: 12px;
 }
 
-.profile-pic-popup-window-overlay > button:last-child {
+.profile-pic-popup-window-overlay > a:last-child {
   border-top: 1px solid lightgray;
 }
 
