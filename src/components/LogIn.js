@@ -1,13 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import "../styles/LogIn.css";
 import Footer from "./Footer";
-import uploadGuestUsers from "../scripts/uploadGuestUsers";
-import {
-  getAuth,
-  signInWithPopup,
-  GoogleAuthProvider,
-  signOut,
-} from "firebase/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { getDoc, doc, setDoc } from "firebase/firestore";
 import { db } from "../Firebase";
@@ -189,17 +183,6 @@ function LogIn({
     await follow(inputValue, "omelette");
   }
 
-  function handleSignOutBtnClicked() {
-    const auth = getAuth();
-    signOut(auth)
-      .then(() => {
-        setMe(null);
-      })
-      .catch((error) => {
-        // An error happened.
-      });
-  }
-
   return (
     <div className="log-in">
       <div className="log-in-window">
@@ -210,8 +193,6 @@ function LogIn({
         {UID && !loading ? getUserCreationForm() : null}
       </div>
       <Footer />
-      <button onClick={uploadGuestUsers}>upload guests</button>
-      <button onClick={handleSignOutBtnClicked}>sign out</button>
     </div>
   );
 }
