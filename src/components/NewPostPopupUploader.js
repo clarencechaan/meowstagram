@@ -42,7 +42,7 @@ function NewPostPopupUploader({ setImgURL }) {
     <div className="new-post-popup-uploader">
       {loading ? <ProgressBar /> : null}
       <img src={mediaImportIcon} alt="" />
-      <div className="media-import-label">Drag photos and videos here</div>
+      <div className="media-import-label">Upload an image (JPG/PNG)</div>
       <input
         type="file"
         id="file-input"
