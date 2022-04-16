@@ -51,6 +51,7 @@ function Profile({
   setLoading,
   setNavLinkSelectedHard,
   onSaved,
+  loading,
 }) {
   const username = useParams().username;
   const [user, setUser] = useState({
@@ -101,6 +102,7 @@ function Profile({
   }, [onSaved]);
 
   async function fetchProfilePosts() {
+    setLoading(true);
     const postsRef = collection(db, "posts");
     let resultArr = [];
     const q = query(
@@ -114,6 +116,7 @@ function Profile({
     });
     setPostsArr(resultArr);
     setTabSelected("posts");
+    setLoading(false);
   }
 
   async function fetchUser() {
@@ -456,8 +459,8 @@ function Profile({
               />
             ))
           : null}
-        {(tabSelected === "posts" && postsArr.length === 0) ||
-        (tabSelected === "saved" && savedArr.length === 0) ? (
+        {(tabSelected === "posts" && postsArr.length === 0 && !loading) ||
+        (tabSelected === "saved" && savedArr.length === 0 && !loading) ? (
           <div className="profile-no-posts-message">No posts found.</div>
         ) : null}
       </div>

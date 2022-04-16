@@ -32,5 +32,5 @@
 
 .likes-popup-users-container {
   flex: 1;
-  overflow: scroll;
+  overflow: auto;
 }

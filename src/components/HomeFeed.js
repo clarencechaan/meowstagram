@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import "../styles/HomeFeed.css";
 import Post from "./Post";
 import {
@@ -24,6 +24,7 @@ function HomeFeed({
   setNavLinkSelectedHard,
 }) {
   const endOfFeedRef = useRef(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     window.scrollTo({ top: 0 });
@@ -39,6 +40,7 @@ function HomeFeed({
 
     fetchFirst().then(() => {
       observer.observe(endOfFeedRef.current);
+      setLoading(false);
     });
     setNavLinkSelectedHard("home");
   }, []);
@@ -91,7 +93,7 @@ function HomeFeed({
           setMe={setMe}
         />
       ))}
-      {homeFeedPostsArr.length === 0 ? (
+      {homeFeedPostsArr.length === 0 && !loading ? (
         <div className="home-feed-no-posts-message">
           <div>No posts found.</div>{" "}
           <div>Find users to follow to get started.</div>

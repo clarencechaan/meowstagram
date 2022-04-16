@@ -1,15 +1,18 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import "../styles/SharePostPopup.css";
 import SendMessagePopupContact from "./SendMessagePopupContact";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../Firebase";
 import { Link } from "react-router-dom";
+import ProgressBar from "./ProgressBar";
 
 function SharePostPopup({ me, cancelPopup, postID }) {
   const [query, setQuery] = useState("");
   const [contacts, setContacts] = useState([]);
   const contactUsernames = [...new Set([...me.followers, ...me.following])];
+  const [loading, setLoading] = useState(true);
+  const inputRef = useRef(null);
 
   const searchResults = contacts.filter(
     (contact) =>
@@ -19,6 +22,7 @@ function SharePostPopup({ me, cancelPopup, postID }) {
 
   useEffect(() => {
     fetchUsers();
+    inputRef.current.focus();
   }, []);
 
   async function fetchUsers() {
@@ -29,6 +33,7 @@ function SharePostPopup({ me, cancelPopup, postID }) {
       contactsArr.push(userSnap.data());
     }
     setContacts(contactsArr);
+    setLoading(false);
   }
 
   function handleInputChanged(e) {
@@ -54,9 +59,11 @@ function SharePostPopup({ me, cancelPopup, postID }) {
             onChange={(e) => {
               handleInputChanged(e);
             }}
+            ref={inputRef}
           />
         </div>
         <div className="share-post-popup-window-contacts">
+          {loading ? <ProgressBar speed={2} /> : null}
           <div className="share-post-popup-window-suggested-label">
             Suggested
           </div>
@@ -73,7 +80,7 @@ function SharePostPopup({ me, cancelPopup, postID }) {
               />
             </Link>
           ))}
-          {contacts.length === 0 ? (
+          {contacts.length === 0 && !loading ? (
             <div className="share-post-popup-no-contacts">
               You are not following anyone and no one is following you.
             </div>

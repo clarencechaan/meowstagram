@@ -1,6 +1,6 @@
 .search-bar-popup {
   position: fixed;
-  top: 60px;
+  top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
@@ -36,7 +36,7 @@
   background-color: white;
   display: flex;
   flex-direction: column;
-  overflow: scroll;
+  overflow: auto;
 }
 
 .search-bar-popup-window-header {

@@ -33,6 +33,7 @@ function Content({
                 me={me}
                 setMe={setMe}
                 setNavLinkSelectedHard={setNavLinkSelectedHard}
+                loading={loading}
               />
               <SideBar me={me} setMe={setMe} />
             </>
@@ -47,6 +48,7 @@ function Content({
               setMe={setMe}
               setLoading={setLoading}
               setNavLinkSelectedHard={setNavLinkSelectedHard}
+              loading={loading}
             />
           }
         />
@@ -60,6 +62,7 @@ function Content({
               setLoading={setLoading}
               setNavLinkSelectedHard={setNavLinkSelectedHard}
               onSaved={true}
+              loading={loading}
             />
           }
         />

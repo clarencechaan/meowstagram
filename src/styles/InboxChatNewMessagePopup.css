@@ -58,7 +58,7 @@
 
 .inbox-chat-new-message-popup-window-contacts {
   flex: 1;
-  overflow: scroll;
+  overflow: auto;
 }
 
 .inbox-chat-new-message-popup-window-suggested-label {

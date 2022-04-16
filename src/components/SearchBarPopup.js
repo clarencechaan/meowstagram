@@ -101,7 +101,7 @@ function SearchBarPopup({
                   />
                 ))
               : null}
-            {!inputValue && recentSearches.length === 0 ? (
+            {!inputValue && recentSearches.length === 0 && !loading ? (
               <div className="search-bar-popup-no-recents">
                 No recent searches.
               </div>

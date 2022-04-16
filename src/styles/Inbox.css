@@ -37,7 +37,7 @@
 .inbox-sidebar-contacts {
   padding-top: 8px;
   flex: 1;
-  overflow: scroll;
+  overflow: auto;
   position: relative;
 }
 

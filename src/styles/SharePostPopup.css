@@ -58,7 +58,8 @@
 
 .share-post-popup-window-contacts {
   flex: 1;
-  overflow: scroll;
+  overflow: auto;
+  position: relative;
 }
 
 .share-post-popup-window-suggested-label {

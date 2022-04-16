@@ -48,6 +48,7 @@ function InboxChat({ me, contactSelected, postID }) {
       if (doc.data()) setChat(doc.data());
       scrollToBottom();
     });
+    messageInput.current.focus();
 
     return () => {
       unsub();
@@ -163,6 +164,11 @@ function InboxChat({ me, contactSelected, postID }) {
             key={message.id}
           />
         ))}
+        {chat.messages.length === 0 ? (
+          <div className="inbox-chat-no-messages-indicator">
+            No messages found.
+          </div>
+        ) : null}
         <div ref={messagesEndRef} />
       </div>
       <div className="inbox-chat-message-bar">
