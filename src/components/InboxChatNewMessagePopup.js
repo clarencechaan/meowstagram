@@ -1,6 +1,6 @@
 import "../styles/InboxChatNewMessagePopup.css";
 import SendMessagePopupContact from "./SendMessagePopupContact";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 
 function InboxChatNewMessagePopup({
   cancelPopup,
@@ -8,6 +8,11 @@ function InboxChatNewMessagePopup({
   contacts,
 }) {
   const [query, setQuery] = useState("");
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
 
   const searchResults = contacts.filter(
     (contact) =>
@@ -41,6 +46,7 @@ function InboxChatNewMessagePopup({
             onChange={(e) => {
               handleInputChanged(e);
             }}
+            ref={inputRef}
           />
         </div>
         <div className="inbox-chat-new-message-popup-window-contacts">
