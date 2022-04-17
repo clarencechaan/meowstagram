@@ -57,6 +57,8 @@ function InboxChat({ me, contactSelected, postID }) {
 
   useEffect(() => {
     fetchChat();
+    messageInput.current.focus();
+    setInputValue("");
   }, [contactSelected]);
 
   async function fetchChat() {
