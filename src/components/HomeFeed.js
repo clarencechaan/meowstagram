@@ -50,7 +50,7 @@ function HomeFeed({
     let resultArr = [];
     const q = query(
       postsRef,
-      where("user", "in", [...me.following, me.username]),
+      // where("user", "in", [...me.following, me.username]),
       orderBy("timestamp", "desc"),
       limit(2)
     );
@@ -68,7 +68,7 @@ function HomeFeed({
     let resultArr = [];
     const q = query(
       postsRef,
-      where("user", "in", [...me.following, me.username]),
+      // where("user", "in", [...me.following, me.username]),
       orderBy("timestamp", "desc"),
       startAfter(lastVisible),
       limit(2)
