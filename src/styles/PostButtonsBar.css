@@ -9,7 +9,7 @@
   margin-left: -8px;
 }
 
-.post-like.selected {
+.post-like.animated {
   animation: scale-up-down 0.2s;
 }
 

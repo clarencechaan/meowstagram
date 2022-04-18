@@ -47,7 +47,7 @@
   cursor: pointer;
 }
 
-.post-popup-comment-like-btn.selected {
+.post-popup-comment-like-btn.animated {
   animation: scale-up-down 0.2s;
 }
 

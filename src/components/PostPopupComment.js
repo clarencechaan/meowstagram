@@ -25,12 +25,14 @@ function PostPopupComment({
   const [author, setAuthor] = useState({});
   const [likesPopupShown, setLikesPopupShown] = useState(false);
   const liked = likes.includes(me.username);
+  const [animated, setAnimated] = useState(false);
 
   useEffect(() => {
     fetchAuthor();
   }, []);
 
   function handleLikeClicked() {
+    setAnimated(() => !liked);
     setPost((prevPost) => {
       let updatedLikes;
       if (!likes.includes(me.username)) {
@@ -109,6 +111,16 @@ function PostPopupComment({
     }
   }
 
+  function getLikeClass() {
+    if (liked && animated) {
+      return "post-popup-comment-like-btn selected animated";
+    } else if (liked) {
+      return "post-popup-comment-like-btn selected";
+    } else {
+      return "post-popup-comment-like-btn";
+    }
+  }
+
   return (
     <div className="post-popup-comment">
       <Link to={"/profile/" + user}>
@@ -145,11 +157,7 @@ function PostPopupComment({
       </div>
       <div className="post-popup-comment-like-btn-container">
         <img
-          className={
-            liked
-              ? "post-popup-comment-like-btn selected"
-              : "post-popup-comment-like-btn"
-          }
+          className={getLikeClass()}
           src={liked ? commentLikeSelected : commentLike}
           alt=""
           onClick={handleLikeClicked}

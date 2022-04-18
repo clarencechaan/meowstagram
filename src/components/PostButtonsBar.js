@@ -21,6 +21,7 @@ function PostButtonsBar({
   setMe,
 }) {
   const [sharePostPopupShown, setSharePostPopupShown] = useState(false);
+  const [animated, setAnimated] = useState(false);
 
   function cancelSharePostPopup() {
     setSharePostPopupShown(false);
@@ -33,6 +34,7 @@ function PostButtonsBar({
   }
 
   async function handleLikeClicked() {
+    setAnimated(() => !postLiked);
     const postRef = doc(db, "posts", post.id);
     const userRef = doc(db, "users", post.user);
     if (!postLiked) {
@@ -88,10 +90,20 @@ function PostButtonsBar({
     document.body.style.overflow = "hidden";
   }
 
+  function getLikeClass() {
+    if (postLiked && animated) {
+      return "post-like selected animated";
+    } else if (postLiked) {
+      return "post-like selected";
+    } else {
+      return "post-like";
+    }
+  }
+
   return (
     <div className="post-buttons-bar">
       <img
-        className={postLiked ? "post-like selected" : "post-like"}
+        className={getLikeClass()}
         src={postLiked ? postLikeSelected : postLike}
         alt=""
         onClick={handleLikeClicked}
