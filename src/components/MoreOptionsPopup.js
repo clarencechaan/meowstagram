@@ -14,11 +14,7 @@ function MoreOptionsPopup({
   const isFollowing = me.following.includes(authorUsername);
 
   function handleCopyLinkClicked() {
-    const link =
-      window.location.origin +
-      (window.location.href.includes("github") ? "/meowstagram" : "") +
-      "#/post/" +
-      postID;
+    const link = window.location.origin + "/post/" + postID;
     navigator.clipboard.writeText(link);
     cancelPopup();
   }
