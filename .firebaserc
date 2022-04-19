@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "catstagram-893e9"
+  },
+  "targets": {
+    "catstagram-893e9": {
+      "hosting": {
+        "meow": [
+          "meowstagram"
+        ]
+      }
+    }
   }
 }

@@ -1,8 +1,10 @@
 {
   "functions": {},
   "hosting": {
+    "target": "meow",
     "public": "build",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "redirects": [],
     "rewrites": [
       {
         "source": "**",
