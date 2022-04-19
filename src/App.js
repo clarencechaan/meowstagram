@@ -2,7 +2,7 @@ import "./App.css";
 import NavBar from "./components/NavBar";
 import Content from "./components/Content";
 import LogIn from "./components/LogIn";
-import { BrowserRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 import { useEffect, useState } from "react";
 import {
   getFunctions,
@@ -76,7 +76,7 @@ function App() {
 
   return (
     <div className="App">
-      <BrowserRouter>
+      <HashRouter basename="/">
         {me ? (
           <>
             <NavBar
@@ -108,7 +108,7 @@ function App() {
             setLoading={setLoading}
           />
         )}
-      </BrowserRouter>
+      </HashRouter>
     </div>
   );
 }
