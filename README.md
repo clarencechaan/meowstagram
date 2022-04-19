@@ -5,4 +5,4 @@ Instagram clone for cats. Incorporates user creation, edting user aliases/bios, 
 Five pre-created guest users are accessible for anyone to log in as for demonstrative purposes.
 
 Live demo:
-https://clarencechaan.github.io/meowstagram/
+https://catstagram-893e9.firebaseapp.com/
