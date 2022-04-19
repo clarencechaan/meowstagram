@@ -135,7 +135,11 @@ function InboxChat({ me, contactSelected, postID }) {
   }
 
   function sharePost() {
-    const postURL = window.location.origin + "/post/" + postID;
+    const postURL =
+      window.location.origin +
+      (window.location.href.includes("github") ? "/meowstagram" : "") +
+      "#/post/" +
+      postID;
     const sharePostMessage = "Check out this post! " + postURL;
     handleSendBtnClicked(sharePostMessage);
     window.history.replaceState(null, "");
