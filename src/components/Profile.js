@@ -23,7 +23,7 @@ import savedTab from "../images/profile-saved.svg";
 import { Link } from "react-router-dom";
 
 async function uploadImage(file) {
-   
+  const CLIENT_ID = "bbc9f0fb3189814";
 
   let myHeaders = new Headers();
   myHeaders.append("Authorization", `Client-ID ${CLIENT_ID}`);

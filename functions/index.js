@@ -2,9 +2,6 @@ const functions = require("firebase-functions");
 const Firestore = require("@google-cloud/firestore");
 const PROJECTID = "catstagram-893e9";
 
- 
- 
-
 const db = new Firestore({
   projectId: PROJECTID,
   timestampsInSnapshots: true,

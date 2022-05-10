@@ -4,7 +4,7 @@ import ProgressBar from "./ProgressBar";
 import { useState } from "react";
 
 async function uploadImage(file) {
-   
+  const CLIENT_ID = "bbc9f0fb3189814";
 
   let myHeaders = new Headers();
   myHeaders.append("Authorization", `Client-ID ${CLIENT_ID}`);
