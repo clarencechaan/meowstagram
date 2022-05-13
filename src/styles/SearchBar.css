@@ -30,6 +30,7 @@ input[type="search"]::-webkit-search-cancel-button {
   left: 0;
   padding-left: 16px;
   pointer-events: none;
+  z-index: 1;
 }
 
 .clear-search-btn {
