@@ -7,6 +7,9 @@
       "hosting": {
         "meow": [
           "meowstagram"
+        ],
+        "default": [
+          "catstagram-893e9"
         ]
       }
     }
